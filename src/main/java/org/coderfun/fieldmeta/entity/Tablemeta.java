@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.coderfun.fieldmeta.common.BaseEntity;
+import org.coderfun.common.BaseEntity;
 
 
 /**

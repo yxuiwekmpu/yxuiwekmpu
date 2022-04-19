@@ -4,9 +4,9 @@ import java.math.BigDecimal;
 import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
-import org.coderfun.fieldmeta.common.BaseEntity_;
+import org.coderfun.common.BaseEntity_;
 
-@Generated(value="Dali", date="2018-05-07T20:17:45.726+0800")
+@Generated(value="Dali", date="2018-05-13T23:27:08.224+0800")
 @StaticMetamodel(Fieldmeta.class)
 public class Fieldmeta_ extends BaseEntity_ {
 	public static volatile SingularAttribute<Fieldmeta, String> attrName;

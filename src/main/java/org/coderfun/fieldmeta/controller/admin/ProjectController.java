@@ -4,6 +4,8 @@ package org.coderfun.fieldmeta.controller.admin;
 
 import java.util.List;
 
+import org.coderfun.fieldmeta.entity.Project;
+import org.coderfun.fieldmeta.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,8 +20,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import klg.j2ee.common.model.EasyUIPage;
 import klg.j2ee.common.model.JsonData;
-import org.coderfun.fieldmeta.entity.Project;
-import org.coderfun.fieldmeta.service.ProjectService;
 
 
 @Controller("adminProjectController")
@@ -73,6 +73,7 @@ public class ProjectController {
 			@ModelAttribute Project project){
 		JsonData jsonData=new JsonData();
 		List<Project> listData=projectService.findList(project, new Sort(Direction.DESC,"id"));
+		
 		return jsonData.setData(listData);
 	}	
 }

@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 
-import org.coderfun.fieldmeta.common.BaseEntity;
+import org.coderfun.common.BaseEntity;
 
 
 /**

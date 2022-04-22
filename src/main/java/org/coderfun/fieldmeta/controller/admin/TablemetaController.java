@@ -23,7 +23,7 @@ import org.coderfun.fieldmeta.service.TablemetaService;
 
 
 @Controller("adminTablemetaController")
-@RequestMapping("/admin/tablemeta")
+@RequestMapping("/admin/action/tablemeta")
 public class TablemetaController {
 	@Autowired
 	TablemetaService tablemetaService;

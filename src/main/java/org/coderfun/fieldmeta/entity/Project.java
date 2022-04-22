@@ -41,7 +41,17 @@ public class Project extends BaseEntity<Long> implements Serializable {
 	@Column(name = "template_type_code")
 	private String templateTypeCode;
 
+	private String remark;
+
 	public Project() {
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 
 	public String getDbPassword() {

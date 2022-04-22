@@ -9,7 +9,7 @@
 		<class>org.coderfun.fieldmeta.entity.Tablemeta</class>
 		<class>org.coderfun.fieldmeta.entity.TypeMapping</class>
 		<class>org.coderfun.fieldmeta.entity.Validation</class>
-		<class>org.coderfun.sys.entity.CodeClass</class>
-		<class>org.coderfun.sys.entity.CodeItem</class>
+		<class>org.coderfun.sys.dict.entity.CodeClass</class>
+		<class>org.coderfun.sys.dict.entity.CodeItem</class>
 	</persistence-unit>
 </persistence>

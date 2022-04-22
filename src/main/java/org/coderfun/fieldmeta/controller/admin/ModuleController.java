@@ -23,7 +23,7 @@ import org.coderfun.fieldmeta.service.ModuleService;
 
 
 @Controller("adminModuleController")
-@RequestMapping("/admin/module")
+@RequestMapping("/admin/action/module")
 public class ModuleController {
 	@Autowired
 	ModuleService moduleService;

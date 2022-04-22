@@ -23,7 +23,7 @@ import org.coderfun.fieldmeta.service.FieldmetaService;
 
 
 @Controller("adminFieldmetaController")
-@RequestMapping("/admin/fieldmeta")
+@RequestMapping("/admin/action/fieldmeta")
 public class FieldmetaController {
 	@Autowired
 	FieldmetaService fieldmetaService;

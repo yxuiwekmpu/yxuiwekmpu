@@ -23,7 +23,7 @@ import klg.j2ee.common.model.JsonData;
 
 
 @Controller("adminProjectController")
-@RequestMapping("/admin/project")
+@RequestMapping("/admin/action/project")
 public class ProjectController {
 	@Autowired
 	ProjectService projectService;

@@ -8,7 +8,7 @@
 <head> 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
-	<c:import url="/pages/common/headsource.jsp"/> 		
+	<c:import url="/admin/pages/common/headsource.jsp"/> 		
 
 <title>Insert title here</title>
 </head>

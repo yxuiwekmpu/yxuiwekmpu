@@ -23,7 +23,7 @@ import org.coderfun.fieldmeta.service.TypeMappingService;
 
 
 @Controller("adminTypeMappingController")
-@RequestMapping("/admin/typemapping")
+@RequestMapping("/admin/action/typemapping")
 public class TypeMappingController {
 	@Autowired
 	TypeMappingService typeMappingService;

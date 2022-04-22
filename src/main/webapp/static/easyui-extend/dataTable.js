@@ -80,6 +80,10 @@ function DataTable(params) {
 			});
 			return;
 		}
+		if(addOpt.alertValidation && ! addOpt.alertValidation()){
+			return;
+		}
+		
 		if (addOpt.title)
 			target.$data_form_dialog.dialog('open').dialog('setTitle', addOpt.title);
 		else

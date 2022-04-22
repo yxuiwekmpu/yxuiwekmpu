@@ -1,3 +1,21 @@
+$.dictManager={
+		getCodeValue : function(cls, code, callback) {
+			if(!dictJson[cls])
+				return code;
+			var items=dictJson[cls];
+			for(var i=0;i<items.length;i++){
+				if(items[i].code==code){
+					return items[i].name;					
+				}
+			}
+			return code;
+		},
+		getCodeItems:function(cls){
+			return dictJson[cls]; 
+		}
+};
+
+
 //-------------  easyui col format ------------------------
 
 function complexCol(value, row, index) {

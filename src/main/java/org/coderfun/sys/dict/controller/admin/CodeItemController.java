@@ -1,9 +1,12 @@
-package org.coderfun.fieldmeta.controller.admin;
+package org.coderfun.sys.dict.controller.admin;
 
 
 
 import java.util.List;
 
+import org.coderfun.sys.dict.entity.CodeItem;
+import org.coderfun.sys.dict.entity.CodeItem_;
+import org.coderfun.sys.dict.service.CodeItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,22 +21,25 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import klg.j2ee.common.model.EasyUIPage;
 import klg.j2ee.common.model.JsonData;
-import org.coderfun.fieldmeta.entity.Validation;
-import org.coderfun.fieldmeta.service.ValidationService;
+import klg.j2ee.common.model.JsonData.Type;
+import klg.j2ee.query.jpa.expr.AExpr;
 
 
-@Controller("adminValidationController")
-@RequestMapping("/admin/action/validation")
-public class ValidationController {
+@Controller("adminCodeItemController")
+@RequestMapping("/admin/action/codeitem")
+public class CodeItemController {
 	@Autowired
-	ValidationService validationService;
+	CodeItemService codeItemService;
 	
 	@ResponseBody
 	@RequestMapping("/add")
 	public JsonData add(
-			@ModelAttribute Validation validation){
+			@ModelAttribute CodeItem codeItem){
 		JsonData jsonData=new JsonData();
-		validationService.save(validation);
+		if(codeItemService.getOne(AExpr.eq(CodeItem_.classCode, codeItem.getClassCode()),AExpr.eq(CodeItem_.code, codeItem.getCode()))==null)
+			codeItemService.save(codeItem);
+		else
+			jsonData.setType(Type.error).setMessage("重复的代码！");
 		return jsonData;
 	}
 	
@@ -41,9 +47,9 @@ public class ValidationController {
 	@ResponseBody
 	@RequestMapping("/edit")
 	public JsonData edit(
-			@ModelAttribute Validation validation){
+			@ModelAttribute CodeItem codeItem){
 		JsonData jsonData=new JsonData();
-		validationService.update(validation);
+		codeItemService.update(codeItem);
 		return jsonData;
 	}
 	
@@ -52,27 +58,35 @@ public class ValidationController {
 	public JsonData delete(
 			@RequestParam Long id){
 		JsonData jsonData=new JsonData();
-		validationService.delete(id);
+		codeItemService.delete(id);
 		return jsonData;
 	}
 	
 	@ResponseBody
 	@RequestMapping("/findpage")
 	public EasyUIPage findpage(
-			@ModelAttribute Validation validation,
+			@ModelAttribute CodeItem codeItem,
 			@RequestParam int page,
 			@RequestParam int rows){
 		Pageable pageable=new PageRequest(page<1?0:page-1, rows, new Sort(Direction.DESC,"id"));
-		Page<Validation> pageData=validationService.findPage(validation, pageable);
+		Page<CodeItem> pageData=codeItemService.findPage(codeItem, pageable);
 		return new EasyUIPage(pageData);
 	}
 	
 	@ResponseBody
 	@RequestMapping("/findlist")
 	public JsonData findlist(
-			@ModelAttribute Validation validation){
+			@ModelAttribute CodeItem codeItem){
 		JsonData jsonData=new JsonData();
-		List<Validation> listData=validationService.findList(validation, new Sort(Direction.DESC,"id"));
+		List<CodeItem> listData=codeItemService.findList(codeItem, new Sort(Direction.DESC,"id"));
 		return jsonData.setData(listData);
-	}	
+	}
+	
+	@ResponseBody
+	@RequestMapping("/datalist")
+	public List datalist(
+			@ModelAttribute CodeItem codeItem){
+		List<CodeItem> listData=codeItemService.findList(codeItem, new Sort(Direction.DESC,"ordernum"));
+		return listData;
+	}
 }

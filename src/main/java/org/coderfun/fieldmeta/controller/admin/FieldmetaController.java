@@ -32,9 +32,9 @@ public class FieldmetaController {
 	@RequestMapping("/add")
 	public JsonData add(
 			@ModelAttribute Fieldmeta fieldmeta){
-		JsonData jsonData=new JsonData();
+		
 		fieldmetaService.save(fieldmeta);
-		return jsonData;
+		return JsonData.success();
 	}
 	
 	
@@ -42,18 +42,18 @@ public class FieldmetaController {
 	@RequestMapping("/edit")
 	public JsonData edit(
 			@ModelAttribute Fieldmeta fieldmeta){
-		JsonData jsonData=new JsonData();
+		
 		fieldmetaService.update(fieldmeta);
-		return jsonData;
+		return JsonData.success();
 	}
 	
 	@ResponseBody
 	@RequestMapping("/delete")
 	public JsonData delete(
 			@RequestParam Long id){
-		JsonData jsonData=new JsonData();
+		
 		fieldmetaService.delete(id);
-		return jsonData;
+		return JsonData.success();
 	}
 	
 	@ResponseBody
@@ -71,8 +71,8 @@ public class FieldmetaController {
 	@RequestMapping("/findlist")
 	public JsonData findlist(
 			@ModelAttribute Fieldmeta fieldmeta){
-		JsonData jsonData=new JsonData();
+		
 		List<Fieldmeta> listData=fieldmetaService.findList(fieldmeta, new Sort(Direction.DESC,"id"));
-		return jsonData.setData(listData);
+		return JsonData.success(listData);
 	}	
 }

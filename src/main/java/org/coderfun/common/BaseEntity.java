@@ -18,7 +18,6 @@ import javax.validation.groups.Default;
 /**
  * Entity - 基类
  * 
- * @author YISHOP Team
  * @version 4.0
  */
 @EntityListeners(EntityListener.class)
@@ -50,10 +49,10 @@ public abstract class BaseEntity<ID extends Serializable> implements Serializabl
 	public static final String ID_PROPERTY_NAME = "id";
 
 	/** "创建日期"属性名称 */
-	public static final String CREATE_DATE_PROPERTY_NAME = "createDate";
+	public static final String CREATE_TIME_PROPERTY_NAME = "createTime";
 
 	/** "修改日期"属性名称 */
-	public static final String MODIFY_DATE_PROPERTY_NAME = "modifyDate";
+	public static final String MODIFY_TIME_PROPERTY_NAME = "modifyTime";
 
 	/** "版本"属性名称 */
 	public static final String VERSION_PROPERTY_NAME = "version";

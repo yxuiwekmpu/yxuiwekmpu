@@ -2,6 +2,8 @@ package org.coderfun.fieldmeta.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -14,7 +16,7 @@ import org.coderfun.common.BaseEntity;
  */
 @Entity
 @Table(name = "fm_type_mapping")
-
+@Access(AccessType.FIELD)
 public class TypeMapping extends BaseEntity<Long> implements Serializable {
 	private static final long serialVersionUID = 1L;
 

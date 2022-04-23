@@ -6,7 +6,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 	<head>
-    	<title>测评项目</title>
+    	<title>项目配置</title>
    		<c:import url="/admin/pages/common/headsource.jsp"/>		
   	</head>
 <body>
@@ -78,7 +78,7 @@
 	
 				</tr>
 				<tr class="tr_padding">
-					<td><label>JDBC地址</td>
+					<td><label>JDBC地址</label></td>
 					<td	colspan="3">
 						<input name="dbUrl" class="easyui-validatebox" style="width: 375px" data-options="required:true,validType:'maxLength[255]'">
 					</td>
@@ -113,7 +113,7 @@
 			$datagrid_table :$("#datagrid-table"),
 			$data_form_dialog : $("#data-form-dlg"),
 			$data_form : $("#data-form"),
-			data_form_name : "测评项目",
+			data_form_name : "项目配置",
 			
 			addOpt : {
 				url : adminActionPath+"/project/add"

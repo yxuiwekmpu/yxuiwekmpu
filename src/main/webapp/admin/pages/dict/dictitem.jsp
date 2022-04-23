@@ -36,7 +36,6 @@
             closed="true" buttons="#itemdlg-buttons" modal="true">  
         <form id="itemfm" class="data-form" method="post">  
 			<input name="id" style="display: none" />
-            <input name="version" style="display: none" />
            	<input name="classCode" type="hidden">  
            	
            	<table style="margin-left:-20px;">
@@ -97,7 +96,7 @@
 					if(!row){
 						$.messager.alert("提示","请选择分类！");
 						return false;
-					}					
+					}
 					return true;
 				},
 				url : adminActionPath+"/codeitem/add",

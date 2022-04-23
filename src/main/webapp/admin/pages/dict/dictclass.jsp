@@ -59,7 +59,6 @@
             closed="true" buttons="#classdlg-buttons" modal="true">
         <form id="classfm" class="data-form" method="post"> 
 			<input name="id" style="display: none" />
-            <input name="version" style="display: none" /> 
         	<table style="margin-left:-20px;"> 
 				<tr class="tr_padding">
 					<td><label>编<span class="letter-space-2"></span>码</label></td>

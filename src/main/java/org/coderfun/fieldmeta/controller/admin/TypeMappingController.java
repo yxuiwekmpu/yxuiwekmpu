@@ -32,9 +32,9 @@ public class TypeMappingController {
 	@RequestMapping("/add")
 	public JsonData add(
 			@ModelAttribute TypeMapping typeMapping){
-		JsonData jsonData=new JsonData();
+		
 		typeMappingService.save(typeMapping);
-		return jsonData;
+		return JsonData.success();
 	}
 	
 	
@@ -42,18 +42,18 @@ public class TypeMappingController {
 	@RequestMapping("/edit")
 	public JsonData edit(
 			@ModelAttribute TypeMapping typeMapping){
-		JsonData jsonData=new JsonData();
+		
 		typeMappingService.update(typeMapping);
-		return jsonData;
+		return JsonData.success();
 	}
 	
 	@ResponseBody
 	@RequestMapping("/delete")
 	public JsonData delete(
 			@RequestParam Long id){
-		JsonData jsonData=new JsonData();
+		
 		typeMappingService.delete(id);
-		return jsonData;
+		return JsonData.success();
 	}
 	
 	@ResponseBody
@@ -71,8 +71,8 @@ public class TypeMappingController {
 	@RequestMapping("/findlist")
 	public JsonData findlist(
 			@ModelAttribute TypeMapping typeMapping){
-		JsonData jsonData=new JsonData();
+		
 		List<TypeMapping> listData=typeMappingService.findList(typeMapping, new Sort(Direction.DESC,"id"));
-		return jsonData.setData(listData);
+		return JsonData.success(listData);
 	}	
 }

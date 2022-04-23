@@ -35,12 +35,12 @@ public class CodeItemController {
 	@RequestMapping("/add")
 	public JsonData add(
 			@ModelAttribute CodeItem codeItem){
-		JsonData jsonData=new JsonData();
+		
 		if(codeItemService.getOne(AExpr.eq(CodeItem_.classCode, codeItem.getClassCode()),AExpr.eq(CodeItem_.code, codeItem.getCode()))==null)
 			codeItemService.save(codeItem);
 		else
-			jsonData.setType(Type.error).setMessage("重复的代码！");
-		return jsonData;
+			JsonData.success().setType(Type.error).setMessage("重复的代码！");
+		return JsonData.success();
 	}
 	
 	
@@ -48,18 +48,18 @@ public class CodeItemController {
 	@RequestMapping("/edit")
 	public JsonData edit(
 			@ModelAttribute CodeItem codeItem){
-		JsonData jsonData=new JsonData();
+		
 		codeItemService.update(codeItem);
-		return jsonData;
+		return JsonData.success();
 	}
 	
 	@ResponseBody
 	@RequestMapping("/delete")
 	public JsonData delete(
 			@RequestParam Long id){
-		JsonData jsonData=new JsonData();
+		
 		codeItemService.delete(id);
-		return jsonData;
+		return JsonData.success();
 	}
 	
 	@ResponseBody
@@ -77,9 +77,9 @@ public class CodeItemController {
 	@RequestMapping("/findlist")
 	public JsonData findlist(
 			@ModelAttribute CodeItem codeItem){
-		JsonData jsonData=new JsonData();
+		
 		List<CodeItem> listData=codeItemService.findList(codeItem, new Sort(Direction.DESC,"id"));
-		return jsonData.setData(listData);
+		return JsonData.success(listData);
 	}
 	
 	@ResponseBody

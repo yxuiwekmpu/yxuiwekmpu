@@ -32,9 +32,9 @@ public class TablemetaController {
 	@RequestMapping("/add")
 	public JsonData add(
 			@ModelAttribute Tablemeta tablemeta){
-		JsonData jsonData=new JsonData();
+		
 		tablemetaService.save(tablemeta);
-		return jsonData;
+		return JsonData.success();
 	}
 	
 	
@@ -42,18 +42,18 @@ public class TablemetaController {
 	@RequestMapping("/edit")
 	public JsonData edit(
 			@ModelAttribute Tablemeta tablemeta){
-		JsonData jsonData=new JsonData();
+		
 		tablemetaService.update(tablemeta);
-		return jsonData;
+		return JsonData.success();
 	}
 	
 	@ResponseBody
 	@RequestMapping("/delete")
 	public JsonData delete(
 			@RequestParam Long id){
-		JsonData jsonData=new JsonData();
+		
 		tablemetaService.delete(id);
-		return jsonData;
+		return JsonData.success();
 	}
 	
 	@ResponseBody
@@ -71,8 +71,8 @@ public class TablemetaController {
 	@RequestMapping("/findlist")
 	public JsonData findlist(
 			@ModelAttribute Tablemeta tablemeta){
-		JsonData jsonData=new JsonData();
+		
 		List<Tablemeta> listData=tablemetaService.findList(tablemeta, new Sort(Direction.DESC,"id"));
-		return jsonData.setData(listData);
+		return JsonData.success(listData);
 	}	
 }

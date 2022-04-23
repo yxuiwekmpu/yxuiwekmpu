@@ -13,7 +13,6 @@ import org.apache.commons.lang3.builder.CompareToBuilder;
 /**
  * Entity - 排序基类
  * 
- * @author YISHOP Team
  * @version 4.0
  */
 @MappedSuperclass

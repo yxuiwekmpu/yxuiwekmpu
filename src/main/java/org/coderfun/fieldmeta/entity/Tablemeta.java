@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
@@ -20,6 +22,7 @@ import org.coderfun.common.BaseEntity;
  */
 @Entity
 @Table(name="fm_tablemeta")
+@Access(AccessType.FIELD)
 public class Tablemeta extends BaseEntity<Long> implements Serializable {
 	private static final long serialVersionUID = 1L;
 

@@ -32,9 +32,9 @@ public class ValidationController {
 	@RequestMapping("/add")
 	public JsonData add(
 			@ModelAttribute Validation validation){
-		JsonData jsonData=new JsonData();
+		
 		validationService.save(validation);
-		return jsonData;
+		return JsonData.success();
 	}
 	
 	
@@ -42,18 +42,18 @@ public class ValidationController {
 	@RequestMapping("/edit")
 	public JsonData edit(
 			@ModelAttribute Validation validation){
-		JsonData jsonData=new JsonData();
+		
 		validationService.update(validation);
-		return jsonData;
+		return JsonData.success();
 	}
 	
 	@ResponseBody
 	@RequestMapping("/delete")
 	public JsonData delete(
 			@RequestParam Long id){
-		JsonData jsonData=new JsonData();
+		
 		validationService.delete(id);
-		return jsonData;
+		return JsonData.success();
 	}
 	
 	@ResponseBody
@@ -71,8 +71,8 @@ public class ValidationController {
 	@RequestMapping("/findlist")
 	public JsonData findlist(
 			@ModelAttribute Validation validation){
-		JsonData jsonData=new JsonData();
+		
 		List<Validation> listData=validationService.findList(validation, new Sort(Direction.DESC,"id"));
-		return jsonData.setData(listData);
+		return JsonData.success(listData);
 	}	
 }

@@ -2,6 +2,8 @@ package org.coderfun.fieldmeta.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
@@ -16,7 +18,7 @@ import org.coderfun.common.BaseEntity;
  */
 @Entity
 @Table(name="fm_validation")
-
+@Access(AccessType.FIELD)
 public class Validation extends BaseEntity<Long> implements Serializable {
 	private static final long serialVersionUID = 1L;
 

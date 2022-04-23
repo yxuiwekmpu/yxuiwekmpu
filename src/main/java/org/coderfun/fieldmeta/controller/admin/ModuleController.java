@@ -4,6 +4,11 @@ package org.coderfun.fieldmeta.controller.admin;
 
 import java.util.List;
 
+import org.coderfun.common.exception.BusinessException;
+import org.coderfun.common.exception.ErrorCodeEnum;
+import org.coderfun.fieldmeta.entity.Module;
+import org.coderfun.fieldmeta.service.ModuleService;
+import org.coderfun.fieldmeta.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,8 +23,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import klg.j2ee.common.model.EasyUIPage;
 import klg.j2ee.common.model.JsonData;
-import org.coderfun.fieldmeta.entity.Module;
-import org.coderfun.fieldmeta.service.ModuleService;
 
 
 @Controller("adminModuleController")
@@ -28,13 +31,18 @@ public class ModuleController {
 	@Autowired
 	ModuleService moduleService;
 	
+	@Autowired
+	ProjectService projectService;
+	
 	@ResponseBody
 	@RequestMapping("/add")
 	public JsonData add(
 			@ModelAttribute Module module){
-		JsonData jsonData=new JsonData();
+		
+		Long projectId=module.getProject().getId();
+		module.setProject(projectService.getById(projectId));
 		moduleService.save(module);
-		return jsonData;
+		return JsonData.success();
 	}
 	
 	
@@ -42,18 +50,22 @@ public class ModuleController {
 	@RequestMapping("/edit")
 	public JsonData edit(
 			@ModelAttribute Module module){
-		JsonData jsonData=new JsonData();
+		
+		Long projectId=module.getProject().getId();
+		module.setProject(projectService.getById(projectId));
 		moduleService.update(module);
-		return jsonData;
+		return JsonData.success();
 	}
 	
 	@ResponseBody
 	@RequestMapping("/delete")
 	public JsonData delete(
 			@RequestParam Long id){
-		JsonData jsonData=new JsonData();
-		moduleService.delete(id);
-		return jsonData;
+		
+		if(!moduleService.delete(id,true)){
+			throw new BusinessException(ErrorCodeEnum.ENTITY_HAS_RELATED_DATA);
+		}
+		return JsonData.success();
 	}
 	
 	@ResponseBody
@@ -71,8 +83,8 @@ public class ModuleController {
 	@RequestMapping("/findlist")
 	public JsonData findlist(
 			@ModelAttribute Module module){
-		JsonData jsonData=new JsonData();
+		
 		List<Module> listData=moduleService.findList(module, new Sort(Direction.DESC,"id"));
-		return jsonData.setData(listData);
+		return JsonData.success(listData);
 	}	
 }

@@ -35,12 +35,12 @@ public class CodeClassController {
 	@RequestMapping("/add")
 	public JsonData add(
 			@ModelAttribute CodeClass codeClass){
-		JsonData jsonData=new JsonData();
+		
 		if(codeClassService.getOne(AExpr.eq(CodeClass_.code,codeClass.getCode()))==null)
 			codeClassService.save(codeClass);
 		else
-			jsonData.setType(Type.error).setMessage("重复的代码！");
-		return jsonData;
+			JsonData.success().setType(Type.error).setMessage("重复的代码！");
+		return JsonData.success();
 	}
 	
 	
@@ -48,18 +48,18 @@ public class CodeClassController {
 	@RequestMapping("/edit")
 	public JsonData edit(
 			@ModelAttribute CodeClass codeClass){
-		JsonData jsonData=new JsonData();
+		
 		codeClassService.update(codeClass);
-		return jsonData;
+		return JsonData.success();
 	}
 	
 	@ResponseBody
 	@RequestMapping("/delete")
 	public JsonData delete(
 			@RequestParam Long id){
-		JsonData jsonData=new JsonData();
+		
 		codeClassService.delete(id);
-		return jsonData;
+		return JsonData.success();
 	}
 	
 	@ResponseBody
@@ -77,9 +77,9 @@ public class CodeClassController {
 	@RequestMapping("/findlist")
 	public JsonData findlist(
 			@ModelAttribute CodeClass codeClass){
-		JsonData jsonData=new JsonData();
+		
 		List<CodeClass> listData=codeClassService.findList(codeClass, new Sort(Direction.DESC,"id"));
-		return jsonData.setData(listData);
+		return JsonData.success(listData);
 	}	
 	@ResponseBody
 	@RequestMapping("/datalist")

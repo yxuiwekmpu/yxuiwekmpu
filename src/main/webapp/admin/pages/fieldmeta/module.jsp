@@ -6,16 +6,16 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 	<head>
-    	<title>测评项目</title>
+    	<title>模块配置</title>
    		<c:import url="/admin/pages/common/headsource.jsp"/>		
   	</head>
 <body>
-	<table id="datagrid-table" class="easyui-datagrid" title="项目配置表"
+	<table id="datagrid-table" class="easyui-datagrid" title="模块配置表"
 		data-options="
 			rownumbers		: true,
 			singleSelect	: true,
 			fitColumns		: true, 
-			url				: adminActionPath + '/project/findpage',
+			url				: adminActionPath + '/module/findpage',
 			toolbar			: '#toolbar',
 			fit				: true,
 			pagination		: true,
@@ -26,93 +26,92 @@
 			onDblClickRow   : function(){dataTable.edit();}">
 		<thead>
 			<tr>
-				<th data-options="field:'name',width:100,align:'left',formatter:complexCol">项目名称</th>
-				<th data-options="field:'templateTypeCode',width:100,align:'left',formatter:codeCol,codeClass:'template_type_code'">模板类型</th>
-				
-				<th data-options="field:'isDefaultCode',width:50,align:'left',formatter:codeCol,codeClass:'is_default_code'">是否默认</th>
-				<th data-options="field:'sqlDialectCode',width:150,align:'left',formatter:codeCol,codeClass:'sql_dialect_code'">SQL方言</th>
-				<th data-options="field:'dbUrl',width:200,align:'left',formatter:complexCol">JDBC地址</th>
-				<th data-options="field:'dbUsername',width:100,align:'left',formatter:complexCol">用户名</th>
+				<th data-options="field:'moduleName',width:80,align:'left',formatter:complexCol">模块简称</th>
+				<th data-options="field:'project.name',width:80,align:'left',formatter:complexCol">所属项目</th>
+				<th data-options="field:'description',width:100,align:'left',formatter:complexCol">描述</th>
+				<th data-options="field:'packageName',width:50,align:'left',formatter:complexCol">包名</th>
+				<th data-options="field:'genPath',width:100,align:'left',formatter:complexCol">生成路径</th>
+				<th data-options="field:'author',width:100,align:'left',formatter:complexCol">作者</th>
+				<th data-options="field:'copyRight',width:100,align:'left',formatter:complexCol">版权信息</th>
 				<th data-options="field:'remark',width:150,formatter:complexCol">备注</th>
 				<th data-options="field:'createTime',width:120,align:'left',formatter:EasyUiDateTime">创建时间</th>
 			</tr>
 		</thead>
 	</table>
 	<div id="toolbar">
-	
 		<div class="easyui-panel"
 		    data-options="collapsible:true,minimizable:true">
 			<form id="search-form" class="search-form" enctype="multipart/form-data">    
 			    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-reload" plain="true"
 					style="color: red"  onclick="resetForm('search-form')">条件重置</a>	
 		
-				<label>名称</label>
-				<input name="name" style="width:125px;" type="text">
+				<label>模块简称</label>
+				<input name="moduleName" style="width:125px;" type="text">
 				<span class="inline-clear"></span>
 				
-				<label>所属模块</label>
-				<input name="moduleCode" class="easyui-combobox"
-					data-options="valueField:'code',textField:'name',editable:false,panelHeight:'auto',
-							enableNull:true,codeClass:'module_code'">
+				<label>所属项目</label>
+				<input name="project.id" class="easyui-combobox"
+					data-options="valueField:'id',textField:'name',enableNull:true,editable:false,panelHeight:'auto',
+							url:adminActionPath +'/project/findlist',dataField : 'data'">
 				<span class="inline-clear"></span>
 				
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="dataTable.search()">查询</a>
 		     </form>
 		</div>
-	
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="dataTable.add()">添加</a>  
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="dataTable.edit()">修改</a>  
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="dataTable.remove()">删除</a>
 
 	</div>
 	
-	<div id="data-form-dlg" class="easyui-dialog" style="width: 600px; height: 400px; padding: 10px 20px" closed="true"
+	<div id="data-form-dlg" class="easyui-dialog" style="width: 600px; height: 500px; padding: 10px 20px" closed="true"
 		buttons="#dlg-buttons" modal="true">
 		<form id="data-form" class="data-form" method="post">
 			<input name="id" style="display: none" />
 			<table style="margin-left:-20px;">
 				<tr class="tr_padding">
-					<td><label>项目名称</label></td>
+					<td><label>模块简称</label></td>
 					<td>
-						<input name="name" class="easyui-validatebox" data-options="required:true,validType:'maxLength[255]'">
+						<input name="moduleName" class="easyui-validatebox" data-options="required:true,validType:'word'">
 					</td>
-					<td><label>模板类型</label></td>
+					<td><label>所属项目</label></td>
 					<td>
-						<input name="templateTypeCode" class="easyui-combobox"
-						data-options="valueField:'code',textField:'name',editable:false,panelHeight:'auto',
-							required:true,defaultFirst:true,codeClass:'template_type_code'">
+				<input name="project.id" class="easyui-combobox"
+					data-options="valueField:'id',textField:'name',defaultFirst:true,editable:false,panelHeight:'auto',
+							url:adminActionPath +'/project/findlist',dataField : 'data'">
 					</td>		
 				</tr>
 				<tr class="tr_padding">
-					<td><label>是否默认</label></td>
-					<td>
-						<input name="isDefaultCode" class="easyui-combobox"
-						data-options="valueField:'code',textField:'name',editable:false,panelHeight:'auto',
-							required:true,defaultFirst:true,codeClass:'is_default_code'">
-					</td>	
-					<td><label>SQL方言</label></td>
-					<td>
-						<input name="sqlDialectCode" class="easyui-combobox"
-						data-options="valueField:'code',textField:'name',editable:false,panelHeight:'auto',
-							required:true,defaultFirst:true,codeClass:'sql_dialect_code'">
-					</td>
-	
-				</tr>
-				<tr class="tr_padding">
-					<td><label>JDBC地址</td>
+					<td><label>包名</label></td>
 					<td	colspan="3">
-						<input name="dbUrl" class="easyui-validatebox" style="width: 375px" data-options="required:true,validType:'maxLength[255]'">
+						<input name="packageName" class="easyui-validatebox" style="width: 375px" data-options="required:true,validType:'maxLength[255]'">
 					</td>
 				</tr>
 				<tr class="tr_padding">
-					<td><label>用户名</label></td>
-					<td>
-						<input name="dbUsername" class="easyui-validatebox" data-options="required:true,validType:'maxLength[255]'">
+					<td><label>模块描述</label></td>
+					<td	colspan="3">
+						<input name="description" class="easyui-validatebox" style="width: 375px" data-options="validType:'maxLength[255]'">
 					</td>
-					<td><label>密码</label></td>
-					<td>
-						<input name="dbPassword" type="password" class="easyui-validatebox" data-options="required:true,validType:'maxLength[255]'">
-					</td>		
+				</tr>
+
+				<tr class="tr_padding">
+					<td><label>生成路径</label></td>
+					<td	colspan="3">
+						<input name="genPath" class="easyui-validatebox" style="width: 375px" data-options="required:true,validType:'maxLength[255]'">
+					</td>
+				</tr>
+				<tr class="tr_padding">
+					<td><label>作者</label></td>
+					<td	colspan="3">
+						<input name="author" class="easyui-validatebox" style="width: 375px" data-options="validType:'maxLength[255]'">
+					</td>
+				</tr>
+				<tr class="tr_padding">
+					<td><label>版权信息</label></td>
+					<td	colspan="3">
+						<textarea rows="3" name="copyRight" class="textarea easyui-validatebox"
+							style="width: 375px"></textarea>
+					</td>
 				</tr>
 				<tr class="tr_padding">
 					<td><label>备<span class="letter-space-2"></span>注</label></td>
@@ -134,16 +133,16 @@
 			$datagrid_table :$("#datagrid-table"),
 			$data_form_dialog : $("#data-form-dlg"),
 			$data_form : $("#data-form"),
-			data_form_name : "测评项目",
+			data_form_name : "模块配置",
 			
 			addOpt : {
-				url : adminActionPath+"/project/add"
+				url : adminActionPath+"/module/add"
 			},
 			editOpt : {
-				url : adminActionPath+"/project/edit"
+				url : adminActionPath+"/module/edit"
 			},
 			removeOpt : {
-				url : adminActionPath+"/project/delete"
+				url : adminActionPath+"/module/delete"
 			},
 			saveOpt : {},
 			searchOpt : {

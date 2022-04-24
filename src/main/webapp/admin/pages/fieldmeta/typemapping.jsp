@@ -6,16 +6,16 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 	<head>
-    	<title>项目配置</title>
+    	<title>字段映射配置</title>
    		<c:import url="/admin/pages/common/headsource.jsp"/>		
   	</head>
 <body>
-	<table id="datagrid-table" class="easyui-datagrid" title="项目配置表"
+	<table id="datagrid-table" class="easyui-datagrid" title="字段映射配置表"
 		data-options="
 			rownumbers		: true,
 			singleSelect	: true,
 			fitColumns		: true, 
-			url				: adminActionPath + '/project/findpage',
+			url				: adminActionPath + '/typemapping/findpage',
 			toolbar			: '#toolbar',
 			fit				: true,
 			pagination		: true,
@@ -26,19 +26,19 @@
 			onDblClickRow   : function(){dataTable.edit();}">
 		<thead>
 			<tr>
-				<th data-options="field:'name',width:100,align:'left',formatter:complexCol">项目名称</th>
-				<th data-options="field:'templateTypeCode',width:100,align:'left',formatter:codeCol,codeClass:'template_type_code'">模板类型</th>
+				<th data-options="field:'sqlDialectCode',width:60,align:'left',formatter:codeCol,codeClass:'sql_dialect_code'">sql方言</th>
+				<th data-options="field:'sqlType',width:80,align:'left',formatter:complexCol">sqlType</th>
+				<th data-options="field:'javaType',width:80,align:'left',formatter:complexCol">javaType</th>
+				<th data-options="field:'needJoinColumn',width:50,align:'left',formatter:codeCol,codeClass:'yes_or_no'">JoinClolumn</th>
+				<th data-options="field:'fullJavaType',width:200,align:'left',formatter:complexCol">fullJavaType</th>
 				
-				<th data-options="field:'isDefaultCode',width:50,align:'left',formatter:codeCol,codeClass:'yes_or_no'">是否默认</th>
-				<th data-options="field:'sqlDialectCode',width:150,align:'left',formatter:codeCol,codeClass:'sql_dialect_code'">SQL方言</th>
-				<th data-options="field:'dbUrl',width:200,align:'left',formatter:complexCol">JDBC地址</th>
-				<th data-options="field:'dbUsername',width:100,align:'left',formatter:complexCol">用户名</th>
+
 				<th data-options="field:'remark',width:150,formatter:complexCol">备注</th>
 				<th data-options="field:'modifyTime',width:120,align:'left',formatter:EasyUiDateTime">更新时间</th>
 			</tr>
 		</thead>
 	</table>
-	<div id="toolbar">
+	<div id="toolbar">	
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="dataTable.add()">添加</a>  
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="dataTable.edit()">修改</a>  
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="dataTable.remove()">删除</a>
@@ -51,53 +51,50 @@
 			<input name="id" style="display: none" />
 			<table style="margin-left:-20px;">
 				<tr class="tr_padding">
-					<td><label>项目名称</label></td>
+
+					<td><label>sqlType</label></td>
 					<td>
-						<input name="name" class="easyui-validatebox" data-options="required:true,validType:'maxLength[255]'">
+						<input name="sqlType" class="easyui-validatebox" data-options="required:true,validType:'word'">
 					</td>
-					<td><label>模板类型</label></td>
-					<td>
-						<input name="templateTypeCode" class="easyui-combobox"
-						data-options="valueField:'code',textField:'name',editable:false,panelHeight:'auto',
-							required:true,defaultFirst:true,codeClass:'template_type_code'">
-					</td>		
-				</tr>
-				<tr class="tr_padding">
-					<td><label>是否默认</label></td>
-					<td>
-						<input name="isDefaultCode" class="easyui-combobox"
-						data-options="valueField:'code',textField:'name',editable:false,panelHeight:'auto',
-							required:true,codeClass:'yes_or_no'">
-					</td>	
-					<td><label>SQL方言</label></td>
+					<td><label>sql方言</label></td>
 					<td>
 						<input name="sqlDialectCode" class="easyui-combobox"
 						data-options="valueField:'code',textField:'name',editable:false,panelHeight:'auto',
 							required:true,defaultFirst:true,codeClass:'sql_dialect_code'">
-					</td>
-	
+					</td>	
+
 				</tr>
+				
 				<tr class="tr_padding">
-					<td><label>JDBC地址</label></td>
+					<td><label>javaType</label></td>
+					<td>
+						<input name="javaType" class="easyui-combobox"
+						data-options="valueField:'code',textField:'name',editable:false,panelHeight:'auto',
+							required:true,codeClass:'java_type',defaultFirst:true,
+							onSelect:function(record){
+								$('input[name=fullJavaType]').val(record.value)
+							}">
+					</td>
+					<td><label>JoinClolumn</label></td>
+					<td>
+						<input name="needJoinColumn" value="no" class="easyui-combobox"
+						data-options="valueField:'code',textField:'name',editable:false,panelHeight:'auto',
+							required:true,defaultFirst:true,codeClass:'yes_or_no'">
+					</td>
+				</tr>
+				
+				<tr class="tr_padding">
+					<td><label>fullJavaType</label></td>
 					<td	colspan="3">
-						<input name="dbUrl" class="easyui-validatebox" style="width: 375px" data-options="required:true,validType:'maxLength[255]'">
+						<input name="fullJavaType" readonly="readonly" class="easyui-validatebox" style="width: 400px">
 					</td>
 				</tr>
-				<tr class="tr_padding">
-					<td><label>用户名</label></td>
-					<td>
-						<input name="dbUsername" class="easyui-validatebox" data-options="required:true,validType:'maxLength[255]'">
-					</td>
-					<td><label>密码</label></td>
-					<td>
-						<input name="dbPassword" type="password" class="easyui-validatebox" data-options="required:true,validType:'maxLength[255]'">
-					</td>		
-				</tr>
+								
 				<tr class="tr_padding">
 					<td><label>备<span class="letter-space-2"></span>注</label></td>
 					<td	colspan="3">
 						<textarea rows="3" name="remark" class="textarea easyui-validatebox"
-							style="width: 375px"></textarea>
+							style="width: 400px"></textarea>
 					</td>
 				</tr>
 			</table> 
@@ -113,21 +110,22 @@
 			$datagrid_table :$("#datagrid-table"),
 			$data_form_dialog : $("#data-form-dlg"),
 			$data_form : $("#data-form"),
-			data_form_name : "项目配置",
+			data_form_name : "字段映射配置",
 			
 			addOpt : {
-				url : adminActionPath+"/project/add"
+				url : adminActionPath+"/typemapping/add",
+				notReset : true,
+				afterOpenDlg : function($data_form){
+					$data_form.find("input[name=fullJavaType]").val();
+				}
 			},
 			editOpt : {
-				url : adminActionPath+"/project/edit"
+				url : adminActionPath+"/typemapping/edit"
 			},
 			removeOpt : {
-				url : adminActionPath+"/project/delete"
+				url : adminActionPath+"/typemapping/delete"
 			},
-			saveOpt : {},
-			searchOpt : {
-				$searchForm : $("#search-form"),
-			}
+			saveOpt : {}
 		});
 		
 	</script>

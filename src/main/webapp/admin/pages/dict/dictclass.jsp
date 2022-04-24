@@ -19,8 +19,8 @@
 			<tr>
 				<th data-options="field:'code',width:120,formatter:complexCol">编码</th>
 				<th data-options="field:'name',width:80,formatter:complexCol">名称</th>
-				<th data-options="field:'moduleCode',width:80,codeCol,codeClass:'module_code'">所属模块</th>
-				<th data-options="field:'isSys',width:50,formatter:codeCol,codeClass:'is_sys'">系统字典</th>
+				<th data-options="field:'moduleCode',width:80,formatter:codeCol,codeClass:'module_code'">所属模块</th>
+				<th data-options="field:'isSys',width:50,formatter:codeCol,codeClass:'yes_or_no'">系统字典</th>
 				<th data-options="field:'remark',width:120,formatter:complexCol">备注</th>
 				
 			</tr>
@@ -91,7 +91,7 @@
 					<td>
 						<input name="isSys" class="easyui-combobox"
 						data-options="valueField:'code',textField:'name',editable:false,panelHeight:'auto',
-							required:true,defaultFirst:true,codeClass:'is_sys'">
+							required:true,defaultFirst:true,codeClass:'yes_or_no'">
 					</td>
 				</tr>
 				

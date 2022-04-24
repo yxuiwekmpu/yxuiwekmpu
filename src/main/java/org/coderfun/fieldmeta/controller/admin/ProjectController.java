@@ -2,9 +2,11 @@ package org.coderfun.fieldmeta.controller.admin;
 
 import java.util.List;
 
+import org.coderfun.common.SystemCode;
 import org.coderfun.common.exception.BusinessException;
 import org.coderfun.common.exception.ErrorCodeEnum;
 import org.coderfun.fieldmeta.entity.Project;
+import org.coderfun.fieldmeta.entity.Project_;
 import org.coderfun.fieldmeta.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import klg.j2ee.common.model.EasyUIPage;
 import klg.j2ee.common.model.JsonData;
+import klg.j2ee.query.jpa.expr.AExpr;
 
 @Controller("adminProjectController")
 @RequestMapping("/admin/action/project")
@@ -30,7 +33,7 @@ public class ProjectController {
 	@ResponseBody
 	@RequestMapping("/add")
 	public JsonData add(@ModelAttribute Project project) {
-
+		changeDefault(project);
 		projectService.save(project);
 		return JsonData.success();
 	}
@@ -38,7 +41,7 @@ public class ProjectController {
 	@ResponseBody
 	@RequestMapping("/edit")
 	public JsonData edit(@ModelAttribute Project project) {
-
+		changeDefault(project);
 		projectService.update(project);
 		return JsonData.success();
 	}
@@ -50,7 +53,7 @@ public class ProjectController {
 		if(!projectService.delete(id, true)){
 			throw new BusinessException(ErrorCodeEnum.ENTITY_HAS_RELATED_DATA);			
 		}
-		return JsonData.success();		
+		return JsonData.success();
 	}
 
 	@ResponseBody
@@ -69,4 +72,16 @@ public class ProjectController {
 
 		return JsonData.success(listData);
 	}
+	
+	private void changeDefault(Project project){
+		if(project.getIsDefaultCode().equals(SystemCode.YES)){
+			List<Project> projects=projectService.findList(AExpr.eq(Project_.isDefaultCode, SystemCode.YES));
+			for(Project p:projects){
+				p.setIsDefaultCode(SystemCode.NO);
+				projectService.save(p);
+			}
+		}		
+	}
+	
+	
 }

@@ -91,11 +91,10 @@ function DataTable(params) {
 		if (target.$data_form&&!addOpt.notReset) {
 			target.$data_form.form('reset');
 		}
-		if (addOpt.afterOpenDlg)
-			addOpt.afterOpenDlg(target.$data_form);
-		if (addOpt.loadHandler) {
-			addOpt.loadHandler();
+		if (addOpt.afterOpenDlg){
+			addOpt.afterOpenDlg(target.$data_form);			
 		}
+		
 		if(callback)
 			callback();
 		target._saveFlag = 1;

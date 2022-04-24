@@ -54,7 +54,7 @@ public class ExceptionHandlerAdvice {
 		if (ex instanceof EmptyResultDataAccessException)
 			return new BusinessException(ErrorCodeEnum.DATA_NOTEXIST);
 		if (ex instanceof DataIntegrityViolationException)
-			return new BusinessException(ErrorCodeEnum.DATA_NOTEXIST);
+			return new BusinessException(ErrorCodeEnum.DATA_INTEGRITY_ERROR);
 		if (ex instanceof IllegalArgumentException || ex instanceof BindException) {
 			return new BusinessException(ErrorCodeEnum.BADPARAM);
 		}

@@ -238,7 +238,7 @@ $.extend($.fn.validatebox.defaults.rules, {
 	}
 });
 
-// combobox 扩展，增加字典数据支持,增加三个字段：
+// combobox 扩展，增加字典数据支持,增加6个字段：
 
 $.extend($.fn.combobox.defaults, {
 	// codeClass: null,
@@ -246,6 +246,7 @@ $.extend($.fn.combobox.defaults, {
 	// nullText: '(全部)',
 	// dataField:null 指定数据为的json中的某个字段
 	// defaultFirst:false
+	// dataFn : 数据函数
 	loader : function (param, success, error) {
 		function buildItems(json) {
 			//deep clone
@@ -271,7 +272,11 @@ $.extend($.fn.combobox.defaults, {
 		if (opts.codeClass) {
 			var items = $.dictManager.getCodeItems(opts.codeClass);
 			buildItems(items);
-		} else if (opts.url) {
+		}else if(opts.data){
+			buildItems(opts.data);
+		}else if(opts.dataFn){
+			buildItems(opts.dataFn());
+		}else if (opts.url) {
 			$.ajax({
 				type : opts.method,
 				url : opts.url,

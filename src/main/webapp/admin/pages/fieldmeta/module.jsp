@@ -34,7 +34,7 @@
 				<th data-options="field:'author',width:100,align:'left',formatter:complexCol">作者</th>
 				<th data-options="field:'copyRight',width:100,align:'left',formatter:complexCol">版权信息</th>
 				<th data-options="field:'remark',width:150,formatter:complexCol">备注</th>
-				<th data-options="field:'createTime',width:120,align:'left',formatter:EasyUiDateTime">创建时间</th>
+				<th data-options="field:'modifyTime',width:120,align:'left',formatter:EasyUiDateTime">更新时间</th>
 			</tr>
 		</thead>
 	</table>
@@ -84,7 +84,7 @@
 				<tr class="tr_padding">
 					<td><label>包名</label></td>
 					<td	colspan="3">
-						<input name="packageName" class="easyui-validatebox" style="width: 375px" data-options="required:true,validType:'maxLength[255]'">
+						<input name="packageName" class="easyui-validatebox" style="width: 375px" data-options="required:true,validType:'word'">
 					</td>
 				</tr>
 				<tr class="tr_padding">

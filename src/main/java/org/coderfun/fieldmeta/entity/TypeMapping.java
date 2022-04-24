@@ -6,6 +6,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
 import org.coderfun.common.BaseEntity;
@@ -20,8 +21,8 @@ import org.coderfun.common.BaseEntity;
 public class TypeMapping extends BaseEntity<Long> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "dialect")
-	private String dialect;
+	@Column(name = "sql_dialect_code")
+	private String sqlDialectCode;
 
 	@Column(name = "full_java_type")
 	private String fullJavaType;
@@ -30,17 +31,39 @@ public class TypeMapping extends BaseEntity<Long> implements Serializable {
 	private String javaType;
 
 	@Column(name = "sql_type")
+
 	private String sqlType;
+
+	@Column(name = "need_join_column_code")
+	private String needJoinColumn;
+
+	private String remark;
 
 	public TypeMapping() {
 	}
 
-	public String getDialect() {
-		return this.dialect;
+	public String getRemark() {
+		return remark;
 	}
 
-	public void setDialect(String dialect) {
-		this.dialect = dialect;
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	public String getNeedJoinColumn() {
+		return needJoinColumn;
+	}
+
+	public void setNeedJoinColumn(String needJoinColumn) {
+		this.needJoinColumn = needJoinColumn;
+	}
+
+	public String getSqlDialectCode() {
+		return sqlDialectCode;
+	}
+
+	public void setSqlDialectCode(String sqlDialectCode) {
+		this.sqlDialectCode = sqlDialectCode;
 	}
 
 	public String getFullJavaType() {

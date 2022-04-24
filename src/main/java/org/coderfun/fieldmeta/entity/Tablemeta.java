@@ -15,80 +15,79 @@ import javax.persistence.TemporalType;
 
 import org.coderfun.common.BaseEntity;
 
-
 /**
  * The persistent class for the fm_tablemeta database table.
  * 
  */
 @Entity
-@Table(name="fm_tablemeta")
+@Table(name = "fm_tablemeta")
 @Access(AccessType.FIELD)
 public class Tablemeta extends BaseEntity<Long> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="class_name")
-	private String className;
+	@Column(name = "entity_name")
+	private String entityName;
 
-	private String comments;
+	@Column(name = "simple_name")
+	private String simpleName;
 
-	@Column(name="comments_simple")
-	private String commentsSimple;
+	@Column(name = "module_name")
+	private String moduleName;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="create_time")
+	@Column(name = "create_time")
 	private Date createTime;
 
-	private BigInteger isHaveDelete;
+	@Column(name = "is_have_delete")
+	private String isHaveDelete;
 
-	private BigInteger isHaveDisableEnable;
+	@Column(name = "is_have_disable_enable")
+	private String isHaveDisableEnable;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="modify_time")
+	@Column(name = "modify_time")
 	private Date modifyTime;
 
 	@Lob
 	private String options;
 
-	@Column(name="parent_table_fk_name")
+	@Column(name = "parent_table_fk_name")
 	private String parentTableFkName;
 
-	@Column(name="parent_table_name")
+	@Column(name = "parent_table_name")
 	private String parentTableName;
 
 	@Lob
 	private String remarks;
 
-	@Column(name="table_name")
+	@Column(name = "table_name")
 	private String tableName;
-
-	@Column(name="tpl_category")
-	private String tplCategory;
 
 	public Tablemeta() {
 	}
 
-	public String getClassName() {
-		return this.className;
+	public String getEntityName() {
+		return entityName;
 	}
 
-	public void setClassName(String className) {
-		this.className = className;
+	public void setEntityName(String entityName) {
+		this.entityName = entityName;
 	}
 
-	public String getComments() {
-		return this.comments;
+	public String getSimpleName() {
+		return simpleName;
 	}
 
-	public void setComments(String comments) {
-		this.comments = comments;
+	public void setSimpleName(String simpleName) {
+		this.simpleName = simpleName;
 	}
 
-	public String getCommentsSimple() {
-		return this.commentsSimple;
+	public String getModuleName() {
+		return moduleName;
 	}
 
-	public void setCommentsSimple(String commentsSimple) {
-		this.commentsSimple = commentsSimple;
+	public void setModuleName(String moduleName) {
+		this.moduleName = moduleName;
 	}
 
 	public Date getCreateTime() {
@@ -99,19 +98,19 @@ public class Tablemeta extends BaseEntity<Long> implements Serializable {
 		this.createTime = createTime;
 	}
 
-	public BigInteger getIsHaveDelete() {
-		return this.isHaveDelete;
+	public String getIsHaveDelete() {
+		return isHaveDelete;
 	}
 
-	public void setIsHaveDelete(BigInteger isHaveDelete) {
+	public void setIsHaveDelete(String isHaveDelete) {
 		this.isHaveDelete = isHaveDelete;
 	}
 
-	public BigInteger getIsHaveDisableEnable() {
-		return this.isHaveDisableEnable;
+	public String getIsHaveDisableEnable() {
+		return isHaveDisableEnable;
 	}
 
-	public void setIsHaveDisableEnable(BigInteger isHaveDisableEnable) {
+	public void setIsHaveDisableEnable(String isHaveDisableEnable) {
 		this.isHaveDisableEnable = isHaveDisableEnable;
 	}
 
@@ -162,13 +161,4 @@ public class Tablemeta extends BaseEntity<Long> implements Serializable {
 	public void setTableName(String tableName) {
 		this.tableName = tableName;
 	}
-
-	public String getTplCategory() {
-		return this.tplCategory;
-	}
-
-	public void setTplCategory(String tplCategory) {
-		this.tplCategory = tplCategory;
-	}
-
 }

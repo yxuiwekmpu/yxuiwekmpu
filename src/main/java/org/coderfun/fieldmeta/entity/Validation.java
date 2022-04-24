@@ -24,8 +24,6 @@ public class Validation extends BaseEntity<Long> implements Serializable {
 
 	private String code;
 
-
-
 	private String description;
 
 	@Lob

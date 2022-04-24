@@ -6,16 +6,16 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 	<head>
-    	<title>测评项目</title>
+    	<title>table元数据</title>
    		<c:import url="/admin/pages/common/headsource.jsp"/>		
   	</head>
 <body>
-	<table id="datagrid-table" class="easyui-datagrid" title="项目配置表"
+	<table id="datagrid-table" class="easyui-datagrid" title="table元数据"
 		data-options="
 			rownumbers		: true,
 			singleSelect	: true,
 			fitColumns		: true, 
-			url				: adminActionPath + '/project/findpage',
+			url				: adminActionPath + '/tablemeta/findpage',
 			toolbar			: '#toolbar',
 			fit				: true,
 			pagination		: true,
@@ -26,20 +26,20 @@
 			onDblClickRow   : function(){dataTable.edit();}">
 		<thead>
 			<tr>
-				<th data-options="field:'name',width:100,align:'left',formatter:complexCol">项目名称</th>
-				<th data-options="field:'templateTypeCode',width:100,align:'left',formatter:codeCol,codeClass:'template_type_code'">模板类型</th>
-				
-				<th data-options="field:'isDefaultCode',width:50,align:'left',formatter:codeCol,codeClass:'is_default_code'">是否默认</th>
-				<th data-options="field:'sqlDialectCode',width:150,align:'left',formatter:codeCol,codeClass:'sql_dialect_code'">SQL方言</th>
-				<th data-options="field:'dbUrl',width:200,align:'left',formatter:complexCol">JDBC地址</th>
-				<th data-options="field:'dbUsername',width:100,align:'left',formatter:complexCol">用户名</th>
+				<th data-options="field:'tableName',width:80,align:'left',formatter:complexCol">表名</th>
+				<th data-options="field:'entityName',width:60,align:'left',formatter:complexCol">实体名</th>
+				<th data-options="field:'simpleName',width:50,align:'left',formatter:complexCol">简称</th>
+				<th data-options="field:'moduleName',width:50,align:'left',formatter:complexCol">所属模块</th>
+				<th data-options="field:'parentTableName',width:80,align:'left',formatter:complexCol">父表表名</th>
+				<th data-options="field:'parentTableFkName',width:50,align:'left',formatter:complexCol">关联外键</th>
+				<th data-options="field:'isHaveDelete',width:150,align:'left',formatter:codeCol,codeClass:'yes_or_no'">软删除</th>
+				<th data-options="field:'isHaveDisableEnable',width:150,align:'left',formatter:codeCol,codeClass:'yes_or_no'">停启用</th>
 				<th data-options="field:'remark',width:150,formatter:complexCol">备注</th>
 				<th data-options="field:'modifyTime',width:120,align:'left',formatter:EasyUiDateTime">更新时间</th>
 			</tr>
 		</thead>
 	</table>
 	<div id="toolbar">
-	
 		<div class="easyui-panel"
 		    data-options="collapsible:true,minimizable:true">
 			<form id="search-form" class="search-form" enctype="multipart/form-data">    
@@ -51,9 +51,9 @@
 				<span class="inline-clear"></span>
 				
 				<label>所属模块</label>
-				<input name="moduleCode" class="easyui-combobox"
-					data-options="valueField:'code',textField:'name',editable:false,panelHeight:'auto',
-							enableNull:true,codeClass:'module_code'">
+				<input name="moduleName" class="easyui-combobox"
+					data-options="valueField:'moduleName',textField:'moduleName',editable:false,panelHeight:'auto',
+							url:adminActionPath +'/module/findlist',dataField : 'data'">
 				<span class="inline-clear"></span>
 				
 				<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="dataTable.search()">查询</a>
@@ -72,47 +72,53 @@
 			<input name="id" style="display: none" />
 			<table style="margin-left:-20px;">
 				<tr class="tr_padding">
-					<td><label>项目名称</label></td>
+					<td><label>表名</label></td>
 					<td>
-						<input name="name" class="easyui-validatebox" data-options="required:true,validType:'maxLength[255]'">
+						<input name="tableName" class="easyui-validatebox" data-options="required:true,validType:'word'">
 					</td>
-					<td><label>模板类型</label></td>
+					<td><label>实体名</label></td>
 					<td>
-						<input name="templateTypeCode" class="easyui-combobox"
-						data-options="valueField:'code',textField:'name',editable:false,panelHeight:'auto',
-							required:true,defaultFirst:true,codeClass:'template_type_code'">
+						<input name="entityName" class="easyui-validatebox" data-options="required:true,validType:'word'">
 					</td>		
 				</tr>
 				<tr class="tr_padding">
-					<td><label>是否默认</label></td>
+					<td><label>简称</label></td>
 					<td>
-						<input name="isDefaultCode" class="easyui-combobox"
-						data-options="valueField:'code',textField:'name',editable:false,panelHeight:'auto',
-							required:true,defaultFirst:true,codeClass:'is_default_code'">
-					</td>	
-					<td><label>SQL方言</label></td>
-					<td>
-						<input name="sqlDialectCode" class="easyui-combobox"
-						data-options="valueField:'code',textField:'name',editable:false,panelHeight:'auto',
-							required:true,defaultFirst:true,codeClass:'sql_dialect_code'">
+						<input name="simpleName" class="easyui-validatebox" data-options="required:true,validType:'CHS'">
 					</td>
+					<td><label>所属模块</label></td>
+					<td>
+						<input name="moduleName" class="easyui-combobox"
+					data-options="valueField:'moduleName',textField:'moduleName',defaultFirst:true,editable:false,panelHeight:'auto',
+							url:adminActionPath +'/module/findlist',dataField : 'data'">
+					</td>		
+				</tr>
+				
+				
+				<tr class="tr_padding">
+					<td><label>父表表名</label></td>
+					<td>
+						<input name="parentTableName" class="easyui-validatebox" data-options="required:true,validType:'word'">
+					</td>
+					<td><label>关联外键</label></td>
+					<td>
+						<input name="parentTableFkName" class="easyui-validatebox" data-options="required:true,validType:'word'">
+					</td>		
+				</tr>
 	
-				</tr>
 				<tr class="tr_padding">
-					<td><label>JDBC地址</label></td>
-					<td	colspan="3">
-						<input name="dbUrl" class="easyui-validatebox" style="width: 375px" data-options="required:true,validType:'maxLength[255]'">
-					</td>
-				</tr>
-				<tr class="tr_padding">
-					<td><label>用户名</label></td>
+					<td><label>软删除</label></td>
 					<td>
-						<input name="dbUsername" class="easyui-validatebox" data-options="required:true,validType:'maxLength[255]'">
-					</td>
-					<td><label>密码</label></td>
+						<input name="isHaveDelete" class="easyui-combobox"
+						data-options="valueField:'code',textField:'name',editable:false,panelHeight:'auto',
+							required:true,defaultFirst:true,codeClass:'yes_or_no'">
+					</td>	
+					<td><label>停启用</label></td>
 					<td>
-						<input name="dbPassword" type="password" class="easyui-validatebox" data-options="required:true,validType:'maxLength[255]'">
-					</td>		
+						<input name="isHaveDisableEnable" class="easyui-combobox"
+						data-options="valueField:'code',textField:'name',editable:false,panelHeight:'auto',
+							required:true,defaultFirst:true,codeClass:'yes_or_no'">
+					</td>
 				</tr>
 				<tr class="tr_padding">
 					<td><label>备<span class="letter-space-2"></span>注</label></td>
@@ -134,23 +140,22 @@
 			$datagrid_table :$("#datagrid-table"),
 			$data_form_dialog : $("#data-form-dlg"),
 			$data_form : $("#data-form"),
-			data_form_name : "测评项目",
+			data_form_name : "table元数据",
 			
 			addOpt : {
-				url : adminActionPath+"/project/add"
+				url : adminActionPath+"/tablemeta/add"
 			},
 			editOpt : {
-				url : adminActionPath+"/project/edit"
+				url : adminActionPath+"/tablemeta/edit"
 			},
 			removeOpt : {
-				url : adminActionPath+"/project/delete"
+				url : adminActionPath+"/tablemeta/delete"
 			},
 			saveOpt : {},
 			searchOpt : {
 				$searchForm : $("#search-form"),
 			}
 		});
-		
 	</script>
 </body>
 </html>

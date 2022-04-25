@@ -56,7 +56,7 @@
 					</td>
 					<td><label>排<span class="letter-space-2"></span>序</label></td>
 					<td>
-						<input name="ordernum" class="easyui-validatebox" data-options="validType:'positiveInteger'">
+						<input name="order" class="easyui-validatebox" data-options="validType:'positiveInteger'">
 					</td>
 				</tr>
 				<tr class="tr_padding">

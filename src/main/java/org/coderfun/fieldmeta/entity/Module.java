@@ -43,8 +43,6 @@ public class Module extends BaseEntity<Long> implements Serializable {
 	@Column(name = "copy_right")
 	private String copyRight;
 
-	@Lob
-	private String remark;
 
 	public Module() {
 	}
@@ -104,13 +102,4 @@ public class Module extends BaseEntity<Long> implements Serializable {
 	public void setProject(Project project) {
 		this.project = project;
 	}
-
-	public String getRemark() {
-		return this.remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
-
 }

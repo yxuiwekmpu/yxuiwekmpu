@@ -116,7 +116,7 @@
 				url : adminActionPath+"/typemapping/add",
 				notReset : true,
 				afterOpenDlg : function($data_form){
-					$data_form.find("input[name=fullJavaType]").val();
+					$data_form.find("input[name='sqlType']").val("");
 				}
 			},
 			editOpt : {

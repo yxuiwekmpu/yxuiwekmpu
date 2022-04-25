@@ -57,9 +57,6 @@ public class Tablemeta extends BaseEntity<Long> implements Serializable {
 	@Column(name = "parent_table_name")
 	private String parentTableName;
 
-	@Lob
-	private String remarks;
-
 	@Column(name = "table_name")
 	private String tableName;
 
@@ -144,14 +141,6 @@ public class Tablemeta extends BaseEntity<Long> implements Serializable {
 
 	public void setParentTableName(String parentTableName) {
 		this.parentTableName = parentTableName;
-	}
-
-	public String getRemarks() {
-		return this.remarks;
-	}
-
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
 	}
 
 	public String getTableName() {

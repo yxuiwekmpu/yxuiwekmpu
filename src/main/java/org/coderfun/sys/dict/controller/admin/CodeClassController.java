@@ -68,7 +68,7 @@ public class CodeClassController {
 			@ModelAttribute CodeClass codeClass,
 			@RequestParam int page,
 			@RequestParam int rows){
-		Pageable pageable=new PageRequest(page<1?0:page-1, rows, new Sort(Direction.DESC,"id"));
+		Pageable pageable=new PageRequest(page<1?0:page-1, rows, new Sort(Direction.DESC,"order"));
 		Page<CodeClass> pageData=codeClassService.findPage(codeClass, pageable);
 		return new EasyUIPage(pageData);
 	}
@@ -78,7 +78,7 @@ public class CodeClassController {
 	public JsonData findlist(
 			@ModelAttribute CodeClass codeClass){
 		
-		List<CodeClass> listData=codeClassService.findList(codeClass, new Sort(Direction.DESC,"id"));
+		List<CodeClass> listData=codeClassService.findList(codeClass, new Sort(Direction.DESC,"order"));
 		return JsonData.success(listData);
 	}	
 	@ResponseBody
@@ -89,7 +89,7 @@ public class CodeClassController {
 		System.out.println(codeClass.getName());
 		
 		List<CodeClass> listData=codeClassService.findList(
-				new Sort(Direction.DESC,"ordernum"),
+				new Sort(Direction.DESC,"order"),
 				AExpr.contain(CodeClass_.name, codeClass.getName()).igEmpty(),
 				AExpr.eq(CodeClass_.moduleCode, codeClass.getModuleCode()).igEmpty());
 		return listData;

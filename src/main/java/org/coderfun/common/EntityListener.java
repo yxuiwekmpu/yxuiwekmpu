@@ -25,7 +25,6 @@ public class EntityListener {
 	public void prePersist(BaseEntity<?> entity) {
 		entity.setCreateTime(new Date());
 		entity.setModifyTime(new Date());
-		entity.setVersion(null);
 	}
 
 	/**

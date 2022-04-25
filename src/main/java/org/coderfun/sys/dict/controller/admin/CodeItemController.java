@@ -68,7 +68,7 @@ public class CodeItemController {
 			@ModelAttribute CodeItem codeItem,
 			@RequestParam int page,
 			@RequestParam int rows){
-		Pageable pageable=new PageRequest(page<1?0:page-1, rows, new Sort(Direction.DESC,"id"));
+		Pageable pageable=new PageRequest(page<1?0:page-1, rows, new Sort(Direction.DESC,"order"));
 		Page<CodeItem> pageData=codeItemService.findPage(codeItem, pageable);
 		return new EasyUIPage(pageData);
 	}
@@ -78,7 +78,7 @@ public class CodeItemController {
 	public JsonData findlist(
 			@ModelAttribute CodeItem codeItem){
 		
-		List<CodeItem> listData=codeItemService.findList(codeItem, new Sort(Direction.DESC,"id"));
+		List<CodeItem> listData=codeItemService.findList(codeItem, new Sort(Direction.DESC,"order"));
 		return JsonData.success(listData);
 	}
 	
@@ -86,7 +86,7 @@ public class CodeItemController {
 	@RequestMapping("/datalist")
 	public List datalist(
 			@ModelAttribute CodeItem codeItem){
-		List<CodeItem> listData=codeItemService.findList(codeItem, new Sort(Direction.DESC,"ordernum"));
+		List<CodeItem> listData=codeItemService.findList(codeItem, new Sort(Direction.DESC,"order"));
 		return listData;
 	}
 }

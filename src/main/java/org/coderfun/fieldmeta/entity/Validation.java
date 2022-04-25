@@ -40,9 +40,6 @@ public class Validation extends BaseEntity<Long> implements Serializable {
 
 	private String name;
 
-	@Lob
-	private String remark;
-
 	public Validation() {
 	}
 
@@ -96,13 +93,4 @@ public class Validation extends BaseEntity<Long> implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public String getRemark() {
-		return this.remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
-
 }

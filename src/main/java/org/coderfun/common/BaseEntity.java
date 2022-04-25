@@ -10,10 +10,16 @@ import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.validation.groups.Default;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
+import klg.common.utils.DatePartten;
 
 /**
  * Entity - 基类
@@ -31,17 +37,18 @@ public abstract class BaseEntity<ID extends Serializable> implements Serializabl
 	private ID id;
 
 	/** 创建日期 */
+	@DateTimeFormat(pattern = DatePartten.ISO_DATE_TIME)
 	@Column(name = "create_time")
 	private Date createTime;
 
 	/** 修改日期 */
+	@DateTimeFormat(pattern = DatePartten.ISO_DATE_TIME)
 	@Column(name = "modify_time")
 	private Date modifyTime;
-
-	/** 版本 */
-	@Version
-	@Column(nullable = false)
-	private Long version;
+	/** 备注 */
+	@Lob
+	@Column(name = "remark", columnDefinition = "TEXT")
+	private String remark;
 
 	private static final long serialVersionUID = -7103197793672462521L;
 
@@ -56,6 +63,9 @@ public abstract class BaseEntity<ID extends Serializable> implements Serializabl
 
 	/** "版本"属性名称 */
 	public static final String VERSION_PROPERTY_NAME = "version";
+
+	/** 备注属性名称 */
+	public static final String REMARK_PROPERTY_NAME = "remark";
 
 	/**
 	 * 保存验证组
@@ -95,12 +105,12 @@ public abstract class BaseEntity<ID extends Serializable> implements Serializabl
 		this.modifyTime = modifyTime;
 	}
 
-	public Long getVersion() {
-		return version;
+	public String getRemark() {
+		return remark;
 	}
 
-	public void setVersion(Long version) {
-		this.version = version;
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 
 	/**

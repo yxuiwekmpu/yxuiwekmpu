@@ -49,7 +49,7 @@ public class ModuleServicceTest {
 		Module module=new Module();
 		module.setModuleName("test");
 		Project project=MyBeanUtil.newAndSet(Project.class, "id", 2L);
-		 project.setVersion(projectService.getById(2L).getVersion());
+		 //project.setVersion(projectService.getById(2L).getVersion());
 		module.setProject(project);
 		
 		moduleService.save(module);
@@ -69,7 +69,7 @@ public class ModuleServicceTest {
 	@Transactional
 	public void testRefresh2(){
 		Project project=MyBeanUtil.newAndSet(Project.class, "id", 2L);
-		project.setVersion(1L);
+		//project.setVersion(1L);
 		em.refresh(project);
 		MyPrinter.printJson(project);
 	}

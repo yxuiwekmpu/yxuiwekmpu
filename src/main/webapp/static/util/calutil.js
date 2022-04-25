@@ -26,47 +26,122 @@ Date.prototype.format = function(format) {
 	return format;
 };
 
+/**
+ * 日期工具类，包括日期格式化、日期解析、一个月的日历
+ * 默认：ISO格式
+ * 
+ */
 var calUtil = {
-	//------------------时间格式化--------------------
-	
-	formatDate:function(date){
-		return date.format("yyyy-MM-dd");	
+	ISO:{
+		DATE:"yyyy-MM-dd",
+		DATE_TIME:"yyyy-MM-dd hh:mm:ss"
 	},
-	formatDateTime:function(date){
-		var date = new Date();
-		return date.format("yyyy-MM-dd hh:mm:ss");
+	compare:function(date1_str,date2_str){
+		var date1_time=calUtil.parseDate(date1_str).getTime();
+		var date2_time=calUtil.parseDate(date2_str).getTime();
+		console.log(date1_time+"\t"+date2_time)
+		if(date1_time>date2_time){
+			return 1
+		}else if(date1_time==date2_time){
+			return 0;
+		}else{
+			return -1;
+		}
+	},	
+	//------------------时间格式化--------------------
+	formatLong:function(value){
+		if(!value) return "";
+		var year = value.toString().substring(0, 4);
+		var month = value.toString().substring(4, 6);
+		var date = value.toString().substring(6, 8);
+		if (value.toString().length > 8) {
+			var hour = value.toString().substring(8, 10);
+			var minute = value.toString().substring(10, 12);
+			var second = value.toString().substring(12, 14);
+			return year + "-" + month + "-" + date + " " + hour + ":"
+					+ minute + ":" + second;
+		} else {
+			return year + "-" + month + "-" + date;
+		}
+	},
+	//参数为Date类型，或毫秒数
+	formatDate:function(date){
+		if(!date)
+			return null;
+		if(Object.prototype.toString.call(date) != "[object Date]"){
+			if(typeof date=="string" && date.indexOf(" ") != -1){
+				date=date.split(" ").join("T");
+			}
+			date=new Date(date);
+		}
+		return date.format(calUtil.ISO.DATE);
+	},
+	//参数为Date类型，或毫秒数
+	formatDateTime:function(date){	
+		if(!date)
+		return null;
+		if(Object.prototype.toString.call(date) != "[object Date]")
+			date=new Date(date);
+		return date.format(calUtil.ISO.DATE_TIME);
 	},
 	formatDateByNum : function(year, month, day) {
 		var date = new Date(year, month-1, day);
-		return date.format("yyyy-MM-dd");
+		return date.format(calUtil.ISO.DATE);
 	},
 	formatDateByEN : function(date) {
 		var info = date.toString().split(" ");
 		return info[1] + " " + info[2] + ", " + info[3];
 	},
 	formatDateByCN : function(date) {
+		if(Object.prototype.toString.call(date) != "[object Date]")
+			date=new Date(date);
 		var syear = date.getFullYear(), smonth = date.getMonth() + 1, sday = date.getDate();
 		return syear + "年" + smonth + "月" + sday + "日";
 	},
 	
 	//------------------时间解析--------------------
 	
+	parseLong:function(value){
+		if(!value) return null;
+		var year = value.toString().substring(0, 4);
+		var month = value.toString().substring(4, 6);
+		var date = value.toString().substring(6, 8);
+		if (value.toString().length > 8) {
+			var hour = value.toString().substring(8, 10);
+			var minute = value.toString().substring(10, 12);
+			var second = value.toString().substring(12, 14);
+			return new Date(year,month-1,date,hour,minute,second);
+		}else{
+			return new Date(year,month-1,date);
+		}
+	},
 	parseDate : function(strDate) {
+		if(!strDate) return null;
 		var date = eval('new Date(' + strDate.replace(/\d+(?=-[^-]+$)/, function(a) {
 			return parseInt(a, 10) - 1;
 		}).match(/\d+/g) + ')');
 		return date;
 	},
+	getDateByWeekDay:function(theDate,weekday){
+		var firstDateOfWeek = calUtil.getFirstDateOfWeek(theDate);
+		var tempDate = new Date(theDate);
+		tempDate.setDate(firstDateOfWeek.getDate() + weekday);
+		return tempDate;
+	},
+	//一段时间的date数组
+	periodArr:function(theDate,days){
+		var dateArr = new Array();
+		for ( var i = 0; i < days; i++) {
+			var tempDate = new Date(theDate);
+			tempDate.setDate(theDate.getDate() + i);
+			dateArr.push(tempDate);
+		}
+		return dateArr;
+	},
 	
 	getWeekDateArr : function(theDate) {
 		var firstDateOfWeek = calUtil.getFirstDateOfWeek(theDate);
-		var dateArr = new Array();
-		for ( var i = 0; i < 7; i++) {
-			var tempDate = new Date(theDate);
-			tempDate.setDate(firstDateOfWeek.getDate() + i);
-			dateArr.push(new Date(tempDate));
-		}
-		return dateArr;
+		return calUtil.periodArr(firstDateOfWeek,7);
 	},
 	// 得到每周的第一天(周日)
 	getFirstDateOfWeek : function(theDate) {
@@ -83,14 +158,14 @@ var calUtil = {
 		return lastDateOfWeek;
 	},
 
-	getNextdayDate : function() {
-		var today = new Date();
-		var targetday_milliseconds = today.getTime() + 1000 * 60 * 60 * 24 * 1;
-		today.setTime(targetday_milliseconds); // 注意，这行是关键代码
-		return today;
+	getNextdayDate : function(theDate) {
+		var target = new Date();
+		var targetday_milliseconds = theDate.getTime() + 1000 * 60 * 60 * 24 * 1;
+		target.setTime(targetday_milliseconds); // 注意，这行是关键代码
+		return target;
 	},
-	getNextdayDateStr : function() {
-		return calUtil.getNextdayDate().format("yyyy-MM-dd");
+	getNextdayDateStr : function(theDate) {
+		return calUtil.getNextdayDate(theDate).format(calUtil.ISO.DATE);
 	},
 	getCNDayOfWeek : function(objDate) {
 		var aryDay = new Array("日","一","二","三","四","五","六");  
@@ -137,4 +212,3 @@ var calUtil = {
 		return aMonth;
 	}
 };
-

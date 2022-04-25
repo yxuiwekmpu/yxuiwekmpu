@@ -37,17 +37,7 @@ public class TypeMapping extends BaseEntity<Long> implements Serializable {
 	@Column(name = "need_join_column_code")
 	private String needJoinColumn;
 
-	private String remark;
-
 	public TypeMapping() {
-	}
-
-	public String getRemark() {
-		return remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
 	}
 
 	public String getNeedJoinColumn() {

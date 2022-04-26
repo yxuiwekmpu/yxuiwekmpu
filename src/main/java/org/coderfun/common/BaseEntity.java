@@ -37,12 +37,12 @@ public abstract class BaseEntity<ID extends Serializable> implements Serializabl
 	private ID id;
 
 	/** 创建日期 */
-	@DateTimeFormat(pattern = DatePartten.ISO_DATE_TIME)
+	@DateTimeFormat(pattern = DatePartten.DATE_TIME)
 	@Column(name = "create_time")
 	private Date createTime;
 
 	/** 修改日期 */
-	@DateTimeFormat(pattern = DatePartten.ISO_DATE_TIME)
+	@DateTimeFormat(pattern = DatePartten.DATE_TIME)
 	@Column(name = "modify_time")
 	private Date modifyTime;
 	/** 备注 */

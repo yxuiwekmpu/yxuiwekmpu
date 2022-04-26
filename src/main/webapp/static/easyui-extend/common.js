@@ -103,4 +103,46 @@ function postParams(URL, PARAMS) {
     return temp;      
 }
 
+//----------------checkbox_editor--------------------------
 
+var ag_checkbox_editor={  
+        type:'checkboxCell',  
+        options:{  
+            on: "yes",  
+            off: "no"  
+        }  
+    }; 
+
+function checkboxCol(value, row, index){
+	if(value == "yes"){
+		
+		return '<input onclick="javascript:return false;" checked=true readonly=true style="width:15px;height:18px" type="checkbox">';
+	}else{
+		return '<input onclick="javascript:return false;" readonly=true style="width:15px;height:18px" type="checkbox">';
+	}
+}
+
+$.extend($.fn.datagrid.defaults.editors, {
+	checkboxCell: {
+		init: function(container, options){
+			var input = $('<input style="width:15px;height:18px" type="checkbox">').appendTo(container);
+			input.val(options.on);
+			input.attr('offval', options.off);
+			return input;
+		},
+		getValue: function(target){
+			if ($(target).is(':checked')){
+				return $(target).val();
+			} else {
+				return $(target).attr('offval');
+			}
+		},
+		setValue: function(target, value){
+			var checked = false;
+			if ($(target).val() == value){
+				checked = true;
+			}
+			$(target)._propAttr('checked', checked);
+		}
+	}
+});	

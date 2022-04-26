@@ -31,20 +31,22 @@ public class EntityFieldController {
 	@ResponseBody
 	@RequestMapping("/add")
 	public JsonData add(@ModelAttribute EntityField entityField) {
-		;
+		
 		return JsonData.success(entityFieldService.save(entityField));
 	}
 
 	@ResponseBody
 	@RequestMapping(value = "/update_sort", method = RequestMethod.POST)
 	public JsonData updateSort(@RequestBody List<EntityField> entityFields) {
+
 		entityFieldService.executeUpdate(EntityFieldDAO.UPDATE_SORT, entityFields);
 		return JsonData.success();
 	}
 
 	@ResponseBody
 	@RequestMapping("/edit")
-	public JsonData edit(@ModelAttribute EntityField entityField) {
+	public JsonData edit(@ModelAttribute EntityField entityField){
+
 		return JsonData.success(entityFieldService.update(entityField));
 	}
 

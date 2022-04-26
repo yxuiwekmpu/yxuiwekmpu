@@ -1,0 +1,65 @@
+		            $dg.datagrid("updateRow",{
+		            	index : index ,
+		            	row : todown
+		            });
+		            $dg.datagrid("updateRow",{
+		            	index : index -1 ,
+		            	row : toup
+		            });	
+		            
+		            
+		            $dg.datagrid("updateRow",{
+		            	index : index + 1,
+		            	row : todown
+		            });
+		            $dg.datagrid("updateRow",{
+		            	index : index ,
+		            	row : toup
+		            });	
+		            
+		            
+			checkOnSelect	: false,
+
+
+ag_$entityfield_table.datagrid('checkRow', index);
+
+ag_$pagefield_table.datagrid('checkRow', index);
+
+
+
+
+,
+			onCheck			: function(index, row){
+				var checked_row=ag_$entityfield_table.datagrid('getSelected');
+				var checked_index=ag_$entityfield_table.datagrid('getRowIndex',checked_row);
+				ag_checked_index = index;
+				if(checked_index != index){
+					ag_$entityfield_table.datagrid('checkRow', index);
+				}
+			}
+
+,
+			onCheck			: function(index, row){
+				var checked_row=ag_$pagefield_table.datagrid('getSelected');
+				var checked_index=ag_$pagefield_table.datagrid('getRowIndex',checked_row);
+				ag_checked_index = index;
+				if(checked_index != index){
+					ag_$pagefield_table.datagrid('checkRow', index);
+				}
+			}
+		            
+		            
+		function columnLabelOnChange(newValue, oldValue){
+            var row = ag_$entityfield_table.datagrid('getSelected');  
+            var rindex = ag_$entityfield_table.datagrid('getRowIndex', row);  
+            var editor = ag_$entityfield_table.datagrid('getEditor', {  
+                    index : rindex,  
+                    field : 'comments'  
+                }); 
+
+            if(editor && editor.target)
+            	$(editor.target).textbox("setValue",newValue);
+		}	
+		
+				            
+		            

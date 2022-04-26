@@ -122,19 +122,21 @@
 					}
 					if (changed){
 						opts.poster.call(target, url, row, function(data){
+							var index_new =$(target).edatagrid('getRowIndex',row);
+							console.log("index_new:"+index_new)
 							if (opts.isError && opts.isError(data)){
 								var originalRow = opts.originalRow;
-								$(target).edatagrid('cancelRow',index);
-								$(target).edatagrid('selectRow',index);
-								$(target).edatagrid('editRow',index);
+								$(target).edatagrid('cancelRow',index_new);
+								$(target).edatagrid('selectRow',index_new);
+								$(target).edatagrid('editRow',index_new);
 								opts.originalRow = originalRow;
-								opts.onError.call(target, index, data);
+								opts.onError.call(target, index_new, data);
 								return;
 							}
 							var rowData = opts.rowDataField?data[opts.rowDataField]:data;
 							rowData.isNewRecord = null;
 							$(target).datagrid('updateRow', {
-								index: index,
+								index: index_new,
 								row: rowData
 							});
 							if (opts.tree){
@@ -152,10 +154,10 @@
 									});
 								}
 							}
-							opts.onSuccess.call(target, index, data);
-							opts.onSave.call(target, index, row);
+							opts.onSuccess.call(target, index_new, data);
+							opts.onSave.call(target, index_new, row);
 						}, function(data){
-							opts.onError.call(target, index, data);
+							opts.onError.call(target, index_new, data);
 						});
 					} else {
 						opts.onSave.call(target, index, row);

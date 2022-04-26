@@ -2,6 +2,8 @@ package org.coderfun.fieldmeta.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +16,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "fm_field_page")
+@Access(AccessType.FIELD)
 public class PageField implements Serializable {
 
 	/**
@@ -28,6 +31,9 @@ public class PageField implements Serializable {
 	@OneToOne()
 	@JoinColumn(name = "entity_field_id")
 	private EntityField entityField;
+
+	@Column(name = "field_title")
+	private String fieldTitle;
 
 	@Column(name = "can_list")
 	private String canList;
@@ -165,6 +171,14 @@ public class PageField implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getFieldTitle() {
+		return fieldTitle;
+	}
+
+	public void setFieldTitle(String fieldTitle) {
+		this.fieldTitle = fieldTitle;
 	}
 
 }

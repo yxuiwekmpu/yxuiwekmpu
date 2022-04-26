@@ -3,6 +3,8 @@ package org.coderfun.fieldmeta.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -11,6 +13,7 @@ import org.coderfun.common.BaseEntity;
 
 @Entity
 @Table(name = "fm_field_entity")
+@Access(AccessType.FIELD)
 public class EntityField extends BaseEntity<Long> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -27,9 +30,6 @@ public class EntityField extends BaseEntity<Long> implements Serializable {
 
 	@Column(name = "column_type")
 	private String columnType;
-
-	@Column(name = "column_label")
-	private String columnLabel;
 
 	private String comments;
 
@@ -90,14 +90,6 @@ public class EntityField extends BaseEntity<Long> implements Serializable {
 
 	public void setColumnType(String columnType) {
 		this.columnType = columnType;
-	}
-
-	public String getColumnLabel() {
-		return columnLabel;
-	}
-
-	public void setColumnLabel(String columnLabel) {
-		this.columnLabel = columnLabel;
 	}
 
 	public String getComments() {

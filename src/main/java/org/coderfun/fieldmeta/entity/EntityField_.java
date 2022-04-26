@@ -6,14 +6,13 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 import org.coderfun.common.BaseEntity_;
 
-@Generated(value="Dali", date="2018-05-24T01:03:53.750+0800")
+@Generated(value="Dali", date="2018-05-26T14:46:14.678+0800")
 @StaticMetamodel(EntityField.class)
 public class EntityField_ extends BaseEntity_ {
 	public static volatile SingularAttribute<EntityField, String> tableName;
 	public static volatile SingularAttribute<EntityField, String> columnName;
 	public static volatile SingularAttribute<EntityField, BigDecimal> columnSort;
 	public static volatile SingularAttribute<EntityField, String> columnType;
-	public static volatile SingularAttribute<EntityField, String> columnLabel;
 	public static volatile SingularAttribute<EntityField, String> comments;
 	public static volatile SingularAttribute<EntityField, String> attrName;
 	public static volatile SingularAttribute<EntityField, String> attrType;

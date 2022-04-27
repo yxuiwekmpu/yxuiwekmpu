@@ -9,7 +9,6 @@
 			rownumbers		: true,
 			singleSelect	: true,
 			fitColumns		: true, 
-			url				: adminActionPath + '/entityfield/findlist',
 			fit				: true,
 			onLoadSuccess	: editAllCol_entity,
 			showFooter		: true,
@@ -25,12 +24,12 @@
 				<th data-options="field:'ck',checkbox:true"></th>
 								
 				<th data-options="field:'columnName',width:80,align:'left',formatter:complexCol" 
-					editor="{type:'textbox',options:{validType:'word',required:true}}">列名</th>
+					editor="{type:'textbox',options:{validType:'word',required:true,onChange:columnNameOnChange}}">列名</th>
 					
-				<th data-options="field:'columnType',width:50,align:'left',formatter:complexCol" value="varchar"
+				<th data-options="field:'columnType',width:50,align:'left',formatter:complexCol"
 					editor="{type:'combobox',options:{valueField:'sqlType',textField:'sqlType',editable:false,panelHeight:'auto',
 							dataFn:getSqlTypeJson,onSelect:sqlTypeOnSelect}}">物理类型</th>
-				<th data-options="field:'attrType',width:50,align:'left',formatter:complexCol" value="String"
+				<th data-options="field:'attrType',width:50,align:'left',formatter:complexCol"
 					editor="{type:'combobox',options:{valueField:'code',textField:'name',editable:false,panelHeight:'auto',
 							codeClass:'java_type'}}">javaType</th>
 							
@@ -93,8 +92,11 @@
 			return ag_sqlTypeJson;
 		}
 		function sqlTypeOnSelect(record){
-            var row = ag_$entityfield_table.datagrid('getSelected');  
-            var rindex = ag_$entityfield_table.datagrid('getRowIndex', row);  
+            //var row = ag_$entityfield_table.datagrid('getSelected'); 
+            //var rindex = ag_$entityfield_table.datagrid('getRowIndex', row);  
+            
+            //closest 获得匹配选择器的第一个祖先元素，从当前元素开始沿 DOM 树向上。
+            var rindex =$(this).closest(".datagrid-row").attr("datagrid-row-index");
             var editor = ag_$entityfield_table.datagrid('getEditor', {  
                     index : rindex,  
                     field : 'attrType'  
@@ -102,4 +104,33 @@
             if(editor && editor.target)
             	$(editor.target).combobox("setValue",record.javaType);
 		}
+		
+		function columnNameOnChange(newValue, oldValue){
+            //closest 获得匹配选择器的第一个祖先元素，从当前元素开始沿 DOM 树向上。
+            var rindex =$(this).closest(".datagrid-row").attr("datagrid-row-index");
+            var editor = ag_$entityfield_table.datagrid('getEditor', {  
+                index : rindex,  
+                field : 'attrName'  
+            }); 
+            if(editor && editor.target)
+            	$(editor.target).textbox("setValue",NamingStrategy.columnNameToAttrName(newValue));
+		}
+		/** 名称策略*/
+		var NamingStrategy={
+				tableNameToClassName : function(str){
+				    var re=/_(\w)/g;
+				    return str.replace(re,function ($0,$1){
+				        return $1.toUpperCase();
+				    });
+				},
+				columnNameToAttrName : function(str){
+				    var re=/_(\w)/g;
+				    return str.replace(re,function ($0,$1){
+				        return $1.toUpperCase();
+				    });
+				}
+		}
+		
+
+		
 	</script>

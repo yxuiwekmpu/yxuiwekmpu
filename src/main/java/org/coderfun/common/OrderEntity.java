@@ -22,20 +22,27 @@ public abstract class OrderEntity<ID extends Serializable> extends BaseEntity<ID
 	private static final long serialVersionUID = 2985598734943661667L;
 
 	/** "排序"属性名称 */
-	public static final String ORDER_PROPERTY_NAME = "order";
+	public static final String ORDER_PROPERTY_NAME = "orderNum";
 
 	/** 排序 */
+	//order 是mysql 关键字
 	@Min(0)
-	@Column(name = "orders")
-	private Integer order;
+	@Column(name = "order_num")
+	private Integer orderNum;
 
-	public Integer getOrder() {
-		return order;
+
+
+	public Integer getOrderNum() {
+		return orderNum;
 	}
 
-	public void setOrder(Integer order) {
-		this.order = order;
+
+
+	public void setOrderNum(Integer orderNum) {
+		this.orderNum = orderNum;
 	}
+
+
 
 	/**
 	 * 实现compareTo方法
@@ -48,7 +55,7 @@ public abstract class OrderEntity<ID extends Serializable> extends BaseEntity<ID
 		if (orderEntity == null) {
 			return 1;
 		}
-		return new CompareToBuilder().append(getOrder(), orderEntity.getOrder()).append(getId(), orderEntity.getId()).toComparison();
+		return new CompareToBuilder().append(getOrderNum(), orderEntity.getOrderNum()).append(getId(), orderEntity.getId()).toComparison();
 	}
 
 }

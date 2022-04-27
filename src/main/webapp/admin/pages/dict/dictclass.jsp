@@ -21,8 +21,7 @@
 				<th data-options="field:'name',width:80,formatter:complexCol">名称</th>
 				<th data-options="field:'moduleCode',width:80,formatter:codeCol,codeClass:'module_code'">所属模块</th>
 				<th data-options="field:'isSys',width:50,formatter:codeCol,codeClass:'yes_or_no'">系统字典</th>
-				<th data-options="field:'remark',width:120,formatter:complexCol">备注</th>
-				
+				<th data-options="field:'remark',width:120,formatter:complexCol">备注</th>				
 			</tr>
 		</thead>
 	</table>
@@ -77,7 +76,7 @@
 					</td>
 					<td><label>排<span class="letter-space-2"></span>序</label></td>
 					<td>
-						<input name="order" class="easyui-validatebox" data-options="validType:'positiveInteger'">
+						<input name="orderNum" class="easyui-validatebox" data-options="validType:'positiveInteger'">
 					</td>
 				</tr>
 				<tr class="tr_padding">

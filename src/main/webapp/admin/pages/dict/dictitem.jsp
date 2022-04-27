@@ -20,7 +20,7 @@
 				<th data-options="field:'name',width:80,formatter:complexCol">名称</th>
 				<th data-options="field:'value',width:120,formatter:complexCol">值</th>
 				<th data-options="field:'remark',width:120,formatter:complexCol">备注</th>
-				<th data-options="field:'ordernum',width:60,formatter:complexCol">排序</th>
+				<th data-options="field:'orderNum',width:60,formatter:complexCol">排序</th>
 			</tr>
 		</thead>
 	</table>
@@ -56,7 +56,7 @@
 					</td>
 					<td><label>排<span class="letter-space-2"></span>序</label></td>
 					<td>
-						<input name="order" class="easyui-validatebox" data-options="validType:'positiveInteger'">
+						<input name="orderNum" class="easyui-validatebox" data-options="validType:'positiveInteger'">
 					</td>
 				</tr>
 				<tr class="tr_padding">

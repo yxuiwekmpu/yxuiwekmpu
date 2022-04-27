@@ -4,9 +4,13 @@ package org.coderfun.fieldmeta.controller.admin;
 
 import java.util.List;
 
+import org.coderfun.common.SystemCode;
 import org.coderfun.common.exception.BusinessException;
 import org.coderfun.common.exception.ErrorCodeEnum;
 import org.coderfun.fieldmeta.entity.Module;
+import org.coderfun.fieldmeta.entity.Module_;
+import org.coderfun.fieldmeta.entity.Project;
+import org.coderfun.fieldmeta.entity.Project_;
 import org.coderfun.fieldmeta.service.ModuleService;
 import org.coderfun.fieldmeta.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import klg.j2ee.common.model.EasyUIPage;
 import klg.j2ee.common.model.JsonData;
+import klg.j2ee.query.jpa.expr.AExpr;
 
 
 @Controller("adminModuleController")
@@ -86,5 +91,14 @@ public class ModuleController {
 		
 		List<Module> listData=moduleService.findList(module, new Sort(Direction.DESC,"id"));
 		return JsonData.success(listData);
-	}	
+	}
+	
+	@ResponseBody
+	@RequestMapping("/defalut_project")
+	public JsonData defaultProject(){
+		Project project = projectService.getOne(AExpr.eq(Project_.isDefaultCode, SystemCode.YES));
+		List<Module> listData=moduleService.findList( new Sort(Direction.DESC,"id"),
+				AExpr.eq(Module_.project, project));
+		return JsonData.success(listData);
+	}
 }

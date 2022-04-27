@@ -26,8 +26,9 @@
 			onDblClickRow   : function(){dataTable.edit();}">
 		<thead>
 			<tr>
-				<th data-options="field:'name',width:100,align:'left',formatter:complexCol">项目名称</th>
-				<th data-options="field:'templateTypeCode',width:100,align:'left',formatter:codeCol,codeClass:'template_type_code'">模板类型</th>
+				<th data-options="field:'name',width:100,align:'left',formatter:complexCol">项目代码</th>
+				<th data-options="field:'javaTemplateCode',width:100,align:'left',formatter:codeCol,codeClass:'java_template_code'">java模板</th>
+				<th data-options="field:'pageTemplateCode',width:100,align:'left',formatter:codeCol,codeClass:'page_template_code'">页面模板</th>
 				
 				<th data-options="field:'isDefaultCode',width:50,align:'left',formatter:codeCol,codeClass:'yes_or_no'">是否默认</th>
 				<th data-options="field:'sqlDialectCode',width:150,align:'left',formatter:codeCol,codeClass:'sql_dialect_code'">SQL方言</th>
@@ -45,52 +46,61 @@
 
 	</div>
 	
-	<div id="data-form-dlg" class="easyui-dialog" style="width: 600px; height: 400px; padding: 10px 20px" closed="true"
+	<div id="data-form-dlg" class="easyui-dialog" style="width: 600px; height: 450px; padding: 10px 20px" closed="true"
 		buttons="#dlg-buttons" modal="true">
 		<form id="data-form" class="data-form" method="post">
 			<input name="id" style="display: none" />
 			<table style="margin-left:-20px;">
 				<tr class="tr_padding">
-					<td><label>项目名称</label></td>
+					<td><label>项目代码</label></td>
 					<td>
-						<input name="name" class="easyui-validatebox" data-options="required:true,validType:'maxLength[255]'">
+						<input name="name" class="easyui-validatebox" data-options="required:true,validType:'word'">
 					</td>
-					<td><label>模板类型</label></td>
-					<td>
-						<input name="templateTypeCode" class="easyui-combobox"
-						data-options="valueField:'code',textField:'name',editable:false,panelHeight:'auto',
-							required:true,defaultFirst:true,codeClass:'template_type_code'">
-					</td>		
-				</tr>
-				<tr class="tr_padding">
 					<td><label>是否默认</label></td>
 					<td>
 						<input name="isDefaultCode" class="easyui-combobox"
 						data-options="valueField:'code',textField:'name',editable:false,panelHeight:'auto',
 							required:true,codeClass:'yes_or_no'">
-					</td>	
-					<td><label>SQL方言</label></td>
+					</td>		
+				</tr>
+				<tr class="tr_padding">
+					<td><label>java模板</label></td>
 					<td>
-						<input name="sqlDialectCode" class="easyui-combobox"
+						<input name="javaTemplateCode" class="easyui-combobox"
+						data-options="valueField:'code',textField:'name',editable:false,panelHeight:'auto',
+							required:true,defaultFirst:true,codeClass:'java_template_code'">
+					</td>
+					<td><label>页面模板</label></td>
+					<td>
+						<input name="pageTemplateCode" class="easyui-combobox"
+						data-options="valueField:'code',textField:'name',editable:false,panelHeight:'auto',
+							required:true,defaultFirst:true,codeClass:'page_template_code'">
+					</td>
+				</tr>
+				
+				<tr class="tr_padding">	
+					<td><label>SQL方言</label></td>
+					<td colspan="3">
+						<input name="sqlDialectCode" class="easyui-combobox" style="width: 375px" 
 						data-options="valueField:'code',textField:'name',editable:false,panelHeight:'auto',
 							required:true,defaultFirst:true,codeClass:'sql_dialect_code'">
 					</td>
-	
 				</tr>
+				
 				<tr class="tr_padding">
 					<td><label>JDBC地址</label></td>
 					<td	colspan="3">
-						<input name="dbUrl" class="easyui-validatebox" style="width: 375px" data-options="required:true,validType:'maxLength[255]'">
+						<input name="dbUrl" class="easyui-validatebox" style="width: 375px" data-options="validType:'maxLength[255]'">
 					</td>
 				</tr>
 				<tr class="tr_padding">
 					<td><label>用户名</label></td>
 					<td>
-						<input name="dbUsername" class="easyui-validatebox" data-options="required:true,validType:'maxLength[255]'">
+						<input name="dbUsername" class="easyui-validatebox" data-options="validType:'maxLength[255]'">
 					</td>
 					<td><label>密码</label></td>
 					<td>
-						<input name="dbPassword" type="password" class="easyui-validatebox" data-options="required:true,validType:'maxLength[255]'">
+						<input name="dbPassword" type="password" class="easyui-validatebox" data-options="validType:'maxLength[255]'">
 					</td>		
 				</tr>
 				<tr class="tr_padding">

@@ -38,12 +38,30 @@ public class Project extends BaseEntity<Long> implements Serializable {
 	@Column(name = "sql_dialect_code")
 	private String sqlDialectCode;
 
-	@Column(name = "template_type_code")
-	private String templateTypeCode;
+	@Column(name = "java_template_code")
+	private String javaTemplateCode;
+
+	@Column(name = "page_template_code")
+	private String pageTemplateCode;
+
+	public String getJavaTemplateCode() {
+		return javaTemplateCode;
+	}
+
+	public void setJavaTemplateCode(String javaTemplateCode) {
+		this.javaTemplateCode = javaTemplateCode;
+	}
+
+	public String getPageTemplateCode() {
+		return pageTemplateCode;
+	}
+
+	public void setPageTemplateCode(String pageTemplateCode) {
+		this.pageTemplateCode = pageTemplateCode;
+	}
 
 	public Project() {
 	}
-
 
 	public String getDbPassword() {
 		return this.dbPassword;
@@ -92,13 +110,4 @@ public class Project extends BaseEntity<Long> implements Serializable {
 	public void setSqlDialectCode(String sqlDialectCode) {
 		this.sqlDialectCode = sqlDialectCode;
 	}
-
-	public String getTemplateTypeCode() {
-		return this.templateTypeCode;
-	}
-
-	public void setTemplateTypeCode(String templateTypeCode) {
-		this.templateTypeCode = templateTypeCode;
-	}
-
 }

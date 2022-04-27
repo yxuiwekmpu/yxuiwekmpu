@@ -28,6 +28,9 @@ public class PageField implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Column(name = "table_name")
+	private String tableName;
+
 	@OneToOne()
 	@JoinColumn(name = "entity_field_id")
 	private EntityField entityField;
@@ -50,9 +53,6 @@ public class PageField implements Serializable {
 
 	private String required;
 
-	@Column(name = "show_type")
-	private String showType;
-
 	@Column(name = "grid_row_col")
 	private String gridRowCol;
 
@@ -65,12 +65,26 @@ public class PageField implements Serializable {
 	@Column(name = "code_name")
 	private String codeName;
 
+	@Column(name = "form_type")
+	private String formType;
+
+	@Column(name = "field_formatter")
+	private String fieldFormatter;
+
 	@Lob
 	@Column(name = "field_valid")
 	private String fieldValid;
 
 	public Long getId() {
 		return id;
+	}
+
+	public String getTableName() {
+		return tableName;
+	}
+
+	public void setTableName(String tableName) {
+		this.tableName = tableName;
 	}
 
 	public EntityField getEntityField() {
@@ -121,12 +135,20 @@ public class PageField implements Serializable {
 		this.required = required;
 	}
 
-	public String getShowType() {
-		return showType;
+	public String getFormType() {
+		return formType;
 	}
 
-	public void setShowType(String showType) {
-		this.showType = showType;
+	public void setFormType(String formType) {
+		this.formType = formType;
+	}
+
+	public String getFieldFormatter() {
+		return fieldFormatter;
+	}
+
+	public void setFieldFormatter(String fieldFormatter) {
+		this.fieldFormatter = fieldFormatter;
 	}
 
 	public String getGridRowCol() {

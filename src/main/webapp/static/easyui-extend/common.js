@@ -146,3 +146,43 @@ $.extend($.fn.datagrid.defaults.editors, {
 		}
 	}
 });	
+
+/**
+ *  springmvc requestBody
+ * @param opt
+ */
+
+function ajaxRequestBody(opt){
+	$.ajax({
+		url			: opt.url,
+		/**必须是POST方法**/
+		type		: 'post',
+		/**必须制定请求的类型**/
+		contentType	: 'application/json;charset=utf-8',
+		data		: JSON.stringify(opt.data),
+		dataType	: 'json',
+
+		success		: function(json){
+			if(json.type == "success"){
+				$.messager.show({
+					title : '提示',
+					msg : "保存成功！"
+				});
+			}
+		}
+	});
+}
+
+//easy ui 解析完成调用
+
+$.parser.addParseComplete=function(func){
+	var old=$.parser.onComplete;
+	if(!old)
+		$.parser.onComplete=func;
+	else{
+		$.parser.onComplete=function(){
+			old();
+			func();
+		}
+	}
+}

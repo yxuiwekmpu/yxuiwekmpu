@@ -102,7 +102,7 @@ public class DictManagerUtil {
 	
 	public void reload() throws IOException {
 		Sort sort=new Sort(new Order(Direction.ASC,"classCode"),
-						   new Order(Direction.DESC,"order"));
+						   new Order(Direction.DESC,"orderNum"));
 		List<CodeItem> codeItemList = itemDao.findAll(sort);
 		List<CodeClass> codeClassList=classDao.findAll();
 		mapClassName(codeClassList);

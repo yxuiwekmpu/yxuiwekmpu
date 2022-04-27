@@ -26,7 +26,7 @@
 			onDblClickRow   : function(){dataTable.edit();}">
 		<thead>
 			<tr>
-				<th data-options="field:'moduleName',width:80,align:'left',formatter:complexCol">模块简称</th>
+				<th data-options="field:'moduleName',width:80,align:'left',formatter:complexCol">模块代码</th>
 				<th data-options="field:'project.name',width:80,align:'left',formatter:complexCol">所属项目</th>
 				<th data-options="field:'description',width:100,align:'left',formatter:complexCol">描述</th>
 				<th data-options="field:'packageName',width:50,align:'left',formatter:complexCol">包名</th>
@@ -45,7 +45,7 @@
 			    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-reload" plain="true"
 					style="color: red"  onclick="resetForm('search-form')">条件重置</a>	
 		
-				<label>模块简称</label>
+				<label>模块代码</label>
 				<input name="moduleName" style="width:125px;" type="text">
 				<span class="inline-clear"></span>
 				
@@ -70,7 +70,7 @@
 			<input name="id" style="display: none" />
 			<table style="margin-left:-20px;">
 				<tr class="tr_padding">
-					<td><label>模块简称</label></td>
+					<td><label>模块代码</label></td>
 					<td>
 						<input name="moduleName" class="easyui-validatebox" data-options="required:true,validType:'word'">
 					</td>
@@ -97,7 +97,7 @@
 				<tr class="tr_padding">
 					<td><label>生成路径</label></td>
 					<td	colspan="3">
-						<input name="genPath" class="easyui-validatebox" style="width: 375px" data-options="required:true,validType:'maxLength[255]'">
+						<input name="genPath" class="easyui-validatebox" style="width: 375px" data-options="validType:'maxLength[255]'">
 					</td>
 				</tr>
 				<tr class="tr_padding">

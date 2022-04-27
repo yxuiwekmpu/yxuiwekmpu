@@ -38,11 +38,11 @@ public class Tablemeta extends BaseEntity<Long> implements Serializable {
 	@Column(name = "create_time")
 	private Date createTime;
 
-	@Column(name = "is_have_delete")
-	private String isHaveDelete;
+	@Column(name = "can_delete")
+	private String canDelete;
 
-	@Column(name = "is_have_disable_enable")
-	private String isHaveDisableEnable;
+	@Column(name = "can_edit")
+	private String canEdit;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "modify_time")
@@ -59,6 +59,9 @@ public class Tablemeta extends BaseEntity<Long> implements Serializable {
 
 	@Column(name = "table_name")
 	private String tableName;
+
+	@Column(name = "entity_super_class")
+	private String entitySuperClass;
 
 	public Tablemeta() {
 	}
@@ -95,20 +98,28 @@ public class Tablemeta extends BaseEntity<Long> implements Serializable {
 		this.createTime = createTime;
 	}
 
-	public String getIsHaveDelete() {
-		return isHaveDelete;
+	public String getCanDelete() {
+		return canDelete;
 	}
 
-	public void setIsHaveDelete(String isHaveDelete) {
-		this.isHaveDelete = isHaveDelete;
+	public void setCanDelete(String canDelete) {
+		this.canDelete = canDelete;
 	}
 
-	public String getIsHaveDisableEnable() {
-		return isHaveDisableEnable;
+	public String getCanEdit() {
+		return canEdit;
 	}
 
-	public void setIsHaveDisableEnable(String isHaveDisableEnable) {
-		this.isHaveDisableEnable = isHaveDisableEnable;
+	public void setCanEdit(String canEdit) {
+		this.canEdit = canEdit;
+	}
+
+	public String getEntitySuperClass() {
+		return entitySuperClass;
+	}
+
+	public void setEntitySuperClass(String entitySuperClass) {
+		this.entitySuperClass = entitySuperClass;
 	}
 
 	public Date getModifyTime() {

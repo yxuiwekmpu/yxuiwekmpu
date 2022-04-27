@@ -5,7 +5,6 @@
 		<class>org.coderfun.common.OrderEntity</class>
 		<class>org.coderfun.common.VersionEntity</class>
 		<class>org.coderfun.fieldmeta.entity.EntityField</class>
-		<class>org.coderfun.fieldmeta.entity.Fieldmeta</class>
 		<class>org.coderfun.fieldmeta.entity.Module</class>
 		<class>org.coderfun.fieldmeta.entity.PageField</class>
 		<class>org.coderfun.fieldmeta.entity.Project</class>

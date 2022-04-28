@@ -13,5 +13,6 @@
 		<class>org.coderfun.fieldmeta.entity.Validation</class>
 		<class>org.coderfun.sys.dict.entity.CodeClass</class>
 		<class>org.coderfun.sys.dict.entity.CodeItem</class>
+		<class>org.coderfun.sys.dict.entity.Menu</class>
 	</persistence-unit>
 </persistence>

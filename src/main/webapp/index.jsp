@@ -10,32 +10,17 @@
 
 	<c:import url="/admin/pages/common/headsource.jsp"/> 		
 
-<title>Insert title here</title>
+<title>fieldmeta</title>
 </head>
 <body class="easyui-layout" data-options="fit:true">
-		<div data-options="region:'north'" style="height:70px"> <h1>easyui - layout</h1></div>
+		<div data-options="region:'north'" style="height:70px"> <h1>fieldmeta - 字段元数据</h1></div>
 		<div data-options="region:'south',split:true" style="height:50px;"></div>
 		<div data-options="region:'west',split:true" title="菜单" style="width:220px;">
-			<ul class="easyui-tree" data-options="url:'tree_data1.json',method:'get',animate:true,onClick:treeClick,onSelect:treeSelect"></ul>
+			<ul class="easyui-tree" data-options="url:'tree_menu.json',method:'get',animate:true,onClick:treeClick,onSelect:treeSelect"></ul>
 		</div>
 		<div data-options="region:'center',iconCls:'icon-ok'">
 			<div class="easyui-tabs" id="tt" data-options="fit:true,border:false,plain:true,enableConextMenu:true,contextMenu:tab_menu">
-				<div title="About" data-options="href:'_content.html'" style="padding:10px"></div>
-				<div title="DataGrid" style="padding:5px">
-					<table class="easyui-datagrid"
-							data-options="url:'datagrid_data1.json',method:'get',singleSelect:true,fit:true,fitColumns:true">
-						<thead>
-							<tr>
-								<th data-options="field:'itemid'" width="80">Item ID</th>
-								<th data-options="field:'productid'" width="100">Product ID</th>
-								<th data-options="field:'listprice',align:'right'" width="80">List Price</th>
-								<th data-options="field:'unitcost',align:'right'" width="80">Unit Cost</th>
-								<th data-options="field:'attr1'" width="150">Attribute</th>
-								<th data-options="field:'status',align:'center'" width="50">Status</th>
-							</tr>
-						</thead>
-					</table>
-				</div>
+
 			</div>
 		</div>
 </body>

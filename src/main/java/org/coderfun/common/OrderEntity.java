@@ -28,20 +28,17 @@ public abstract class OrderEntity<ID extends Serializable> extends BaseEntity<ID
 	//order 是mysql 关键字
 	@Min(0)
 	@Column(name = "order_num")
-	private Integer orderNum;
+	private Double orderNum;
 
 
-
-	public Integer getOrderNum() {
+	public Double getOrderNum() {
 		return orderNum;
 	}
 
 
-
-	public void setOrderNum(Integer orderNum) {
+	public void setOrderNum(Double orderNum) {
 		this.orderNum = orderNum;
 	}
-
 
 
 	/**

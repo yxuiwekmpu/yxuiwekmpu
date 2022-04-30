@@ -5,7 +5,7 @@
 
 	<groupId>org.coderfun</groupId>
 	<artifactId>fieldmeta</artifactId>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>fieldmeta</name>
 	<description>Demo project for Spring Boot</description>

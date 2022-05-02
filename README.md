@@ -1,12 +1,22 @@
-# fieldmeta
+# fieldmeta: 基于springboot的字段元数据管理
 
-#### 项目介绍
-码云是开源中国推出的基于 Git 的代码托管平台（同时支持 SVN）。专为开发者提供稳定、高效、安全的云端软件开发协作平台
-无论是个人、团队、或是企业，都能够用码云实现代码托管、项目管理、协作开发。企业项目请看 [https://gitee.com/enterprises](https://gitee.com/enterprises)}
+[元数据](https://baike.baidu.com/item/%E5%85%83%E6%95%B0%E6%8D%AE/1946090?fr=aladdin)（Metadata），
+又称中介数据、中继数据，为描述数据的数据（data about data），
+fieldmeta 就是描述数据库字段、实体字段、页面字段的属性和关系的数据，以及配置字段映射规则、约束校验规则、显示查询规则等。
+程序开发离不开对数据的管理，充分利用fieldmeta可大大提高开发的效率。
 
-#### 软件架构
-软件架构说明
 
+#### fieldmeta可以做什么？
+
+[*]可以作为一个java通用代码生成的框架，可用于java se、java ee、php、.net等任何你喜欢用用的语言（现阶段仅支持java），然后制订相关程序代码的模板和生成规则，就可方便的生成CRUD代码。
+[*]可以做为一个开发开发平台的引擎，通过对字段的配置，自动实现CRUD功能。
+[*]可以作为一个模板超市，包括admin UI模板和服务器后端模板，定位于amdin系统的快速开发。
+
+#### 技术选型
+[*]运行环境：jdk1.7
+[*]数据库：mysql 5.7
+[*]java框架：springboot 1.5.6.RELEASE
+[*]前端框架：easyui 1.5.3
 
 #### 安装教程
 

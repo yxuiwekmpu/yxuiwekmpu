@@ -16,6 +16,7 @@ fieldmeta 就是描述数据库字段、实体字段、页面字段的属性和�
 - 运行环境：jdk1.7
 - 数据库：mysql 5.7
 - java框架：springboot 1.5.6.RELEASE
+- 持久层：spring-data-jpa 
 - 前端框架：easyui 1.5.3
 
 #### 安装教程

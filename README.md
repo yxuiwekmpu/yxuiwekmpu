@@ -3,7 +3,6 @@
 [元数据](https://baike.baidu.com/item/%E5%85%83%E6%95%B0%E6%8D%AE/1946090?fr=aladdin)（Metadata），
 又称中介数据、中继数据，为描述数据的数据（data about data），
 fieldmeta 就是描述数据库字段、实体字段、页面字段的属性和关系的数据，以及配置字段映射规则、约束校验规则、显示查询规则等。
-
 <br>
 程序开发离不开对数据的管理，充分利用fieldmeta可大大提高开发的效率，fieldmeta将会成为程序员的第二类IDE。
 

@@ -22,17 +22,20 @@ fieldmeta 就是描述数据库字段、实体字段、页面字段的属性和�
 - 持久层：spring-data-jpa 
 - 前端框架：easyui 1.5.3
 
-#### 安装教程
-
-1. xxxx
-2. xxxx
-3. xxxx
 
 #### 使用说明
 
-1. xxxx
-2. xxxx
-3. xxxx
+1. 项目配置
+![项目配置](http://wx2.sinaimg.cn/large/005S2p1Cgy1fs8fyqrszrj31hc0u00yf.jpg)
+2. 模块配置
+![模块配置](https://wx4.sinaimg.cn/large/005S2p1Cgy1fs8fxn7oflj31hc0u0wk3.jpg)
+3. 实体基类
+![实体基类](http://wx2.sinaimg.cn/large/005S2p1Cgy1fs8fz78smcj31hc0u0af9.jpg)
+4. 可选字段
+![可选字段](http://wx4.sinaimg.cn/large/005S2p1Cgy1fs8fyelumfj31hc0u0dl5.jpg)
+5. 元数据管理
+![元数据管理](http://wx2.sinaimg.cn/large/005S2p1Cgy1fs8fr9jvgaj31hc0u0grm.jpg)
+
 
 #### 参与贡献
 

@@ -1,5 +1,5 @@
 # fieldmeta: 基于springboot的字段元数据管理
-
+version:Alpha 0.0.1
 
 [元数据](https://baike.baidu.com/item/%E5%85%83%E6%95%B0%E6%8D%AE/1946090?fr=aladdin)（Metadata），
 又称中介数据、中继数据，为描述数据的数据（data about data），

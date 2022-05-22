@@ -46,4 +46,6 @@ fieldmeta 就是描述数据库字段、实体字段、页面字段的属性和�
 
 #### 社群
 qq群：743769300
+![元数据管理](http://wx3.sinaimg.cn/mw690/005S2p1Cgy1fs8i122zmmj306a082t8u.jpg)
+进群须知：star、watch、fork项目，可进群
 

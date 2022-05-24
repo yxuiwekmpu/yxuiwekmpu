@@ -93,13 +93,14 @@
 						<input name="description" class="easyui-validatebox" style="width: 375px" data-options="validType:'maxLength[255]'">
 					</td>
 				</tr>
-
+<!-- 
 				<tr class="tr_padding">
 					<td><label>生成路径</label></td>
 					<td	colspan="3">
 						<input name="genPath" class="easyui-validatebox" style="width: 375px" data-options="validType:'maxLength[255]'">
 					</td>
 				</tr>
+-->
 				<tr class="tr_padding">
 					<td><label>作者</label></td>
 					<td	colspan="3">

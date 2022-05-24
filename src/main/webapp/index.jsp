@@ -13,7 +13,7 @@
 <title>fieldmeta</title>
 </head>
 <body class="easyui-layout" data-options="fit:true">
-		<div data-options="region:'north'" style="height:70px"> <h1>fieldmeta - 字段元数据</h1></div>
+		<div data-options="region:'north'" style="height:70px"> <h1 style="padding-left:20px">fieldmeta - 字段元数据</h1></div>
 		<div data-options="region:'south',split:true" style="height:50px;"></div>
 		<div data-options="region:'west',split:true" title="菜单" style="width:220px;">
 			<ul class="easyui-tree" data-options="url:'tree_menu.json',method:'get',animate:true,onClick:treeClick,onSelect:treeSelect"></ul>

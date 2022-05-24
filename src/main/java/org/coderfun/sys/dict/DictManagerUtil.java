@@ -11,6 +11,8 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 
 import org.apache.commons.io.FileUtils;
+import org.coderfun.config.MyWebAppConfigurer;
+import org.coderfun.config.WebRes;
 import org.coderfun.sys.dict.dao.CodeClassDAO;
 import org.coderfun.sys.dict.dao.CodeItemDAO;
 import org.coderfun.sys.dict.entity.CodeClass;
@@ -18,7 +20,6 @@ import org.coderfun.sys.dict.entity.CodeItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.domain.Sort.Order;
@@ -128,12 +129,13 @@ public class DictManagerUtil {
 		//String dictJson=new ObjectMapper().writeValueAsString(getCodeMap());		
 		String dictJson=new ObjectMapper().writeValueAsString(tempMap);
 		dictJson = "var dictJson=" + dictJson;
-		String dictFile = webRes + "/js/dictData.js";
+		String dictFile = webRes.getAbsolutePath() + "/js/dictData.js";
 		FileUtils.writeStringToFile(new File(dictFile), dictJson, "utf-8");
 		logger.info("reload dictData.js:{}", dictFile);
-	}
-
-	@Value("${web.res}")
-	private String webRes;
+		
+	}	
 	Logger logger = LoggerFactory.getLogger(DictManagerUtil.class);
+	
+	@Autowired
+	WebRes webRes;
 }

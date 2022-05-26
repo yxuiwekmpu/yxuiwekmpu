@@ -1,5 +1,6 @@
 package org.coderfun.config;
 
+import org.jsoup.Jsoup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ public class MyWebAppConfigurer
     public void addViewControllers( ViewControllerRegistry registry ) {
         registry.addViewController( "/" ).setViewName( "forward:/index.jsp" );
         registry.setOrder( Ordered.HIGHEST_PRECEDENCE );
+        
         super.addViewControllers( registry );
     } 
 }

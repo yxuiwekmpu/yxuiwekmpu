@@ -118,12 +118,16 @@
 		/** 名称策略*/
 		var NamingStrategy={
 				tableNameToClassName : function(str){
+					if(!str)
+						return '';
 				    var re=/_(\w)/g;
 				    return str.replace(re,function ($0,$1){
 				        return $1.toUpperCase();
 				    });
 				},
 				columnNameToAttrName : function(str){
+					if(!str)
+						return '';
 				    var re=/_(\w)/g;
 				    return str.replace(re,function ($0,$1){
 				        return $1.toUpperCase();

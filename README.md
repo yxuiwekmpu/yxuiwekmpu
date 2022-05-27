@@ -22,6 +22,15 @@ fieldmeta 就是描述数据库字段、实体字段、页面字段的属性和�
 - 持久层：spring-data-jpa 
 - 前端框架：easyui 1.5.3
 
+#### 部署说明
+- 本项目依赖：<br>
+https://gitee.com/klguang/xutils<br>
+https://gitee.com/klguang/coderfun-bom<br>
+将这两个项目下载到本地，并执行maven install
+
+- 数据库配置
+1.项目根目录 database 文件下的fieldmeta.sql导入数据库（设置编码为UTF-8）；
+2.修改 src/main/resources/jdbc.properties 配置文件。
 
 #### 使用说明
 

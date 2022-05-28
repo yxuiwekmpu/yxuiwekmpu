@@ -29,7 +29,7 @@ https://gitee.com/klguang/coderfun-bom<br>
 将这两个项目下载到本地，并执行maven install
 
 - 数据库配置
-1.项目根目录 database 文件下的fieldmeta.sql导入数据库（设置编码为UTF-8）；
+1.项目根目录 database 文件下的fieldmeta.sql导入数据库（设置编码为UTF-8）；<br>
 2.修改 src/main/resources/jdbc.properties 配置文件。
 
 #### 使用说明

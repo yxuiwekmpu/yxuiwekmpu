@@ -21,7 +21,7 @@
   
   <body>
 	<div class="easyui-layout" data-options="fit:true">
-		<div data-options="region:'west',split:true" title="字典分类" style="width:40%;">
+		<div data-options="region:'west',split:true" title="字典分类" style="width:45%;">
     	<c:import url="dictclass.jsp"/> 
 		</div>
 		<div data-options="region:'center'" titile="字典项">

@@ -32,6 +32,9 @@ https://gitee.com/klguang/coderfun-bom<br>
 1.项目根目录 database 文件下的fieldmeta.sql导入数据库（设置编码为UTF-8）；<br>
 2.修改 src/main/resources/jdbc.properties 配置文件。
 
+#### 更新日志
+2018-06-12 发布Alpha 0.0.1
+
 #### 使用说明
 
 1. 项目配置
@@ -47,6 +50,7 @@ https://gitee.com/klguang/coderfun-bom<br>
 
 
 #### 参与贡献
+本项目还在处于初期，欢迎感兴趣的小伙伴加入
 
 1. Fork 本项目
 2. 新建 Feat_xxx 分支

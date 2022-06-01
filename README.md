@@ -24,8 +24,8 @@ fieldmeta 就是描述数据库字段、实体字段、页面字段的属性和�
 
 #### 部署说明
 - 本项目依赖：<br>
-https://gitee.com/klguang/xutils<br>
 https://gitee.com/klguang/coderfun-bom<br>
+https://gitee.com/klguang/xutils<br>
 将这两个项目下载到本地，并执行maven install
 
 - 数据库配置<br>

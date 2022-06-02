@@ -32,6 +32,27 @@ https://gitee.com/klguang/xutils<br>
 1.项目根目录 database 文件下的fieldmeta.sql导入数据库（设置编码为UTF-8）；<br>
 2.修改 src/main/resources/jdbc.properties 配置文件。
 
+#### 项目结构
+```
+fieldmeta
+├──src/main/java      
+│    ├─common     公共模块
+│    │ 
+│    ├─fieldmeta  元数据模块
+│    │ 
+│    └─sys        数据字典模块 
+│
+├──src/main/resources 
+│    ├─app-jpa.xml             spring-data-jpa配置
+│    │ 
+│    ├─application.properties  springboot配置
+│    │ 
+│    └─jdbc.properties         数据库配置
+│
+├──src/main/webapp jsp页面
+```
+<br>
+
 #### 更新日志
 2018-06-12 发布Alpha 0.0.1
 

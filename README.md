@@ -32,6 +32,10 @@ https://gitee.com/klguang/xutils<br>
 1.项目根目录 database 文件下的fieldmeta.sql导入数据库（设置编码为UTF-8）；<br>
 2.修改 src/main/resources/jdbc.properties 配置文件。
 
+- 运行<br>
+1.main程序入口，/src/main/java 下的 org.coderfun.Application
+2.访问http://localhost:80即可
+
 #### 项目结构
 ```
 fieldmeta

@@ -33,7 +33,7 @@ https://gitee.com/klguang/xutils<br>
 2.修改 src/main/resources/jdbc.properties 配置文件。
 
 - 运行<br>
-1.main程序入口，/src/main/java 下的 org.coderfun.Application
+1.main程序入口，/src/main/java 下的 org.coderfun.Application<br>
 2.访问http://localhost:80即可
 
 #### 项目结构

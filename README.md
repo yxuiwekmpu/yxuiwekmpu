@@ -72,7 +72,7 @@ fieldmeta
 ![可选字段](http://wx4.sinaimg.cn/large/005S2p1Cgy1fs8fyelumfj31hc0u0dl5.jpg)
 5. 元数据管理
 ![元数据管理](http://wx2.sinaimg.cn/large/005S2p1Cgy1fs8fr9jvgaj31hc0u0grm.jpg)
-
+![元数据管理](https://images.gitee.com/uploads/images/2018/1026/195831_18367a39_1063744.png "pagefield.png")
 
 #### 参与贡献
 本项目还在处于初期，欢迎感兴趣的小伙伴加入

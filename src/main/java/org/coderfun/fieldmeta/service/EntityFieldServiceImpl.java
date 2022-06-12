@@ -1,18 +1,17 @@
 package org.coderfun.fieldmeta.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import klg.common.utils.MyBeanUtil;
-import klg.j2ee.common.dataaccess.BaseServiceImpl;
-import klg.j2ee.query.jpa.expr.AExpr;
-
 import org.coderfun.fieldmeta.dao.EntityFieldDAO;
 import org.coderfun.fieldmeta.dao.PageFieldDAO;
 import org.coderfun.fieldmeta.entity.EntityField;
 import org.coderfun.fieldmeta.entity.PageField;
 import org.coderfun.fieldmeta.entity.PageField_;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import klg.common.utils.BeanTools;
+import klg.j2ee.common.dataaccess.BaseServiceImpl;
+import klg.j2ee.query.jpa.expr.AExpr;
 
 @Service
 public class EntityFieldServiceImpl extends BaseServiceImpl<EntityField, Long> implements EntityFieldService {
@@ -26,7 +25,7 @@ public class EntityFieldServiceImpl extends BaseServiceImpl<EntityField, Long> i
 	@Transactional
 	public void delete(Long id) {
 		// TODO Auto-generated method stub
-		EntityField entityField = MyBeanUtil.newAndSet(EntityField.class, "id", id);
+		EntityField entityField = BeanTools.newAndSet(EntityField.class, "id", id);
 		PageField pageField = pageFieldDAO.getOne(AExpr.eq(PageField_.entityField, entityField));
 		if(pageField !=null){
 			pageFieldDAO.delete(pageField.getId());	
@@ -39,7 +38,7 @@ public class EntityFieldServiceImpl extends BaseServiceImpl<EntityField, Long> i
 	public EntityField save(EntityField entity) {
 		// TODO Auto-generated method stub
 		EntityField entityField = entityFieldDAO.save(entity);
-		PageField pageField = MyBeanUtil.newAndSet(PageField.class, "entityField", entityField);
+		PageField pageField = BeanTools.newAndSet(PageField.class, "entityField", entityField);
 		pageFieldDAO.save(pageField);
 		return entityField;
 	}

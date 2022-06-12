@@ -5,6 +5,7 @@
 
 	<groupId>org.coderfun</groupId>
 	<artifactId>fieldmeta</artifactId>
+	<version>Alpha 0.0.1</version>
 	<packaging>war</packaging>
 
 	<name>fieldmeta</name>
@@ -30,7 +31,7 @@
 		<dependency>
 			<groupId>klg.common</groupId>
 			<artifactId>xutils</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -98,7 +99,8 @@
 							<include>**/*.jar</include>
 						</includes>
 					</resource>
-				</webResources>				
+				</webResources>
+				<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>
 		</plugins>

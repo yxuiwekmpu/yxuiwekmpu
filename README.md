@@ -63,15 +63,15 @@ fieldmeta
 #### 使用说明
 
 1. 项目配置
-![项目配置](http://wx2.sinaimg.cn/large/005S2p1Cgy1fs8fyqrszrj31hc0u00yf.jpg)
+![项目配置](https://images.gitee.com/uploads/images/2019/0810/023659_5b8b5798_1063744.png "project.png")
 2. 模块配置
-![模块配置](https://wx4.sinaimg.cn/large/005S2p1Cgy1fs8fxn7oflj31hc0u0wk3.jpg)
+![模块配置](https://images.gitee.com/uploads/images/2019/0810/023756_6bcf8f29_1063744.png)
 3. 实体基类
-![实体基类](http://wx2.sinaimg.cn/large/005S2p1Cgy1fs8fz78smcj31hc0u0af9.jpg)
+![实体基类](https://images.gitee.com/uploads/images/2019/0810/023723_0e069fc9_1063744.jpeg)
 4. 可选字段
-![可选字段](http://wx4.sinaimg.cn/large/005S2p1Cgy1fs8fyelumfj31hc0u0dl5.jpg)
+![可选字段](https://images.gitee.com/uploads/images/2019/0810/023723_e0378792_1063744.jpeg)
 5. 元数据管理
-![元数据管理](http://wx2.sinaimg.cn/large/005S2p1Cgy1fs8fr9jvgaj31hc0u0grm.jpg)
+![元数据管理](https://images.gitee.com/uploads/images/2019/0810/023723_04ee5fdc_1063744.jpeg)
 ![元数据管理](https://images.gitee.com/uploads/images/2018/1026/195831_18367a39_1063744.png "pagefield.png")
 
 #### 参与贡献
@@ -85,7 +85,7 @@ fieldmeta
 #### 社群
 qq群：743769300
 <br>
-![元数据管理](http://wx3.sinaimg.cn/mw690/005S2p1Cgy1fs8i122zmmj306a082t8u.jpg)
+![元数据管理](https://images.gitee.com/uploads/images/2019/0810/023723_afe8ac12_1063744.jpeg)
 <br>
 进群须知：star、watch、fork项目，可进群
 

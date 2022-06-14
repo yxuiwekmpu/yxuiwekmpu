@@ -63,7 +63,7 @@ fieldmeta
 #### 使用说明
 
 1. 项目配置
-![项目配置](https://images.gitee.com/uploads/images/2019/0810/023659_5b8b5798_1063744.png "project.png")
+![项目配置](https://images.gitee.com/uploads/images/2019/0810/023659_5b8b5798_1063744.png)
 2. 模块配置
 ![模块配置](https://images.gitee.com/uploads/images/2019/0810/023756_6bcf8f29_1063744.png)
 3. 实体基类

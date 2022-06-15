@@ -63,6 +63,8 @@
 							required:true,codeClass:'yes_or_no'">
 					</td>		
 				</tr>
+				
+				<!-- 
 				<tr class="tr_padding">
 					<td><label>java模板</label></td>
 					<td>
@@ -77,7 +79,9 @@
 							required:true,defaultFirst:true,codeClass:'page_template_code'">
 					</td>
 				</tr>
-				
+				 -->
+				 
+				 
 				<tr class="tr_padding">	
 					<td><label>SQL方言</label></td>
 					<td colspan="3">

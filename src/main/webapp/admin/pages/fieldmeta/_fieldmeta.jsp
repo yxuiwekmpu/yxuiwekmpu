@@ -3,7 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     
-<link rel="stylesheet" type="text/css" href="${root}/static/easyui-extend/IconsExtension/icon.css">    
+<link rel="stylesheet" type="text/css" href="${root}/static/easyui/easyui-extend/IconsExtension/icon_fm.css">    
     
 	<div class="easyui-panel" style="width:100%">
 		<div id="fieldmeta-toolbar">	

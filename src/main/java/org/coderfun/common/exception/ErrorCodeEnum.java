@@ -29,8 +29,14 @@ public enum ErrorCodeEnum implements IErrorCode {
 	DATA_EXISTED(202002L,"重复的数据！"),
 	DATA_INTEGRITY_ERROR(202001L,"数据不合法或重复的字段值！"),
 	DATA_NOTEXIST(202003L,"数据不存在！"),
-		
+	
+	FILE_DOWNLOAD_FAILD				(204003L,"下载失败"),
+	FILE_UPLOAD_FAILD				(204002L,"上传失败"),
+	
 	BADPARAM(203001L,"错误的请求参数错误！");
+	
+	
+	
 	
 	
 	Long code;

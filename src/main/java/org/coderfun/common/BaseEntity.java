@@ -13,11 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
-import javax.persistence.Version;
 import javax.validation.groups.Default;
 
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import klg.common.utils.DatePartten;
 

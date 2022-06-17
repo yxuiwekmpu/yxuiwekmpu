@@ -13,6 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "fm_field_page")
@@ -71,9 +74,9 @@ public class PageField implements Serializable {
 	@Column(name = "field_formatter")
 	private String fieldFormatter;
 
-	@Lob
-	@Column(name = "field_valid")
-	private String fieldValid;
+	@Transient
+	@JsonIgnore
+	private String fieldValidation;
 
 	public Long getId() {
 		return id;
@@ -183,14 +186,6 @@ public class PageField implements Serializable {
 		this.codeName = codeName;
 	}
 
-	public String getFieldValid() {
-		return fieldValid;
-	}
-
-	public void setFieldValid(String fieldValid) {
-		this.fieldValid = fieldValid;
-	}
-
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -201,6 +196,14 @@ public class PageField implements Serializable {
 
 	public void setFieldTitle(String fieldTitle) {
 		this.fieldTitle = fieldTitle;
+	}
+
+	public String getFieldValidation() {
+		return fieldValidation;
+	}
+
+	public void setFieldValidation(String fieldValidation) {
+		this.fieldValidation = fieldValidation;
 	}
 
 }

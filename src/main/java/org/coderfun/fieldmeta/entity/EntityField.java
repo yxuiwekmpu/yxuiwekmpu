@@ -8,8 +8,11 @@ import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.coderfun.common.BaseEntity;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "fm_field_entity")
@@ -45,7 +48,7 @@ public class EntityField extends BaseEntity<Long> implements Serializable {
 	@Column(name = "decimal_places")
 	private Long decimalPlaces;
 
-	@Column(name = "pk_restrict")
+	@Column(name = "pk_restrict",nullable=false)
 	private String pkRestrict;
 
 	@Column(name = "not_null_restrict")
@@ -58,7 +61,12 @@ public class EntityField extends BaseEntity<Long> implements Serializable {
 	@Column(name = "not_update_restrict")
 	private String notUpdateRestrict;
 
+	@Column(name = "field_valid_code")
+	private String fieldValidCode;
 
+	@Transient
+	@JsonIgnore
+	private String fieldValidation;
 
 	public String getTableName() {
 		return tableName;
@@ -170,6 +178,22 @@ public class EntityField extends BaseEntity<Long> implements Serializable {
 
 	public void setNotUpdateRestrict(String notUpdateRestrict) {
 		this.notUpdateRestrict = notUpdateRestrict;
+	}
+
+	public String getFieldValidCode() {
+		return fieldValidCode;
+	}
+
+	public void setFieldValidCode(String fieldValidCode) {
+		this.fieldValidCode = fieldValidCode;
+	}
+
+	public String getFieldValidation() {
+		return fieldValidation;
+	}
+
+	public void setFieldValidation(String fieldValidation) {
+		this.fieldValidation = fieldValidation;
 	}
 
 }

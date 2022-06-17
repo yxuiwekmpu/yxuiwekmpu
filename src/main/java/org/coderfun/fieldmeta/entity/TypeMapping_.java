@@ -5,7 +5,7 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 import org.coderfun.common.BaseEntity_;
 
-@Generated(value="Dali", date="2018-05-24T13:50:31.707+0800")
+@Generated(value="Dali", date="2019-08-14T11:51:16.235+0800")
 @StaticMetamodel(TypeMapping.class)
 public class TypeMapping_ extends BaseEntity_ {
 	public static volatile SingularAttribute<TypeMapping, String> sqlDialectCode;

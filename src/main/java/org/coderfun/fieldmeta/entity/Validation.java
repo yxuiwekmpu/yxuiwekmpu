@@ -11,13 +11,12 @@ import javax.persistence.Table;
 
 import org.coderfun.common.BaseEntity;
 
-
 /**
  * The persistent class for the fm_validation database table.
  * 
  */
 @Entity
-@Table(name="fm_validation")
+@Table(name = "fm_validation")
 @Access(AccessType.FIELD)
 public class Validation extends BaseEntity<Long> implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -27,16 +26,12 @@ public class Validation extends BaseEntity<Long> implements Serializable {
 	private String description;
 
 	@Lob
-	@Column(name="java_valid")
+	@Column(name = "java_valid")
 	private String javaValid;
 
 	@Lob
-	@Column(name="js_valid")
+	@Column(name = "js_valid")
 	private String jsValid;
-
-	private String message;
-
-
 
 	private String name;
 
@@ -50,8 +45,6 @@ public class Validation extends BaseEntity<Long> implements Serializable {
 	public void setCode(String code) {
 		this.code = code;
 	}
-
-
 
 	public String getDescription() {
 		return this.description;
@@ -76,15 +69,6 @@ public class Validation extends BaseEntity<Long> implements Serializable {
 	public void setJsValid(String jsValid) {
 		this.jsValid = jsValid;
 	}
-
-	public String getMessage() {
-		return this.message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
 
 	public String getName() {
 		return this.name;

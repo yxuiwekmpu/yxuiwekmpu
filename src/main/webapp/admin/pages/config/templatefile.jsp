@@ -35,7 +35,7 @@
 			<tr>
 				<th data-options="field:'name',width:100,align:'left',formatter:complexCol">文件名</th>
 				<th data-options="field:'genFilekeyPath',width:150,align:'left',formatter:complexCol">路径前缀</th>
-				<th data-options="field:'genFilekeyType',width:80,align:'left',formatter:codeCol,codeClass:'template_type_code'">路径标识类型</th>
+				<th data-options="field:'genFilekeyType',width:80,align:'left',formatter:codeCol,codeClass:'gen_filekey_type'">路径标识类型</th>
 				<th data-options="field:'genFilekeyPattern',width:100,align:'left',formatter:complexCol">文件名规则</th>
 				<th data-options="field:'tpfOp',width:60,align:'left',formatter:tpfOp">操作</th>
 			</tr>
@@ -59,7 +59,7 @@
 					<td	colspan="3">
 						<input class="easyui-textbox easyui-validatebox" id="name" name="name" style="width: 100%"
 						data-options="buttonText:'选择文件',prompt:'文件名',onClickButton:uploadFile" >
-						<input id="path" name="path" style="display: none" />
+						<input id="path" name="uuidName" style="display: none" />
 					</td>
 				</tr>
 				<tr class="tr_padding">

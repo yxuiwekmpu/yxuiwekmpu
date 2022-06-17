@@ -1,7 +1,8 @@
 package org.coderfun.fieldmeta.service;
 
-import klg.j2ee.common.dataaccess.BaseService;
 import org.coderfun.fieldmeta.entity.Validation;
+
+import klg.j2ee.common.dataaccess.BaseService;
 
 public interface ValidationService extends BaseService<Validation, Long>{
 

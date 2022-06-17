@@ -27,9 +27,6 @@
 		<thead>
 			<tr>
 				<th data-options="field:'name',width:100,align:'left',formatter:complexCol">项目代码</th>
-				<th data-options="field:'javaTemplateCode',width:100,align:'left',formatter:codeCol,codeClass:'java_template_code'">java模板</th>
-				<th data-options="field:'pageTemplateCode',width:100,align:'left',formatter:codeCol,codeClass:'page_template_code'">页面模板</th>
-				
 				<th data-options="field:'isDefaultCode',width:50,align:'left',formatter:codeCol,codeClass:'yes_or_no'">是否默认</th>
 				<th data-options="field:'sqlDialectCode',width:150,align:'left',formatter:codeCol,codeClass:'sql_dialect_code'">SQL方言</th>
 				<th data-options="field:'dbUrl',width:200,align:'left',formatter:complexCol">JDBC地址</th>

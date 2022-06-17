@@ -4,8 +4,7 @@ package org.coderfun.fieldmeta.controller.admin;
 
 import java.util.List;
 
-import org.coderfun.common.SystemCode;
-import org.coderfun.common.exception.BusinessException;
+import org.coderfun.common.exception.AppException;
 import org.coderfun.common.exception.ErrorCodeEnum;
 import org.coderfun.fieldmeta.entity.Module;
 import org.coderfun.fieldmeta.entity.Module_;
@@ -13,6 +12,7 @@ import org.coderfun.fieldmeta.entity.Project;
 import org.coderfun.fieldmeta.entity.Project_;
 import org.coderfun.fieldmeta.service.ModuleService;
 import org.coderfun.fieldmeta.service.ProjectService;
+import org.coderfun.sys.dict.SystemCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -68,7 +68,7 @@ public class ModuleController {
 			@RequestParam Long id){
 		
 		if(!moduleService.delete(id,true)){
-			throw new BusinessException(ErrorCodeEnum.ENTITY_HAS_RELATED_DATA);
+			throw new AppException(ErrorCodeEnum.ENTITY_HAS_RELATED_DATA);
 		}
 		return JsonData.success();
 	}

@@ -31,8 +31,8 @@ public class ExceptionHandlerAdvice {
 
 		Exception ex = convertException(exception);
 
-		if (ex instanceof BusinessException) {
-			BusinessException bex = (BusinessException) ex;
+		if (ex instanceof AppException) {
+			AppException bex = (AppException) ex;
 			jsonData = JsonData.error(bex.getErrorCode().getCode(), bex.getMessage());
 		} else {
 			jsonData = JsonData.error(ErrorCodeEnum.UNKNOWN_ERROR.getCode(), ErrorCodeEnum.UNKNOWN_ERROR.getMessageFormat());
@@ -50,13 +50,13 @@ public class ExceptionHandlerAdvice {
 
 	protected Exception convertException(Exception ex) {
 		if (ex instanceof DuplicateKeyException)
-			return new BusinessException(ErrorCodeEnum.DATA_EXISTED);
+			return new AppException(ErrorCodeEnum.DATA_EXISTED);
 		if (ex instanceof EmptyResultDataAccessException)
-			return new BusinessException(ErrorCodeEnum.DATA_NOTEXIST);
+			return new AppException(ErrorCodeEnum.DATA_NOTEXIST);
 		if (ex instanceof DataIntegrityViolationException)
-			return new BusinessException(ErrorCodeEnum.DATA_INTEGRITY_ERROR);
+			return new AppException(ErrorCodeEnum.DATA_INTEGRITY_ERROR);
 		if (ex instanceof IllegalArgumentException || ex instanceof BindException) {
-			return new BusinessException(ErrorCodeEnum.BADPARAM);
+			return new AppException(ErrorCodeEnum.BADPARAM);
 		}
 		return ex;
 	}

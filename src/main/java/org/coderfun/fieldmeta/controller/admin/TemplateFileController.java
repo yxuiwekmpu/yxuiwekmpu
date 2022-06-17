@@ -11,11 +11,12 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.coderfun.common.exception.BusinessException;
+import org.coderfun.common.exception.AppException;
 import org.coderfun.common.exception.ErrorCodeEnum;
 import org.coderfun.config.WebRes;
 import org.coderfun.fieldmeta.entity.TemplateFile;
 import org.coderfun.fieldmeta.service.TemplateFileService;
+import org.coderfun.gen.service.GenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-
 
 import klg.common.utils.FileTools;
 import klg.j2ee.common.model.EasyUIPage;
@@ -57,10 +57,6 @@ public class TemplateFileController {
 	@Autowired
 	TemplateFileService templateFileService;
 	
-	
-	
-	static final String TEMPLATE_DIR_KEY = "/template/";
-	
 	@ResponseBody
 	@RequestMapping("/add")
 	public JsonData add(
@@ -85,7 +81,7 @@ public class TemplateFileController {
 	public JsonData delete(
 			@RequestParam Long id){
     	TemplateFile templateFile = templateFileService.getById(id);
-    	String filePath = webRes.getAbsolutePath() + templateFile.getPath();
+    	String filePath = webRes.getAbsolutePath() + GenService.TEMPLATE_DIR_KEY+ templateFile.getUuidName();
 		
     	File file = new File(filePath);
     	file.delete();
@@ -118,13 +114,14 @@ public class TemplateFileController {
     @ResponseBody
     public JsonData upload(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
-            throw new BusinessException(ErrorCodeEnum.FILE_UPLOAD_FAILD);
+            throw new AppException(ErrorCodeEnum.FILE_UPLOAD_FAILD);
         }
         
         String fileName = file.getOriginalFilename();
-        String realFilePath =  TEMPLATE_DIR_KEY + FileTools.createUUIDName(new File(fileName));
+        String uuidName = FileTools.createUUIDName(new File(fileName));
+        String realFilePath =  GenService.TEMPLATE_DIR_KEY + uuidName;
         
-        File dir = new File(webRes.getAbsolutePath() + TEMPLATE_DIR_KEY);
+        File dir = new File(webRes.getAbsolutePath() + GenService.TEMPLATE_DIR_KEY);
         if(!dir.exists()){
         	dir.mkdirs();
         }
@@ -132,24 +129,24 @@ public class TemplateFileController {
         try {
             file.transferTo(dest);
             logger.info("上传成功");
-            return JsonData.success(realFilePath);
+            return JsonData.success(uuidName);
         } catch (IOException e) {
             logger.error(e.toString(), e);
         }
-        throw new BusinessException(ErrorCodeEnum.FILE_UPLOAD_FAILD);
+        throw new AppException(ErrorCodeEnum.FILE_UPLOAD_FAILD);
     }
 	
     @RequestMapping("/tpfDownload")
     @ResponseBody
     public JsonData tpfDownload(Long tpfId, HttpServletResponse response){
     	TemplateFile templateFile = templateFileService.getById(tpfId);
-    	String filePath = webRes.getAbsolutePath() + templateFile.getPath();
+    	String filePath = webRes.getAbsolutePath() + GenService.TEMPLATE_DIR_KEY + templateFile.getUuidName();
     	try {
 			download(filePath, templateFile.getName(), response);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace(); 
-			throw new BusinessException(ErrorCodeEnum.FILE_DOWNLOAD_FAILD);
+			throw new AppException(ErrorCodeEnum.FILE_DOWNLOAD_FAILD);
 		}
     	return JsonData.success();
     }

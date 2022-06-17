@@ -31,7 +31,6 @@
 				<th data-options="field:'description',width:100,align:'left',formatter:complexCol">描述</th>
 				<th data-options="field:'jsValid',width:100,align:'left',formatter:complexCol">js校验</th>
 				<th data-options="field:'javaValid',width:100,align:'left',formatter:complexCol">java校验</th>
-				<th data-options="field:'message',width:150,align:'left',formatter:complexCol">消息提示</th>
 				<th data-options="field:'remark',width:150,formatter:complexCol">备注</th>
 				<th data-options="field:'modifyTime',width:120,align:'left',formatter:EasyUiDateTime">更新时间</th>
 			</tr>
@@ -71,7 +70,7 @@
 				<tr class="tr_padding">
 					<td><label>名<span class="letter-space-2"></span>称</label></td>
 					<td>
-						<input name="name" class="easyui-validatebox" data-options="required:true,validType:'CHS'">
+						<input name="name" class="easyui-validatebox" data-options="required:true">
 					</td>
 					<td><label>代<span class="letter-space-2"></span>码</label></td>
 					<td>
@@ -81,31 +80,27 @@
 				<tr class="tr_padding">
 					<td><label>描述</label></td>
 					<td	colspan="3">
-						<input name="description" class="easyui-validatebox" style="width: 375px" data-options="required:true,validType:'maxLength[255]'">
+						<input name="description" class="easyui-validatebox" style="width: 375px" data-options="validType:'maxLength[255]'">
 					</td>
 				</tr>
 				<tr class="tr_padding">
 					<td><label>js校验</label></td>
 					<td	colspan="3">
-						<input name="jsValid" class="easyui-validatebox" style="width: 375px" data-options="required:true,validType:'maxLength[255]'">
+						<textarea rows="2" name="jsValid" class="easyui-validatebox" style="width: 375px" 
+							data-options="required:true,validType:'maxLength[255]'"></textarea>
 					</td>
 				</tr>
 				<tr class="tr_padding">
 					<td><label>java校验</label></td>
 					<td	colspan="3">
-						<input name="javaValid" class="easyui-validatebox" style="width: 375px" data-options="required:true,validType:'maxLength[255]'">
-					</td>
-				</tr>
-				<tr class="tr_padding">
-					<td><label>消息提示</label></td>
-					<td	colspan="3">
-						<input name="message" class="easyui-validatebox" style="width: 375px" data-options="required:true,validType:'maxLength[255]'">
+						<textarea rows="2"  name="javaValid" class="easyui-validatebox" style="width: 375px" 
+							data-options="required:true,validType:'maxLength[255]'"></textarea>
 					</td>
 				</tr>
 				<tr class="tr_padding">
 					<td><label>备<span class="letter-space-2"></span>注</label></td>
 					<td	colspan="3">
-						<textarea rows="3" name="remark" class="textarea easyui-validatebox"
+						<textarea rows="2" name="remark" class="textarea easyui-validatebox"
 							style="width: 375px"></textarea>
 					</td>
 				</tr>

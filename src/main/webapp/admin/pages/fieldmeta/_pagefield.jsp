@@ -57,10 +57,6 @@
 
 				<th data-options="field:'codeClass',width:80,align:'left',formatter:complexCol" 
 					editor="{type:'textbox',options:{validType:'word'}}">字典</th>
-				
-				<th data-options="field:'fieldValid',width:50,align:'left',formatter:complexCol"
-					editor="{type:'combobox',options:{valueField:'code',textField:'name',editable:false,panelHeight:'auto',
-							dataFn:getFieldValidJson}}">字段校验</th>
 																										
 			</tr>
 		</thead>

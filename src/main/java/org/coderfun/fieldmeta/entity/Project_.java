@@ -5,7 +5,7 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 import org.coderfun.common.BaseEntity_;
 
-@Generated(value="Dali", date="2018-05-31T02:11:26.640+0800")
+@Generated(value="Dali", date="2019-08-14T11:51:16.219+0800")
 @StaticMetamodel(Project.class)
 public class Project_ extends BaseEntity_ {
 	public static volatile SingularAttribute<Project, String> dbPassword;

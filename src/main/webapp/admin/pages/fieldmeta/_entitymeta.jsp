@@ -21,6 +21,7 @@
 				
 				<th data-options="field:'tableName',width:80,align:'left',formatter:complexCol">表名</th>
 				<th data-options="field:'entityName',width:80,align:'left',formatter:complexCol">实体名</th>
+				<th data-options="field:'businessName',width:80,align:'left',formatter:complexCol">业务名</th>
 				<th data-options="field:'simpleName',width:50,align:'left',formatter:complexCol">简称</th>
 				<th data-options="field:'moduleName',width:50,align:'left',formatter:complexCol">所属模块</th>
 				<th data-options="field:'canDelete',width:50,align:'left',formatter:codeCol,codeClass:'yes_or_no'">删除功能</th>
@@ -82,6 +83,19 @@
 					<td>
 						<input name="simpleName" class="easyui-validatebox" data-options="required:true,validType:'CHS'">
 					</td>
+					<td><label>业务名</label></td>
+					<td>
+						<input id="input-businessName" name="businessName" class="easyui-validatebox" data-options="required:true">
+					</td>		
+				</tr>
+				
+				<tr class="tr_padding">
+					<td><label>实体基类</label></td>
+					<td>
+						<input name="entitySuperClass" class="easyui-combobox" 
+						data-options="valueField:'code',textField:'name',editable:false,panelHeight:'auto',
+							defaultFirst:true,codeClass:'entity_super_class',defaultFirst:true">
+					</td>
 					<td><label>所属模块</label></td>
 					<td>
 						<input name="moduleName" class="easyui-combobox"
@@ -89,8 +103,7 @@
 							url:adminActionPath +'/module/defalut_project',dataField : 'data'">
 					</td>		
 				</tr>
-				
-				
+
 				<tr class="tr_padding">
 					<td><label>删除功能</label></td>
 					<td>
@@ -104,15 +117,6 @@
 						data-options="valueField:'code',textField:'name',editable:false,panelHeight:'auto',
 							required:true,defaultFirst:true,codeClass:'yes_or_no'">
 					</td>		
-				</tr>
-				
-				<tr class="tr_padding">
-					<td><label>实体基类</label></td>
-					<td colspan="3">
-						<input name="entitySuperClass" class="easyui-combobox" style="width: 375px"
-						data-options="valueField:'code',textField:'name',editable:false,panelHeight:'auto',
-							defaultFirst:true,codeClass:'entity_super_class',defaultFirst:true">
-					</td>
 				</tr>
 				<tr class="tr_padding">
 					<td><label>备<span class="letter-space-2"></span>注</label></td>
@@ -133,6 +137,8 @@
 	<script type="text/javascript">
 	function tableNameOnChange(newValue){
         	$("#input-entityName").val(NamingStrategy.tableNameToClassName(newValue));
+        	$("#input-businessName").val(NamingStrategy.tableNameToBusinessName(newValue));
+        	$("#data-form").form('validate');
 	}
 	
 	function clearForm(id){

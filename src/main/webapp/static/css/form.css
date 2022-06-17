@@ -1,4 +1,5 @@
 		.data-form{
+			font-size:12px;
 			margin:0;  
            	padding:10px 30px;
 		}
@@ -19,9 +20,19 @@
 		}
 		
         .search-form{
-        	padding:0;margin:0
+        	font-size:12px;
+        	padding:0;
+        	margin:0
         } 
-        
+		.search-form label{
+			display:inline-block;
+        	vertical-align :middle;		
+		}		
+		.search-form input{
+        	vertical-align :middle;		
+		}		
+
+
 
 		.inline-clear{
 			display:inline-block;

@@ -16,7 +16,9 @@ public class TemplateFile extends BaseEntity<Long> {
 	private static final long serialVersionUID = 1L;
 
 	private String name;
-	private String path;
+	
+	@Column(name = "uuid_name")
+	private String uuidName;
 
 	@Column(name = "gen_filekey_path")
 	private String genFilekeyPath;
@@ -26,9 +28,7 @@ public class TemplateFile extends BaseEntity<Long> {
 
 	@Column(name = "gen_filekey_pattern")
 	private String genFilekeyPattern;
-	
-	
-	
+
 	public String getGenFilekeyPattern() {
 		return genFilekeyPattern;
 	}
@@ -45,12 +45,12 @@ public class TemplateFile extends BaseEntity<Long> {
 		this.name = name;
 	}
 
-	public String getPath() {
-		return path;
+	public String getUuidName() {
+		return uuidName;
 	}
 
-	public void setPath(String path) {
-		this.path = path;
+	public void setUuidName(String uuidName) {
+		this.uuidName = uuidName;
 	}
 
 	public String getGenFilekeyPath() {

@@ -4,7 +4,7 @@ import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="Dali", date="2018-06-01T14:33:03.198+0800")
+@Generated(value="Dali", date="2019-08-15T23:29:07.748+0800")
 @StaticMetamodel(PageField.class)
 public class PageField_ {
 	public static volatile SingularAttribute<PageField, Long> id;
@@ -22,5 +22,4 @@ public class PageField_ {
 	public static volatile SingularAttribute<PageField, String> codeName;
 	public static volatile SingularAttribute<PageField, String> formType;
 	public static volatile SingularAttribute<PageField, String> fieldFormatter;
-	public static volatile SingularAttribute<PageField, String> fieldValid;
 }

@@ -1,14 +1,10 @@
 package org.coderfun.fieldmeta.entity;
 
-import java.io.Serializable;
-
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -21,7 +17,7 @@ import org.coderfun.common.BaseEntity;
 @Entity
 @Table(name = "fm_module")
 @Access(AccessType.FIELD)
-public class Module extends BaseEntity<Long> implements Serializable {
+public class Module extends BaseEntity<Long>{
 	private static final long serialVersionUID = 1L;
 	@Column(name = "module_name")
 	private String moduleName;

@@ -52,7 +52,11 @@
 				<th data-options="field:'notUpdateRestrict',width:30,align:'left',
 					formatter:checkboxCol,editor:ag_checkbox_editor">不可更新</th>	
 				<th data-options="field:'comments',width:100,align:'left',formatter:complexCol" 
-					editor="{type:'textbox'}">列注释</th>			
+					editor="{type:'textbox'}">列注释</th>
+					
+				<th data-options="field:'fieldValidCode',width:50,align:'left',formatter:complexCol"
+					editor="{type:'combobox',options:{valueField:'code',textField:'name',editable:false,panelHeight:'auto',
+							dataFn:getFieldValidJson}}">字段校验</th>			
 			</tr>
 		</thead>
 	</table>
@@ -117,13 +121,23 @@
 		}
 		/** 名称策略*/
 		var NamingStrategy={
+				tableNameToBusinessName : function(str){
+					if(!str)
+						return '';
+				    var re=/_(\w)/g;
+				    str = str.replace(re,function ($0,$1){
+				        return $1.toUpperCase();
+				    });
+				    return str.replace(str[0],str[0].toLowerCase());
+				},
 				tableNameToClassName : function(str){
 					if(!str)
 						return '';
 				    var re=/_(\w)/g;
-				    return str.replace(re,function ($0,$1){
+				    str =  str.replace(re,function ($0,$1){
 				        return $1.toUpperCase();
 				    });
+				   	return str.replace(str[0],str[0].toUpperCase());
 				},
 				columnNameToAttrName : function(str){
 					if(!str)

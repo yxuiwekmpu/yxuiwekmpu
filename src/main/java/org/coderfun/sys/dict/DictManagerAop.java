@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 public class DictManagerAop {
 
 	@Autowired
-	DictManagerUtil dict;
+	DictWebFrontBuilder dict;
 
 	/**
 	 * 字典改动，重新load
@@ -27,7 +27,7 @@ public class DictManagerAop {
 		if (methodName.startsWith("save") || methodName.startsWith("update")||methodName.startsWith("delete")) {
 			// 重新从数据库加载字典
 			try {
-				dict.reload();
+				dict.build();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

@@ -32,15 +32,6 @@
  * 注意remove是根据idField进行删除的。
  * 
  */
-
-DataTable.config={
-		messageField : "message", 
-		isSavedSuccess : function(result){},
-		isRemovedSuccess : function(result,callback){},
-		ajaxError : function(){XMLHttpRequest,textStatus,error,title}
-	};
-
-
 function DataTable(params) {
 	if(!params)
 		return this;
@@ -49,8 +40,7 @@ function DataTable(params) {
 	this.$data_form_dialog = params.$data_form_dialog;
 	this.$data_form = !params.$data_form ? null : params.$data_form;
 	this.data_form_name = params.data_form_name;
-	this.isTreeGrid = params.isTreeGrid?true:false;
-	
+
 	this.addOpt = params.addOpt;
 	this.editOpt = params.editOpt;
 	this.saveOpt = params.saveOpt;
@@ -141,11 +131,6 @@ function DataTable(params) {
 			if (editOpt.loadHandler) {
 				editOpt.loadHandler(row);
 			}
-			
-			if (editOpt.afterOpenDlg){
-				editOpt.afterOpenDlg(target.$data_form,row);			
-			}
-			
 			if(callback)
 				callback(row);
 			target._saveFlag = 1;
@@ -186,23 +171,32 @@ function DataTable(params) {
 					if(callback)
 						callback(result);
 					
-					if (DataTable.config.isSavedSuccess(result)) {						
+					if (result.type == "success") {						
 						if(!saveOpt.notReload){
-							if(target.isTreeGrid){
-								target.$datagrid_table.treegrid('reload'); // reload
-							}else{
-								target.$datagrid_table.datagrid('reload',saveOpt.reloadParamsFn?saveOpt.reloadParamsFn():null); // reload									
-							}
+							target.$datagrid_table.datagrid('reload',saveOpt.reloadParamsFn?saveOpt.reloadParamsFn():null); // reload
 						}
-					} else{
+					} else if (result.type == "paramsHasNull") {
 						$.messager.show({
-							title : '保存失败',
-							msg : result[DataTable.config.messageField]
+							title : '更新失败',
+							msg : "必须字段不能为空！"
 						});
-					} 
+					} else if (result.type == "repeatedlyAdd") {
+						$.messager.show({
+							title : 'Error',
+							msg : "重复添加！"
+						});
+					} else {
+						$.messager.show({
+							title : '更新失败',
+							msg : result.message
+						});
+					}
 				},
-				error:function(XMLHttpRequest,textStatus,error){
-					DataTable.config.ajaxError(XMLHttpRequest,textStatus,error,"保存失败");
+				error : function(XMLHttpRequest, textStatus, errorThrown) {
+					$.messager.show({
+						title : '更新失败',
+						msg : "系统异常！"
+					});
 				},
 				complete : function(XMLHttpRequest, textStatus) {
 					if (!saveOpt.notClose){
@@ -243,32 +237,24 @@ function DataTable(params) {
 		if (row) {
 			$.messager.confirm('确认', '确定要删除这条信息吗?', function(r) {
 				if (r) {
-					$.ajax({
-						url : removeOpt.url,
-						data : JSON.parse(idParam),
-						type : "POST",
-						dataType : "json",
-						success : function(result) {
-							//处理自定义行为
-							if (removeOpt.onSuccess){
-								removeOpt.onSuccess(result);
-							}
-							if(callback)
-								callback(result);
-							if (DataTable.config.isRemovedSuccess(result)) {
-								if(!removeOpt.notReload){
-									if(target.isTreeGrid){
-										target.$datagrid_table.treegrid('reload'); // reload
-									}else{
-										target.$datagrid_table.datagrid('reload',removeOpt.reloadParamsFn?removeOpt.reloadParamsFn():null); // reload									
-									}
-								}
-							}
-						},
-						error:function(XMLHttpRequest,textStatus,error){
-							DataTable.config.ajaxError(XMLHttpRequest,textStatus,error,"删除失败");
+					$.post(removeOpt.url, JSON.parse(idParam), function(result) {
+						//处理自定义行为
+						if (removeOpt.onSuccess){
+							removeOpt.onSuccess(result);
 						}
-					});
+						if(callback)
+							callback(result);
+						if (result.type == "success") {
+							if(!removeOpt.notReload){
+								target.$datagrid_table.datagrid('reload',removeOpt.reloadParamsFn?removeOpt.reloadParamsFn():null); // reload
+							}
+						} else {
+							$.messager.show({ // show error message
+								title : '删除失败',
+								msg : result.message
+							});
+						}
+					}, 'json');
 				}
 			});
 		}

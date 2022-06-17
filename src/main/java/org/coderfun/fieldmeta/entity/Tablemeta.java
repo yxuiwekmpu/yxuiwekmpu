@@ -1,7 +1,6 @@
 package org.coderfun.fieldmeta.entity;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.util.Date;
 
 import javax.persistence.Access;
@@ -28,6 +27,13 @@ public class Tablemeta extends BaseEntity<Long> implements Serializable {
 	@Column(name = "entity_name")
 	private String entityName;
 
+	/**
+	 * 只跟权限有关
+	 */
+	
+	@Column(name = "business_name")
+    private String businessName;
+	
 	@Column(name = "simple_name")
 	private String simpleName;
 

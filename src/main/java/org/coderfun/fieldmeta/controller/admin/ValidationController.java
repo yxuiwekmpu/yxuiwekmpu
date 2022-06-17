@@ -4,6 +4,8 @@ package org.coderfun.fieldmeta.controller.admin;
 
 import java.util.List;
 
+import org.coderfun.fieldmeta.entity.Validation;
+import org.coderfun.fieldmeta.service.ValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,8 +20,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import klg.j2ee.common.model.EasyUIPage;
 import klg.j2ee.common.model.JsonData;
-import org.coderfun.fieldmeta.entity.Validation;
-import org.coderfun.fieldmeta.service.ValidationService;
 
 
 @Controller("adminValidationController")

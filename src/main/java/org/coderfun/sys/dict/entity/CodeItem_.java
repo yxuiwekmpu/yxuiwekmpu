@@ -5,7 +5,7 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 import org.coderfun.common.OrderEntity_;
 
-@Generated(value="Dali", date="2018-05-24T12:45:05.456+0800")
+@Generated(value="Dali", date="2019-08-14T11:51:16.266+0800")
 @StaticMetamodel(CodeItem.class)
 public class CodeItem_ extends OrderEntity_ {
 	public static volatile SingularAttribute<CodeItem, String> classCode;

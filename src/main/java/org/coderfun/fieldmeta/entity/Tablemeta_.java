@@ -6,10 +6,11 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 import org.coderfun.common.BaseEntity_;
 
-@Generated(value="Dali", date="2018-06-01T14:33:03.211+0800")
+@Generated(value="Dali", date="2019-08-15T21:30:18.360+0800")
 @StaticMetamodel(Tablemeta.class)
 public class Tablemeta_ extends BaseEntity_ {
 	public static volatile SingularAttribute<Tablemeta, String> entityName;
+	public static volatile SingularAttribute<Tablemeta, String> businessName;
 	public static volatile SingularAttribute<Tablemeta, String> simpleName;
 	public static volatile SingularAttribute<Tablemeta, String> moduleName;
 	public static volatile SingularAttribute<Tablemeta, Date> createTime;

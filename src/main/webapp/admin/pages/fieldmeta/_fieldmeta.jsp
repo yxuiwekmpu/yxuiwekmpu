@@ -188,7 +188,7 @@ function saveFields(){
 // add and remove field
 
 function addField(){
-	appendRow(ag_entity_field_default,ag_page_field_default);
+	appendRow($.extend(true, {}, ag_entity_field_default),$.extend(true, {}, ag_page_field_default));
 }
 
 function appendRow(entity_field,page_field ){

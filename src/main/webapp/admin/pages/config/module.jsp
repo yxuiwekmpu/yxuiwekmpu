@@ -84,7 +84,7 @@
 				<tr class="tr_padding">
 					<td><label>包名</label></td>
 					<td	colspan="3">
-						<input name="packageName" class="easyui-validatebox" style="width: 375px" data-options="required:true,validType:'word'">
+						<input name="packageName" class="easyui-validatebox" style="width: 375px" data-options="required:true">
 					</td>
 				</tr>
 				<tr class="tr_padding">

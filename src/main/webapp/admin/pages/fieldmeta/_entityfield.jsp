@@ -22,7 +22,7 @@
 		<thead>			
 			<tr>
 				<th data-options="field:'ck',checkbox:true"></th>
-								
+				<th data-options="field:'id',title:'ID',width:40"></th>
 				<th data-options="field:'columnName',width:80,align:'left',formatter:complexCol" 
 					editor="{type:'textbox',options:{validType:'word',required:true,onChange:columnNameOnChange}}">列名</th>
 					
@@ -75,7 +75,6 @@
 		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-arrow_down" plain="true" 
         	onclick="moveDown()">下移</a>
 	</div>
-	
 	<script type="text/javascript">
 		//全局变量
 		var ag_sqlTypeJson=[];
@@ -148,7 +147,5 @@
 				    });
 				}
 		}
-		
 
-		
 	</script>

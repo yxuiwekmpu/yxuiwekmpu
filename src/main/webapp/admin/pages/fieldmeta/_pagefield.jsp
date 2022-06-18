@@ -21,6 +21,7 @@
 		<thead>
 			<tr>
 				<th data-options="field:'ck',checkbox:true"></th>
+				<th data-options="field:'id',title:'ID',width:40"></th>	
 				<th data-options="field:'entityField.columnName',width:80,align:'left',formatter:complexCol">列名</th>
 				<th data-options="field:'fieldTitle',width:100,align:'left',formatter:complexCol"
 					editor="{type:'textbox'}">显示名称

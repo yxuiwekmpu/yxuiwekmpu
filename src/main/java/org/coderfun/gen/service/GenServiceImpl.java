@@ -30,6 +30,9 @@ import org.coderfun.fieldmeta.service.ValidationService;
 import org.coderfun.sys.dict.DictReader;
 import org.coderfun.sys.dict.SystemCode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
 
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -68,13 +71,13 @@ public class GenServiceImpl implements GenService {
 		codeModel.setModule(moduleService.getOne(AExpr.eq(Module_.moduleName, tablemeta.getModuleName())));
 
 		String entitySuperClassFullName = DictReader.getCodeItem(SystemCode.ClassCode.ENTITY_SUPER_CLASS, tablemeta.getEntitySuperClass()).getValue();
-
-		List<EntityField> entityFields = entityFieldService.findList(AExpr.eq(EntityField_.tableName, tablemeta.getTableName()));
-		List<EntityField> baseEntityFields = entityFieldService.findList(AExpr.eq(EntityField_.tableName, entitySuperClassFullName));
+		
+		List<EntityField> entityFields = entityFieldService.findList(getSort(), AExpr.eq(EntityField_.tableName, tablemeta.getTableName()));
+		List<EntityField> baseEntityFields = entityFieldService.findList(getSort(), AExpr.eq(EntityField_.tableName, entitySuperClassFullName));
 		
 
-		List<PageField> pageFields = pageFieldService.findList(AExpr.eq(PageField_.tableName, tablemeta.getTableName()));
-		List<PageField> basePageFields = pageFieldService.findList(AExpr.eq(PageField_.tableName, entitySuperClassFullName));
+		List<PageField> pageFields = pageFieldService.findList(getSort(), AExpr.eq(PageField_.tableName, tablemeta.getTableName()));
+		List<PageField> basePageFields = pageFieldService.findList(getSort(), AExpr.eq(PageField_.tableName, entitySuperClassFullName));
 		
 		codeModel.setEntityFields(entityFields);
 		codeModel.setBaseEntityFields(baseEntityFields);
@@ -87,6 +90,10 @@ public class GenServiceImpl implements GenService {
 		lookUpPkColumn(codeModel);
 		
 		return codeModel;
+	}
+	
+	private Sort getSort(){
+		return new Sort(Direction.DESC, "columnSort");
 	}
 
 	private  void lookUpValidation(CodeModel codeModel){

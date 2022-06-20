@@ -4,12 +4,6 @@
 		"text":"实体元数据",
 		"url":"/admin/pages/fieldmeta/entitymeta.jsp"
 	},{
-		"text":"实体基类",
-		"url":"/admin/pages/fieldmeta/baseentity.jsp"
-	},{
-		"text":"可选字段",
-		"url":"/admin/pages/fieldmeta/optionfield.jsp"
-	},{
 		"text":"项目管理",
 		"url":"/admin/pages/config/project.jsp"
 	},{
@@ -19,6 +13,12 @@
 },{
 	"text":"配置管理",
 	"children":[{
+		"text":"可选字段",
+		"url":"/admin/pages/fieldmeta/optionfield.jsp"
+	},{
+		"text":"实体基类",
+		"url":"/admin/pages/fieldmeta/baseentity.jsp"
+	},{
 		"text":"校验规则",
 		"url":"/admin/pages/config/validation.jsp"
 	},{

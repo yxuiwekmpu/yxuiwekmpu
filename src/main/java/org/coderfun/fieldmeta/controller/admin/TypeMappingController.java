@@ -62,7 +62,7 @@ public class TypeMappingController {
 			@ModelAttribute TypeMapping typeMapping,
 			@RequestParam int page,
 			@RequestParam int rows){
-		Pageable pageable=new PageRequest(page<1?0:page-1, rows, new Sort(Direction.DESC,"id"));
+		Pageable pageable=new PageRequest(page<1?0:page-1, rows);
 		Page<TypeMapping> pageData=typeMappingService.findPage(typeMapping, pageable);
 		return new EasyUIPage(pageData);
 	}
@@ -72,7 +72,7 @@ public class TypeMappingController {
 	public JsonData findlist(
 			@ModelAttribute TypeMapping typeMapping){
 		
-		List<TypeMapping> listData=typeMappingService.findList(typeMapping, new Sort(Direction.DESC,"id"));
+		List<TypeMapping> listData=typeMappingService.findList(typeMapping);
 		return JsonData.success(listData);
 	}	
 }

@@ -61,11 +61,19 @@
 					laodWithTableName();
 				}
 			});
+			
+			
+			
 		};
 		function selectOptionfieldCall(index, row){	
 			$.get(adminActionPath + '/pagefield/findlist',"entityField.id="+row.id,function(json){
 				if(json.type == "success"){
-					appendRow(row,json.data[0] );	
+					var newEntityField = $.extend(true, {}, row);
+					var newPageField =json.data[0];
+					newEntityField.id = null;
+					newPageField.id = null;
+					newPageField.entityField={};
+					appendRow(newEntityField,newPageField );	
 				}
 			},"json")
 			

@@ -32,13 +32,15 @@ import org.coderfun.sys.dict.SystemCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
-import org.springframework.data.domain.Sort.Order;
+import org.springframework.stereotype.Service;
 
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import klg.common.utils.DateTools;
+import klg.common.utils.MyPrinter;
 import klg.j2ee.query.jpa.expr.AExpr;
 
+@Service
 public class GenServiceImpl implements GenService {
 
 	@Autowired
@@ -70,14 +72,16 @@ public class GenServiceImpl implements GenService {
 		codeModel.setNowTime(DateFormatUtils.ISO_8601_EXTENDED_DATETIME_TIME_ZONE_FORMAT.format(new Date()));
 		codeModel.setModule(moduleService.getOne(AExpr.eq(Module_.moduleName, tablemeta.getModuleName())));
 
-		String entitySuperClassFullName = DictReader.getCodeItem(SystemCode.ClassCode.ENTITY_SUPER_CLASS, tablemeta.getEntitySuperClass()).getValue();
+		String entitySuperClassFullName = DictReader.getCodeItem(tablemeta.getEntitySuperClass(),SystemCode.ClassCode.ENTITY_SUPER_CLASS).getValue();
+		codeModel.setEntitySuperClassFullName(entitySuperClassFullName);
 		
-		List<EntityField> entityFields = entityFieldService.findList(getSort(), AExpr.eq(EntityField_.tableName, tablemeta.getTableName()));
-		List<EntityField> baseEntityFields = entityFieldService.findList(getSort(), AExpr.eq(EntityField_.tableName, entitySuperClassFullName));
+		Sort efSort = new Sort(Direction.DESC, "columnSort");
+		List<EntityField> entityFields = entityFieldService.findList(efSort, AExpr.eq(EntityField_.tableName, tablemeta.getTableName()));
+		List<EntityField> baseEntityFields = entityFieldService.findList(efSort, AExpr.eq(EntityField_.tableName, entitySuperClassFullName));
 		
-
-		List<PageField> pageFields = pageFieldService.findList(getSort(), AExpr.eq(PageField_.tableName, tablemeta.getTableName()));
-		List<PageField> basePageFields = pageFieldService.findList(getSort(), AExpr.eq(PageField_.tableName, entitySuperClassFullName));
+		Sort pfSort = new Sort(Direction.DESC, "entityField.columnSort");
+		List<PageField> pageFields = pageFieldService.findList(pfSort, AExpr.eq(PageField_.tableName, tablemeta.getTableName()));
+		List<PageField> basePageFields = pageFieldService.findList(pfSort, AExpr.eq(PageField_.tableName, entitySuperClassFullName));
 		
 		codeModel.setEntityFields(entityFields);
 		codeModel.setBaseEntityFields(baseEntityFields);
@@ -89,23 +93,23 @@ public class GenServiceImpl implements GenService {
 		lookUpValidation(codeModel);
 		lookUpPkColumn(codeModel);
 		
+		MyPrinter.printJson(codeModel);
+		
 		return codeModel;
 	}
 	
-	private Sort getSort(){
-		return new Sort(Direction.DESC, "columnSort");
-	}
-
 	private  void lookUpValidation(CodeModel codeModel){
 		Map<String,Validation> mappedValidations = mappingValidations();
 		
 		
 		for(EntityField entityField:codeModel.getEntityFields()){
-			entityField.setFieldValidation(mappedValidations.get(entityField.getFieldValidCode()).getJavaValid());
+			if(StringUtils.isNotEmpty(entityField.getFieldValidCode()))
+				entityField.setFieldValidation(mappedValidations.get(entityField.getFieldValidCode()).getJavaValid());
 		}
 		
 		for(PageField pageField : codeModel.getPageFields()){
-			pageField.setFieldValidation(mappedValidations.get(pageField.getEntityField().getFieldValidCode()).getJsValid());
+			if(StringUtils.isNotEmpty(pageField.getEntityField().getFieldValidCode()))
+				pageField.setFieldValidation(mappedValidations.get(pageField.getEntityField().getFieldValidCode()).getJsValid());
 		}
 	}
 	
@@ -140,7 +144,7 @@ public class GenServiceImpl implements GenService {
 		importList.add(codeModel.getEntitySuperClassFullName());
 		for(EntityField entityField:codeModel.getEntityFields()){
 			if(!ArrayUtils.contains(JAVA_LANG_TYPES, entityField.getAttrType())){
-				String fullJavaType = DictReader.getCodeItem(SystemCode.ClassCode.JAVA_TYPE, entityField.getAttrType()).getValue();
+				String fullJavaType = DictReader.getCodeItem(entityField.getAttrType(),SystemCode.ClassCode.JAVA_TYPE).getValue();
 				importList.add(fullJavaType);				
 			}
 		}
@@ -164,7 +168,7 @@ public class GenServiceImpl implements GenService {
 				genCodeFile.setName(templateFile.getGenFilekeyPattern().replace(LFENP, codeModel.getEntityNameOfFirstLowcase()));
 			}
 			
-			if(templateFile.getGenFilekeyType().equals(SystemCode.GenFileKeyType.MODULE_NAME)){
+			if(templateFile.getGenFilekeyType().equals(SystemCode.GenFileKeyType.MODULE_CODE)){
 				genCodeFile.setPath(templateFile.getGenFilekeyPath() + codeModel.getModule().getModuleName() +"/");
 			}else{
 				genCodeFile.setPath(templateFile.getGenFilekeyPath() + codeModel.getModule().getPackageName().replaceAll("//.", "/") +"/");
@@ -237,10 +241,17 @@ public class GenServiceImpl implements GenService {
 		System.out.println(StringUtils.uncapitalize("AaddEb"));
 		
 		System.out.println("org.coderfun.common".replaceAll("//.", "/"));
+	
 		
 		System.out.println(DateTools.formatDatetime(new Date()));
 		System.out.println(DateFormatUtils.ISO_8601_EXTENDED_DATETIME_TIME_ZONE_FORMAT.format(new Date()));
-		System.out.println();
+		
+		
+		System.out.println("#{lenp}.java".contains("#{lenp}"));
+		Set<String> importList = new LinkedHashSet<>();
+		MyPrinter.printJson(importList);
+		
+		MyPrinter.printJson(new ArrayList<>());
 	}
 
 

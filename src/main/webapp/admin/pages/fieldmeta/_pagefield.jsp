@@ -32,12 +32,15 @@
 				
 				<th data-options="field:'canList',width:30,align:'left',
 					formatter:checkboxCol,editor:ag_checkbox_editor">列表</th>
-				
+				<th data-options="field:'fieldFormatter',width:50,align:'left',formatter:complexCol"
+					editor="{type:'combobox',options:{valueField:'code',textField:'name',editable:false,panelHeight:'auto',
+							codeClass:'field_formatter'}}">格式</th>
+							
 				<th data-options="field:'canQuery',width:30,align:'left',
 					formatter:checkboxCol,editor:ag_checkbox_editor">查询</th>
 				
 				<th data-options="field:'queryType',width:50,align:'left',formatter:complexCol"
-					editor="{type:'combobox',options:{valueField:'code',textField:'name',editable:false,panelHeight:'auto',
+					editor="{type:'combobox',options:{enableNull:true,nullText:'无',valueField:'code',textField:'name',editable:false,panelHeight:'auto',
 							codeClass:'query_type'}}">查询方式</th>
 							
 				<th data-options="field:'canEdit',width:30,align:'left',
@@ -46,19 +49,24 @@
 					formatter:checkboxCol,editor:ag_checkbox_editor">必填</th>
 
 				<th data-options="field:'formType',width:50,align:'left',formatter:complexCol"
-					editor="{type:'combobox',options:{valueField:'code',textField:'name',editable:false,panelHeight:'auto',
+					editor="{type:'combobox',options:{enableNull:true,nullText:'无',valueField:'code',textField:'name',editable:false,panelHeight:'auto',
 							codeClass:'form_field_type'}}">表单类型</th>					
 				
 				<th data-options="field:'gridRowCol',width:50,align:'left',formatter:complexCol"
-					editor="{type:'combobox',options:{valueField:'code',textField:'name',editable:false,panelHeight:'auto',
+					editor="{type:'combobox',options:{enableNull:true,nullText:'无',valueField:'code',textField:'name',editable:false,panelHeight:'auto',
 							codeClass:'grid_row_col'}}">栅格</th>				
 
 				<th data-options="field:'needNewLine',width:30,align:'left',
 					formatter:checkboxCol,editor:ag_checkbox_editor">新行</th>
 
+				<th data-options="field:'codeClass',width:50,align:'left',formatter:complexCol"
+					editor="{type:'combobox',options:{enableNull:true,nullText:'无',valueField:'code',textField:'name',editable:false,panelHeight:'auto',
+							codeClass:'field_code_class'}}">字典</th>		
+				<!-- 
 				<th data-options="field:'codeClass',width:80,align:'left',formatter:complexCol" 
 					editor="{type:'textbox',options:{validType:'word'}}">字典</th>
-																										
+				 -->
+				 																					
 			</tr>
 		</thead>
 	</table>

@@ -26,10 +26,8 @@
 			onDblClickRow   : function(){dataTable.edit();}">
 		<thead>
 			<tr>
-				<th data-options="field:'sqlDialectCode',width:60,align:'left',formatter:codeCol,codeClass:'sql_dialect_code'">sql方言</th>
 				<th data-options="field:'sqlType',width:80,align:'left',formatter:complexCol">sqlType</th>
 				<th data-options="field:'javaType',width:80,align:'left',formatter:complexCol">javaType</th>
-				<th data-options="field:'needJoinColumn',width:50,align:'left',formatter:codeCol,codeClass:'yes_or_no'">JoinClolumn</th>
 				<th data-options="field:'fullJavaType',width:200,align:'left',formatter:complexCol">fullJavaType</th>
 				
 
@@ -49,23 +47,12 @@
 		buttons="#dlg-buttons" modal="true">
 		<form id="data-form" class="data-form" method="post">
 			<input name="id" style="display: none" />
-			<table style="margin-left:-20px;">
+			<table style="margin-left:-20px;">				
 				<tr class="tr_padding">
-
 					<td><label>sqlType</label></td>
 					<td>
 						<input name="sqlType" class="easyui-validatebox" data-options="required:true,validType:'word'">
 					</td>
-					<td><label>sql方言</label></td>
-					<td>
-						<input name="sqlDialectCode" class="easyui-combobox"
-						data-options="valueField:'code',textField:'name',editable:false,panelHeight:'auto',
-							required:true,defaultFirst:true,codeClass:'sql_dialect_code'">
-					</td>	
-
-				</tr>
-				
-				<tr class="tr_padding">
 					<td><label>javaType</label></td>
 					<td>
 						<input name="javaType" class="easyui-combobox"
@@ -74,12 +61,6 @@
 							onSelect:function(record){
 								$('input[name=fullJavaType]').val(record.value)
 							}">
-					</td>
-					<td><label>JoinClolumn</label></td>
-					<td>
-						<input name="needJoinColumn" value="no" class="easyui-combobox"
-						data-options="valueField:'code',textField:'name',editable:false,panelHeight:'auto',
-							required:true,defaultFirst:true,codeClass:'yes_or_no'">
 					</td>
 				</tr>
 				

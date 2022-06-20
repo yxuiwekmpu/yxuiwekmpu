@@ -17,12 +17,11 @@ import org.coderfun.common.BaseEntity;
 @Entity
 @Table(name = "fm_module")
 @Access(AccessType.FIELD)
-public class Module extends BaseEntity<Long>{
+public class Module extends BaseEntity<Long> {
 	private static final long serialVersionUID = 1L;
 	@Column(name = "module_name")
 	private String moduleName;
-	
-	
+
 	@ManyToOne
 	@JoinColumn(name = "project_id")
 	private Project project;
@@ -32,13 +31,10 @@ public class Module extends BaseEntity<Long>{
 	@Column(name = "package_name")
 	private String packageName;
 
-	@Column(name = "gen_path")
-	private String genPath;
 
 	private String author;
 	@Column(name = "copy_right")
 	private String copyRight;
-
 
 	public Module() {
 	}
@@ -67,16 +63,8 @@ public class Module extends BaseEntity<Long>{
 		this.description = description;
 	}
 
-	public String getGenPath() {
-		return this.genPath;
-	}
-
-	public void setGenPath(String genPath) {
-		this.genPath = genPath;
-	}
-
 	public String getModuleName() {
-		return this.moduleName;
+		return moduleName;
 	}
 
 	public void setModuleName(String moduleName) {

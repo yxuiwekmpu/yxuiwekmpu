@@ -6,6 +6,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 import org.coderfun.common.BaseEntity;
@@ -20,8 +21,6 @@ import org.coderfun.common.BaseEntity;
 public class TypeMapping extends BaseEntity<Long> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "sql_dialect_code")
-	private String sqlDialectCode;
 
 	@Column(name = "full_java_type")
 	private String fullJavaType;
@@ -33,26 +32,19 @@ public class TypeMapping extends BaseEntity<Long> implements Serializable {
 
 	private String sqlType;
 
-	@Column(name = "need_join_column_code")
-	private String needJoinColumn;
+	@Lob
+	@Column(name = "options")
+	private String options;
 
 	public TypeMapping() {
 	}
 
-	public String getNeedJoinColumn() {
-		return needJoinColumn;
+	public String getOptions() {
+		return options;
 	}
 
-	public void setNeedJoinColumn(String needJoinColumn) {
-		this.needJoinColumn = needJoinColumn;
-	}
-
-	public String getSqlDialectCode() {
-		return sqlDialectCode;
-	}
-
-	public void setSqlDialectCode(String sqlDialectCode) {
-		this.sqlDialectCode = sqlDialectCode;
+	public void setOptions(String options) {
+		this.options = options;
 	}
 
 	public String getFullJavaType() {

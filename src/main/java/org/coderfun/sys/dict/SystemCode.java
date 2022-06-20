@@ -16,7 +16,7 @@ public class SystemCode {
 	
 	public static class GenFileKeyType{
 		public static final String PACKAGE_PATH = "package_path";
-		public static final String MODULE_NAME = "module_name";
+		public static final String MODULE_CODE = "module_code";
 	}
 	
 }

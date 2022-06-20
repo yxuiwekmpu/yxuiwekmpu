@@ -29,8 +29,7 @@
 				<th data-options="field:'moduleName',width:80,align:'left',formatter:complexCol">模块代码</th>
 				<th data-options="field:'project.name',width:80,align:'left',formatter:complexCol">所属项目</th>
 				<th data-options="field:'description',width:100,align:'left',formatter:complexCol">描述</th>
-				<th data-options="field:'packageName',width:50,align:'left',formatter:complexCol">包名</th>
-				<th data-options="field:'genPath',width:100,align:'left',formatter:complexCol">生成路径</th>
+				<th data-options="field:'packageName',width:150,align:'left',formatter:complexCol">包名</th>
 				<th data-options="field:'author',width:100,align:'left',formatter:complexCol">作者</th>
 				<th data-options="field:'copyRight',width:100,align:'left',formatter:complexCol">版权信息</th>
 				<th data-options="field:'remark',width:150,formatter:complexCol">备注</th>
@@ -93,14 +92,6 @@
 						<input name="description" class="easyui-validatebox" style="width: 375px" data-options="validType:'maxLength[255]'">
 					</td>
 				</tr>
-<!-- 
-				<tr class="tr_padding">
-					<td><label>生成路径</label></td>
-					<td	colspan="3">
-						<input name="genPath" class="easyui-validatebox" style="width: 375px" data-options="validType:'maxLength[255]'">
-					</td>
-				</tr>
--->
 				<tr class="tr_padding">
 					<td><label>作者</label></td>
 					<td	colspan="3">

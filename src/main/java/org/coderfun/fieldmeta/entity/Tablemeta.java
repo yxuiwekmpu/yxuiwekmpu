@@ -24,21 +24,21 @@ import org.coderfun.common.BaseEntity;
 public class Tablemeta extends BaseEntity<Long> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@Column(name = "module_name")
+	private String moduleName;
+
 	@Column(name = "entity_name")
 	private String entityName;
 
 	/**
 	 * 只跟权限有关
 	 */
-	
+
 	@Column(name = "business_name")
-    private String businessName;
-	
+	private String businessName;
+
 	@Column(name = "simple_name")
 	private String simpleName;
-
-	@Column(name = "module_name")
-	private String moduleName;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "create_time")
@@ -86,6 +86,14 @@ public class Tablemeta extends BaseEntity<Long> implements Serializable {
 
 	public void setSimpleName(String simpleName) {
 		this.simpleName = simpleName;
+	}
+
+	public String getBusinessName() {
+		return businessName;
+	}
+
+	public void setBusinessName(String businessName) {
+		this.businessName = businessName;
 	}
 
 	public String getModuleName() {

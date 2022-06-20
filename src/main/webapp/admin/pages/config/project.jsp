@@ -28,7 +28,6 @@
 			<tr>
 				<th data-options="field:'name',width:100,align:'left',formatter:complexCol">项目代码</th>
 				<th data-options="field:'isDefaultCode',width:50,align:'left',formatter:codeCol,codeClass:'yes_or_no'">是否默认</th>
-				<th data-options="field:'sqlDialectCode',width:150,align:'left',formatter:codeCol,codeClass:'sql_dialect_code'">SQL方言</th>
 				<th data-options="field:'dbUrl',width:200,align:'left',formatter:complexCol">JDBC地址</th>
 				<th data-options="field:'dbUsername',width:100,align:'left',formatter:complexCol">用户名</th>
 				<th data-options="field:'remark',width:150,formatter:complexCol">备注</th>
@@ -78,15 +77,6 @@
 				</tr>
 				 -->
 				 
-				 
-				<tr class="tr_padding">	
-					<td><label>SQL方言</label></td>
-					<td colspan="3">
-						<input name="sqlDialectCode" class="easyui-combobox" style="width: 375px" 
-						data-options="valueField:'code',textField:'name',editable:false,panelHeight:'auto',
-							required:true,defaultFirst:true,codeClass:'sql_dialect_code'">
-					</td>
-				</tr>
 				
 				<tr class="tr_padding">
 					<td><label>JDBC地址</label></td>

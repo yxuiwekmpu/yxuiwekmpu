@@ -35,9 +35,6 @@ public class Project extends BaseEntity<Long> implements Serializable {
 	@Column(name = "name")
 	private String name;
 
-	@Column(name = "sql_dialect_code")
-	private String sqlDialectCode;
-
 	@Column(name = "java_template_code")
 	private String javaTemplateCode;
 
@@ -101,13 +98,5 @@ public class Project extends BaseEntity<Long> implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getSqlDialectCode() {
-		return this.sqlDialectCode;
-	}
-
-	public void setSqlDialectCode(String sqlDialectCode) {
-		this.sqlDialectCode = sqlDialectCode;
 	}
 }

@@ -115,12 +115,17 @@ function keepFieldInfoSame(title,index){
 		return ;
 	}
 	
+	var entity_fields = ag_$entityfield_table.datagrid("getRows");	
 	var page_fields = ag_$pagefield_table.datagrid("getRows");
 	//datagrid view 操作
 	var panel = ag_$pagefield_table.datagrid('getPanel');   
 	for(var i= 0; i < page_fields.length;i++){
 		var editors = ag_$entityfield_table.datagrid("getEditors",i);
 		var tr = $("tr[datagrid-row-index=" + i + "]",panel);
+		
+		if(!page_fields[i].entityField){
+			page_fields[i].entityField = {};
+		}
 		
 		var columnName = getEditorValue(editors,"columnName");
 		page_fields[i].entityField.columnName = columnName;
@@ -169,21 +174,26 @@ function refreshRow($dg,i){
 }
 
 function saveFields(){
-	var tableName=ag_table.selectTable;
-	if(!tableName){
+	if(!checkSelectTable())
+		return false;
+	
+	ajaxRequestBody({
+		url : adminActionPath + '/tablemeta/save_fields?tableName=' + ag_table.selectTable,
+		data : getAllFields()
+	})
+}
+
+function checkSelectTable(){
+	
+	if(!ag_table.selectTable){
 		$.messager.alert({
 			title : '提示',
 			msg : "请勾选一行实体元数据！"
 		});
 		return false;
 	}
-	
-	ajaxRequestBody({
-		url : adminActionPath + '/tablemeta/save_fields?tableName=' + tableName,
-		data : getAllFields()
-	})
+	return true;
 }
-
 
 // add and remove field
 
@@ -192,6 +202,8 @@ function addField(){
 }
 
 function appendRow(entity_field,page_field ){
+	if(!checkSelectTable())
+		return false;
 	ag_$entityfield_table.datagrid("appendRow",entity_field);
 	ag_$pagefield_table.datagrid("appendRow",page_field);
 	

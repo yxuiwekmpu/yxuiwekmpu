@@ -37,13 +37,15 @@ public class TablemetaServiceImpl  extends BaseServiceImpl<Tablemeta, Long> impl
 		for(int i=0 ; i <entityFields.size();i++){
 			EntityField entityField = entityFields.get(i);
 			
-			EntityField unique = entityFieldDAO.getOne(
-					AExpr.eq(EntityField_.tableName, tableName),
-					AExpr.eq(EntityField_.attrName, entityField.getAttrName()));
-			if(unique != null){
-				continue;
+			if(entityField.getId() == null){
+				EntityField unique = entityFieldDAO.getOne(
+						AExpr.eq(EntityField_.tableName, tableName),
+						AExpr.eq(EntityField_.attrName, entityField.getAttrName()));
+				if(unique != null){
+					continue;
+				}
 			}
-			
+	
 			entityField.setTableName(tableName);
 			entityField.setColumnSort(BigDecimal.valueOf(i));
 			entityFieldDAO.save(entityField);

@@ -41,9 +41,7 @@ public class LoggerTest {
 	@Test 
 	public void testObject(){
 		Project project =new Project();
-		project.setName("test");
-		project.setSqlDialectCode("mysql");
-		
+		project.setName("test");		
 		logger.info("project",project);
 		
 	}

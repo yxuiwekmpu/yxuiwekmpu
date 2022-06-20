@@ -9,11 +9,11 @@ public interface GenService {
 	 * 实体名
 	 */
 	
-	static final String ENP = "%enp%";
+	static final String ENP = "#{enp}";
 	/**
 	 * 实体名 ，首字母小写
 	 */
-	static final String LFENP = "%lenp%";
+	static final String LFENP = "#{lenp}";
 	
 	static final String[] JAVA_LANG_TYPES = {"Long","String","Integer"}; 
 	

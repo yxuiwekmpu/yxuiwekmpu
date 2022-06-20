@@ -94,7 +94,7 @@
 					<td><label>java校验</label></td>
 					<td	colspan="3">
 						<textarea rows="2"  name="javaValid" class="easyui-validatebox" style="width: 375px" 
-							data-options="required:true,validType:'maxLength[255]'"></textarea>
+							data-options="validType:'maxLength[255]'"></textarea>
 					</td>
 				</tr>
 				<tr class="tr_padding">

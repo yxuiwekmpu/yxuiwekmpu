@@ -55,7 +55,7 @@
 					editor="{type:'textbox'}">列注释</th>
 					
 				<th data-options="field:'fieldValidCode',width:50,align:'left',formatter:complexCol"
-					editor="{type:'combobox',options:{valueField:'code',textField:'name',editable:false,panelHeight:'auto',
+					editor="{type:'combobox',options:{enableNull:true,nullText:'无',valueField:'code',textField:'name',editable:false,panelHeight:'auto',
 							dataFn:getFieldValidJson}}">字段校验</th>			
 			</tr>
 		</thead>
@@ -106,6 +106,8 @@
                 }); 
             if(editor && editor.target)
             	$(editor.target).combobox("setValue",record.javaType);
+            
+            
 		}
 		
 		function columnNameOnChange(newValue, oldValue){

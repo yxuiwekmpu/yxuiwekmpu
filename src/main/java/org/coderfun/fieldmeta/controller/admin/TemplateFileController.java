@@ -170,8 +170,6 @@ public class TemplateFileController {
 			os.write(buf, 0, read);
 		}
 		inStream.close();
-		os.flush();
-		os.close();
 	}
     
 }

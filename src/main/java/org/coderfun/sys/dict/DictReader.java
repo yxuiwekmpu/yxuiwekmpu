@@ -1,21 +1,25 @@
 package org.coderfun.sys.dict;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.coderfun.sys.dict.dao.CodeClassDAO;
 import org.coderfun.sys.dict.dao.CodeItemDAO;
 import org.coderfun.sys.dict.entity.CodeClass;
-import org.coderfun.sys.dict.entity.CodeClass_;
 import org.coderfun.sys.dict.entity.CodeItem;
-import org.coderfun.sys.dict.entity.CodeItem_;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 
-import klg.j2ee.query.jpa.expr.AExpr;
+import klg.common.utils.CollectionTools;
 
 /**
  * 字典读取器
@@ -28,6 +32,12 @@ public class DictReader {
 
 	private static CodeItemDAO itemDao;
 	private static CodeClassDAO classDao;
+	//mapping classcode => itemcode => codeItem
+	static Map<String, ImmutableMap<String, CodeItem>> classItemsMap = new HashMap<>();
+	
+	//mapping classcode => codeClass
+	static Map<String,CodeClass> classMap = new HashMap<>();
+	
 	
 	/**
 	 * 静态变量注入
@@ -40,7 +50,27 @@ public class DictReader {
 		DictReader.classDao=classDao;
 	}
 
+	public void rebuild(){
+
+		classMap.clear();
+		classMap = buildClassMap();
+		
+		
+		classItemsMap.clear();
+		
+		Map<String, List> classfiedItems = classifyAllItems();
+		
+		// 将codeItem的code字段映射为map的key
+		for (Map.Entry<String, List> entry : classfiedItems.entrySet()) {
+			@SuppressWarnings("unchecked")
+			ImmutableMap<String, CodeItem> temp=buildChildItemMap(entry.getValue());	
+			classItemsMap.put(entry.getKey(), temp);
+		}
+		
+	}
+	
 	/**
+	 * ImmutableMap,保留构建顺序<br>
 	 * 不可变的常量集合Immutable有如下优点<br>
 	 * 1.对不可靠的客户代码库来说，它使用安全，可以在未受信任的类库中安全的使用这些对象<br>
 	 * 2.线程安全的：immutable对象在多线程下安全，没有竞态条件<br>
@@ -56,6 +86,37 @@ public class DictReader {
 			}
 		});
 	}
+	
+	
+	public static Map<String,CodeClass> buildClassMap(){
+		List<CodeClass> codeClassList=classDao.findAll();
+		Map<String,CodeClass> map = new HashMap<>();
+		for(CodeClass codeClass:codeClassList){
+			map.put(codeClass.getCode(), codeClass);
+		}
+		return map;
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public static Map<String, List> classifyAllItems(){
+		Sort sort=new Sort(new Order(Direction.ASC,"classCode"),
+	   			new Order(Direction.DESC,"orderNum"));
+		List<CodeItem> codeItemList = itemDao.findAll(sort);
+		
+		
+		Map<String, List> tempMap = null;
+		try {
+			// 根据classCode分类
+			tempMap = CollectionTools
+					.classify(false, codeItemList, "classCode");
+		} catch (IllegalAccessException | InvocationTargetException
+				| NoSuchMethodException e) {
+			e.printStackTrace();
+		}
+		return tempMap;
+	}
+	
+
 
 	/**
 	 * 不可变map
@@ -63,24 +124,24 @@ public class DictReader {
 	 * @param classCode
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
-	public static ImmutableMap<String, CodeItem> getChildItemMap(String classCode) {
-		List<CodeItem> codeItemList = itemDao.findList(AExpr.eq(CodeItem_.classCode, classCode));
-		return buildChildItemMap(codeItemList);
+	public static ImmutableMap<String, CodeItem> getChildItemsMap(String classCode) {
+		return classItemsMap.get(classCode);
 	}
 
 	public static CodeClass getCodeClass(String classCode) {
-		return classDao.getOne(AExpr.eq(CodeClass_.code, classCode));
+		return classMap.get(classCode);
 	}
 
 	public static String getCodeClassName(String classCode) {
-		return getCodeClass(classCode).getName();
+		CodeClass codeClass = getCodeClass(classCode);
+		if(classCode != null)
+			return codeClass.getName();
+		else
+			return null;
 	}
 
 	public static CodeItem getCodeItem(String code, String classCode) {
-		CodeItem codeItem = itemDao.getOne(AExpr.eq(CodeItem_.classCode, classCode),
-				AExpr.eq(CodeItem_.code, code));
-		return codeItem;
+		return getChildItemsMap(classCode).get(code);
 	}
 
 	public static String getCodeItemName(String code, String classCode) {
@@ -90,3 +151,4 @@ public class DictReader {
 		return codeItem.getName();
 	}
 }
+

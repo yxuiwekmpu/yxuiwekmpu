@@ -31,12 +31,7 @@ public class DictManagerAop {
 	@Autowired
 	DictReader dictReader;
 	
-	/**
-	 * 
-	 * 通过写JSON文件的方式构建前端dict reader
-	 * 
-	 * @throws IOException
-	 */
+
 
 	// 会执行两次?
 	@PostConstruct
@@ -45,8 +40,9 @@ public class DictManagerAop {
 		buildDictWebFront();
 	}
 	
-	
 	/**
+	 * 
+	 * 通过写JSON文件的方式构建前端dict reader
 	 * 
 	 * @throws IOException
 	 */

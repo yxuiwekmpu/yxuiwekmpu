@@ -168,10 +168,10 @@ public class GenServiceImpl implements GenService {
 				genCodeFile.setName(templateFile.getGenFilekeyPattern().replace(LFENP, codeModel.getEntityNameOfFirstLowcase()));
 			}
 			
-			if(templateFile.getGenFilekeyType().equals(SystemCode.GenFileKeyType.MODULE_CODE)){
+			if(templateFile.getGenFilekeyType().equals(SystemCode.GenFileKeyType.MODULE_NAME)){
 				genCodeFile.setPath(templateFile.getGenFilekeyPath() + codeModel.getModule().getModuleName() +"/");
 			}else{
-				genCodeFile.setPath(templateFile.getGenFilekeyPath() + codeModel.getModule().getPackageName().replaceAll("//.", "/") +"/");
+				genCodeFile.setPath(templateFile.getGenFilekeyPath() + codeModel.getModule().getPackageName().replaceAll("\\.", "/") +"/");
 			}
 			
 			genCodeFile.setContent(processTemplate(templateFile, codeModel));
@@ -240,7 +240,7 @@ public class GenServiceImpl implements GenService {
 	public static void main(String[] args) {
 		System.out.println(StringUtils.uncapitalize("AaddEb"));
 		
-		System.out.println("org.coderfun.common".replaceAll("//.", "/"));
+		System.out.println("org.coderfun.common".replaceAll("\\.", "/"));
 	
 		
 		System.out.println(DateTools.formatDatetime(new Date()));

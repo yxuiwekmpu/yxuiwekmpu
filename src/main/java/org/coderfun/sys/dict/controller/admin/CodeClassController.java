@@ -86,8 +86,6 @@ public class CodeClassController {
 	public List datalist(
 			@ModelAttribute CodeClass codeClass){
 		
-		System.out.println(codeClass.getName());
-		
 		List<CodeClass> listData=codeClassService.findList(
 				new Sort(Direction.DESC,"orderNum"),
 				AExpr.contain(CodeClass_.name, codeClass.getName()).igEmpty(),

@@ -9,6 +9,8 @@ import org.coderfun.sys.dict.dao.CodeClassDAO;
 import org.coderfun.sys.dict.dao.CodeItemDAO;
 import org.coderfun.sys.dict.entity.CodeClass;
 import org.coderfun.sys.dict.entity.CodeItem;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
@@ -29,7 +31,7 @@ import klg.common.utils.CollectionTools;
  */
 @Component
 public class DictReader {
-
+	private static final Logger logger = LoggerFactory.getLogger(DictReader.class);
 	private static CodeItemDAO itemDao;
 	private static CodeClassDAO classDao;
 	//mapping classcode => itemcode => codeItem
@@ -66,7 +68,7 @@ public class DictReader {
 			ImmutableMap<String, CodeItem> temp=buildChildItemMap(entry.getValue());	
 			classItemsMap.put(entry.getKey(), temp);
 		}
-		
+		logger.info("dict reader rebuild success");
 	}
 	
 	/**

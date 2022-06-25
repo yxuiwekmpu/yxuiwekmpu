@@ -3,9 +3,9 @@ package org.coderfun.gen.service;
 public class GenCodeFile {
 	private String name;
 	/**
-	 * "/"开头,同时"/"结束
+	 * 以"/"开头,以"/"结束
 	 */
-	private String path;
+	private String dir;
 	private String content;
 
 	public String getName() {
@@ -16,12 +16,12 @@ public class GenCodeFile {
 		this.name = name;
 	}
 
-	public String getPath() {
-		return path;
+	public String getDir() {
+		return dir;
 	}
 
-	public void setPath(String path) {
-		this.path = path;
+	public void setDir(String dir) {
+		this.dir = dir;
 	}
 
 	public String getContent() {

@@ -26,7 +26,7 @@ public class GenController {
 	
 	@RequestMapping("/genCodeByZip")
 	public void genCodeByZip(
-			@RequestParam(value = "tablemetaIds[]") List<Long> tablemetaIds,
+			@RequestParam(value = "tablemetaIds") List<Long> tablemetaIds,
 			HttpServletResponse response) throws IOException{
 		
 		byte[] data = genService.genCodeByZip(tablemetaIds);

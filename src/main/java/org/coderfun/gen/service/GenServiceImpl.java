@@ -1,7 +1,10 @@
 package org.coderfun.gen.service;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -9,10 +12,14 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
+import org.coderfun.config.WebRes;
 import org.coderfun.fieldmeta.entity.EntityField;
 import org.coderfun.fieldmeta.entity.EntityField_;
 import org.coderfun.fieldmeta.entity.Module_;
@@ -29,7 +36,13 @@ import org.coderfun.fieldmeta.service.TemplateFileService;
 import org.coderfun.fieldmeta.service.ValidationService;
 import org.coderfun.sys.dict.DictReader;
 import org.coderfun.sys.dict.SystemCode;
+import org.hibernate.dialect.Dialect;
+import org.hibernate.mapping.Column;
+import org.hibernate.mapping.Table;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
@@ -43,6 +56,8 @@ import klg.j2ee.query.jpa.expr.AExpr;
 @Service
 public class GenServiceImpl implements GenService {
 
+	private static final Logger logger = LoggerFactory.getLogger(GenService.class);
+	
 	@Autowired
 	TemplateFileService templateFileService;
 	
@@ -61,6 +76,8 @@ public class GenServiceImpl implements GenService {
 	@Autowired
 	ValidationService validationService;
 	
+	@Value("${fieldmeta.hibernate.dialect}")
+	String hibernateDialect;
 
 	public CodeModel init(Tablemeta tablemeta) {
 		// TODO Auto-generated method stub
@@ -75,11 +92,11 @@ public class GenServiceImpl implements GenService {
 		String entitySuperClassFullName = DictReader.getCodeItem(tablemeta.getEntitySuperClass(),SystemCode.ClassCode.ENTITY_SUPER_CLASS).getValue();
 		codeModel.setEntitySuperClassFullName(entitySuperClassFullName);
 		
-		Sort efSort = new Sort(Direction.DESC, "columnSort");
+		Sort efSort = new Sort(Direction.ASC, "columnSort");
 		List<EntityField> entityFields = entityFieldService.findList(efSort, AExpr.eq(EntityField_.tableName, tablemeta.getTableName()));
 		List<EntityField> baseEntityFields = entityFieldService.findList(efSort, AExpr.eq(EntityField_.tableName, entitySuperClassFullName));
 		
-		Sort pfSort = new Sort(Direction.DESC, "entityField.columnSort");
+		Sort pfSort = new Sort(Direction.ASC, "entityField.columnSort");
 		List<PageField> pageFields = pageFieldService.findList(pfSort, AExpr.eq(PageField_.tableName, tablemeta.getTableName()));
 		List<PageField> basePageFields = pageFieldService.findList(pfSort, AExpr.eq(PageField_.tableName, entitySuperClassFullName));
 		
@@ -92,9 +109,6 @@ public class GenServiceImpl implements GenService {
 		
 		lookUpValidation(codeModel);
 		lookUpPkColumn(codeModel);
-		
-		MyPrinter.printJson(codeModel);
-		
 		return codeModel;
 	}
 	
@@ -164,19 +178,24 @@ public class GenServiceImpl implements GenService {
 			GenCodeFile genCodeFile = new GenCodeFile();
 			if(templateFile.getGenFilekeyPattern().contains(ENP)){
 				genCodeFile.setName(templateFile.getGenFilekeyPattern().replace(ENP, codeModel.getTablemeta().getEntityName()));
-			}else{
+			}else if(templateFile.getGenFilekeyPattern().contains(LFENP)){
 				genCodeFile.setName(templateFile.getGenFilekeyPattern().replace(LFENP, codeModel.getEntityNameOfFirstLowcase()));
+			}else{
+				genCodeFile.setName(templateFile.getGenFilekeyPattern());
 			}
 			
 			if(templateFile.getGenFilekeyType().equals(SystemCode.GenFileKeyType.MODULE_NAME)){
-				genCodeFile.setPath(templateFile.getGenFilekeyPath() + codeModel.getModule().getModuleName() +"/");
+				genCodeFile.setDir(templateFile.getGenFilekeyPath() + codeModel.getModule().getModuleName() +"/");
+			}else if(templateFile.getGenFilekeyType().equals(SystemCode.GenFileKeyType.PACKAGE_PATH)){
+				genCodeFile.setDir(templateFile.getGenFilekeyPath() + codeModel.getModule().getPackageName().replaceAll("\\.", "/") +"/");
 			}else{
-				genCodeFile.setPath(templateFile.getGenFilekeyPath() + codeModel.getModule().getPackageName().replaceAll("\\.", "/") +"/");
+				genCodeFile.setDir(templateFile.getGenFilekeyPath() == null ? "":templateFile.getGenFilekeyPath());
 			}
 			
 			genCodeFile.setContent(processTemplate(templateFile, codeModel));
 			
 			genCodeFiles.add(genCodeFile);
+			logger.info("{}<==={}",codeModel.getTablemeta().getTableName( ), genCodeFile.getDir() +genCodeFile.getName());
 		}
 		
 		return genCodeFiles;
@@ -187,7 +206,7 @@ public class GenServiceImpl implements GenService {
 		StringWriter writer = new StringWriter();
 		String result = null;
 		try {
-			Template template = FreemarkerHelper.getTemplate(templateFile.getUuidName());
+			Template template = FreemarkerHelper.getTemplate(templateFile.getDir() + templateFile.getName());
 			template.process(codeModel, writer); 
 			result = writer.toString();
 		} catch (IOException | TemplateException e) {
@@ -207,23 +226,28 @@ public class GenServiceImpl implements GenService {
 
 
 	@Override
-	public byte[] genCodeByZip(List<Long> tablemetaIds) {
+	public byte[] genCodeByZip(List<Long> tablemetaIds) throws IOException {
 		// TODO Auto-generated method stub
-		return null;
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        ZipOutputStream zip = new ZipOutputStream(outputStream);
+        for(Long tablemetaId : tablemetaIds ){
+        	List<GenCodeFile> genCodeFiles = genCodeFiles(tablemetaId);
+        	for(GenCodeFile genCodeFile : genCodeFiles){
+        		String filePath = genCodeFile.getDir() +genCodeFile.getName();
+        		if(filePath.startsWith("/")){
+        			filePath = filePath.substring(1);
+        		}
+        		System.out.println(filePath);
+        		
+        		zip.putNextEntry(new ZipEntry(filePath));
+                IOUtils.write(genCodeFile.getContent(), zip, "utf-8");
+                zip.closeEntry();
+        	}
+        }
+        IOUtils.closeQuietly(zip);
+        return outputStream.toByteArray();
 	}
 	
-
-	@Override
-	public String genSql(Long tablemetaId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String genSql(List<Long> tablemetaIds) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public void importTable(String tableName) {
@@ -237,7 +261,14 @@ public class GenServiceImpl implements GenService {
 
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+		System.out.println("[lenp].java".contains("[lenp]"));
+		System.out.println("[lenp].java".replace("[lenp]", "BBB"));
+		Object obj = Class.forName("org.coderfun.fieldmeta.entity.Validation").newInstance();
+		MyPrinter.printJson(obj.getClass());
+		
+		System.out.println("/asa".startsWith("/"));
+		System.out.println("/asa".substring(1));
 		System.out.println(StringUtils.uncapitalize("AaddEb"));
 		
 		System.out.println("org.coderfun.common".replaceAll("\\.", "/"));
@@ -247,14 +278,11 @@ public class GenServiceImpl implements GenService {
 		System.out.println(DateFormatUtils.ISO_8601_EXTENDED_DATETIME_TIME_ZONE_FORMAT.format(new Date()));
 		
 		
-		System.out.println("#{lenp}.java".contains("#{lenp}"));
+
 		Set<String> importList = new LinkedHashSet<>();
 		MyPrinter.printJson(importList);
 		
 		MyPrinter.printJson(new ArrayList<>());
 	}
-
-
-	
 	
 }

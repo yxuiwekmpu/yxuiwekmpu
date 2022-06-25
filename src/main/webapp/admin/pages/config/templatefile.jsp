@@ -34,7 +34,7 @@
 		<thead>
 			<tr>
 				<th data-options="field:'name',width:100,align:'left',formatter:complexCol">文件名</th>
-				<th data-options="field:'genFilekeyPath',width:150,align:'left',formatter:complexCol">路径前缀</th>
+				<th data-options="field:'genFilekeyPath',width:150,align:'left',formatter:complexCol">生成路径</th>
 				<th data-options="field:'genFilekeyType',width:80,align:'left',formatter:codeCol,codeClass:'gen_filekey_type'">路径标识类型</th>
 				<th data-options="field:'genFilekeyPattern',width:100,align:'left',formatter:complexCol">文件名规则</th>
 				<th data-options="field:'tpfOp',width:60,align:'left',formatter:tpfOp">操作</th>
@@ -58,20 +58,26 @@
 					<td><label>上传文件</label></td>
 					<td	colspan="3">
 						<input class="easyui-textbox easyui-validatebox" id="name" name="name" style="width: 100%"
-						data-options="buttonText:'选择文件',prompt:'文件名',onClickButton:uploadFile" >
-						<input id="path" name="uuidName" style="display: none" />
+						data-options="required:true,buttonText:'选择文件',prompt:'文件名',onClickButton:uploadFile" >
+						<input id="path" name="uuidName" style="display: none" />						
 					</td>
 				</tr>
 				<tr class="tr_padding">
-					<td><label>路径前缀</label></td>
+					<td><label>模板目录</label></td>
 					<td	colspan="3">
-						<input name="genFilekeyPath" class="easyui-validatebox" style="width: 375px" data-options="validType:'maxLength[255]'">
+						<input name="dir" placeholder='以"/"开头，以"结束"' class="easyui-validatebox" style="width: 375px" data-options="required:true,validType:'maxLength[255]'">
+					</td>
+				</tr>
+				<tr class="tr_padding">
+					<td><label>生成路径</label></td>
+					<td	colspan="3">
+						<input name="genFilekeyPath" placeholder='以"/"开头，以"结束"' class="easyui-validatebox" style="width: 375px" data-options="required:true,validType:'maxLength[255]'">
 					</td>
 				</tr>
 				<tr class="tr_padding">
 					<td><label>文件名规则</label></td>
 					<td	colspan="3">
-						<input name="genFilekeyPattern" class="easyui-validatebox" style="width: 375px" data-options="validType:'maxLength[255]'">
+						<input name="genFilekeyPattern" placeholder='[ENP]或者[LENP]占位' class="easyui-validatebox" style="width: 375px" data-options="required:true,validType:'maxLength[255]'">
 					</td>
 				</tr>	
 				<tr class="tr_padding">
@@ -89,7 +95,7 @@
 		<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-ok" onclick="mtfdataTable.save()">保存</a> 
 		<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#mtf-data-form-dlg').dialog('close')">取消</a>
 	</div>
-	
+
 <button id="picker" style="display:hone">picker</button>
 	<script type="text/javascript">	
 		
@@ -115,35 +121,37 @@
 		});	
 		
 		
-	    tpfUploader = WebUploader.create( {
-	        auto : true,
-	        // 不压缩image
-	        resize : false,
-	        // swf文件路径
-	        swf : "${root}" + '/static/js/webuploader-0.1.5/Uploader.swf',
-	        // 文件接收服务端。
-	        server : adminActionPath+"/templatefile/upload",
-	        fileVal : "file", //指明参数名称，后台也用这个参数接收文件 
-			pick: '#picker'
-	      });
-	    
-	    tpfUploader.on( 'fileQueued', function( file ) {
-			$("#name").textbox("setValue",file.name);
-	    });
-	    tpfUploader.on( 'uploadSuccess', function( file,json ) {
-	        if(json.type == "success"){
-		    	$( '#path' ).val(json.data);	
-            	$.messager.show({
-            		title : "提示",
-            		msg : "上传成功！"
-            	});
-	        }else{
-            	$.messager.show({
-            		title : "提示",
-            		msg : "上传失败！"
-            	});
-	        }
-	    });
+$(function(){
+    tpfUploader = WebUploader.create( {
+        auto : true,
+        // 不压缩image
+        resize : false,
+        // swf文件路径
+        swf : "${root}" + '/static/js/webuploader-0.1.5/Uploader.swf',
+        // 文件接收服务端。
+        server : adminActionPath+"/templatefile/upload",
+        fileVal : "file", //指明参数名称，后台也用这个参数接收文件 
+		pick: '#picker'
+      });
+    
+    tpfUploader.on( 'fileQueued', function( file ) {
+		$("#name").textbox("setValue",file.name);
+    });
+    tpfUploader.on( 'uploadSuccess', function( file,json ) {
+	    $( '#path' ).val(json.data);	
+        if(json.type == "success"){
+        	$.messager.show({
+        		title : "提示",
+        		msg : "上传成功！"
+        	});
+        }else{
+        	$.messager.show({
+        		title : "提示",
+        		msg : "上传失败！"
+        	});
+        }
+    });
+});
 	    
 		function uploadFile(){
 		    $('#picker').find('input').click();

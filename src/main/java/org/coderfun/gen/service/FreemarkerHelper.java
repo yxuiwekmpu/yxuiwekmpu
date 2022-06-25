@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import org.coderfun.config.WebRes;
+import org.coderfun.fieldmeta.service.TemplateFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -30,7 +31,7 @@ public class FreemarkerHelper{
 		Configuration cfg = new Configuration(Configuration.VERSION_2_3_28);
 		cfg.setDefaultEncoding("UTF-8");
 		cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
-		cfg.setDirectoryForTemplateLoading(new File(webRes.getAbsolutePath() + GenService.TEMPLATE_DIR_KEY));
+		cfg.setDirectoryForTemplateLoading(new File(webRes.getAbsolutePath() + TemplateFileService.TEMPLATE_DIR_KEY));
 		cfg.setLogTemplateExceptions(false);
 		cfg.setWrapUncheckedExceptions(true);
 		return cfg;

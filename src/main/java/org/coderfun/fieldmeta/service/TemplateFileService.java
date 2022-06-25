@@ -14,5 +14,9 @@ import klg.j2ee.common.dataaccess.BaseService;
  */
  
 public interface TemplateFileService extends BaseService<TemplateFile, Long>{
-
+	static final String TEMPLATE_DIR_KEY = "/template/";
+	static final String UPLOAD_TEMP_DIR_KEY = "/upload/temp/";
+	
+	public String getRealPath(TemplateFile templateFile);
+	public String getUploadTempDir();
 }

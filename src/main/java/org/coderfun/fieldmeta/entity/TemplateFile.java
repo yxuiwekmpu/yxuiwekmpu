@@ -3,6 +3,7 @@ package org.coderfun.fieldmeta.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.coderfun.common.BaseEntity;
 
@@ -16,9 +17,10 @@ public class TemplateFile extends BaseEntity<Long> {
 	private static final long serialVersionUID = 1L;
 
 	private String name;
-	
-	@Column(name = "uuid_name")
-	private String uuidName;
+	/**
+	 * 以"/"开头,以"/"结束
+	 */
+	private String dir;
 
 	@Column(name = "gen_filekey_path")
 	private String genFilekeyPath;
@@ -28,6 +30,17 @@ public class TemplateFile extends BaseEntity<Long> {
 
 	@Column(name = "gen_filekey_pattern")
 	private String genFilekeyPattern;
+
+	@Transient
+	private String uuidName;
+
+	public String getUuidName() {
+		return uuidName;
+	}
+
+	public void setUuidName(String uuidName) {
+		this.uuidName = uuidName;
+	}
 
 	public String getGenFilekeyPattern() {
 		return genFilekeyPattern;
@@ -45,12 +58,12 @@ public class TemplateFile extends BaseEntity<Long> {
 		this.name = name;
 	}
 
-	public String getUuidName() {
-		return uuidName;
+	public String getDir() {
+		return dir;
 	}
 
-	public void setUuidName(String uuidName) {
-		this.uuidName = uuidName;
+	public void setDir(String dir) {
+		this.dir = dir;
 	}
 
 	public String getGenFilekeyPath() {

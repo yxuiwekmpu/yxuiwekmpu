@@ -1,19 +1,20 @@
 package org.coderfun.gen.service;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface GenService {
 
-	static final String TEMPLATE_DIR_KEY = "/template/";
+
 	/**
 	 * 实体名
 	 */
 	
-	static final String ENP = "#{enp}";
+	static final String ENP = "[ENP]";
 	/**
 	 * 实体名 ，首字母小写
 	 */
-	static final String LFENP = "#{lenp}";
+	static final String LFENP = "[LENP]";
 	
 	static final String[] JAVA_LANG_TYPES = {"Long","String","Integer"}; 
 	
@@ -30,17 +31,9 @@ public interface GenService {
 	 * 
 	 * @param tablemetaIds
 	 * @return zip 数据
+	 * @throws IOException 
 	 */
-	public byte[] genCodeByZip(List<Long> tablemetaIds);
-
-
-	/**
-	 * 生成建表sql
-	 * 
-	 * @param tablemetaId
-	 */
-	public String genSql(Long tablemetaId);
-	public String genSql(List<Long> tablemetaIds);
+	public byte[] genCodeByZip(List<Long> tablemetaIds) throws IOException ;
 	
 	
 	/**
@@ -50,4 +43,5 @@ public interface GenService {
 	public void importTable(String tableName);
 	public void importTables(List<String> tableNames);
 	
+
 }

@@ -1,5 +1,8 @@
 package org.coderfun.fieldmeta.service;
 
+import java.io.File;
+
+import org.coderfun.config.WebRes;
 import org.coderfun.fieldmeta.dao.TemplateFileDAO;
 import org.coderfun.fieldmeta.entity.TemplateFile;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,4 +23,33 @@ import klg.j2ee.common.dataaccess.BaseServiceImpl;
 public class TemplateFileServiceImpl  extends BaseServiceImpl<TemplateFile, Long> implements TemplateFileService{
 	@Autowired
 	TemplateFileDAO templateFileDAO;
+	
+	@Autowired
+	WebRes webRes;
+	
+	@Override
+	public String getRealPath(TemplateFile templateFile) {
+		// TODO Auto-generated method stub
+    	String dirPath = webRes.getAbsolutePath() + TEMPLATE_DIR_KEY 
+    			+ templateFile.getDir();
+        
+        File dir = new File(dirPath);
+        if(!dir.exists()){
+        	dir.mkdirs();
+        }
+    	
+		return dirPath + templateFile.getName();
+	}
+
+	@Override
+	public String getUploadTempDir() {
+		// TODO Auto-generated method stub
+        String uploadTempDir = webRes.getAbsolutePath() + UPLOAD_TEMP_DIR_KEY;
+        
+        File dir = new File(uploadTempDir);
+        if(!dir.exists()){
+        	dir.mkdirs();
+        }
+		return uploadTempDir;
+	}
 }

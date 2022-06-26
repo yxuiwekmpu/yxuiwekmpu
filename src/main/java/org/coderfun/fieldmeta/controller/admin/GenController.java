@@ -34,9 +34,7 @@ public class GenController {
         response.setHeader("Content-Disposition", "attachment; filename=\"fieldmeta-gen.zip\"");
         response.addHeader("Content-Length", "" + data.length);
         response.setContentType("application/octet-stream; charset=UTF-8");
-        IOUtils.write(data, response.getOutputStream());
-        
-        
+        IOUtils.write(data, response.getOutputStream());        
         //默认不需要关闭
 		//response.getOutputStream().close();
 	}

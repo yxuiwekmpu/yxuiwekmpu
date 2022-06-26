@@ -237,7 +237,6 @@ public class GenServiceImpl implements GenService {
         		if(filePath.startsWith("/")){
         			filePath = filePath.substring(1);
         		}
-        		System.out.println(filePath);
         		
         		zip.putNextEntry(new ZipEntry(filePath));
                 IOUtils.write(genCodeFile.getContent(), zip, "utf-8");

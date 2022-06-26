@@ -5,13 +5,11 @@ package org.coderfun.fieldmeta.controller.admin;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.coderfun.common.exception.AppException;
 import org.coderfun.common.exception.ErrorCodeEnum;
 import org.coderfun.fieldmeta.entity.TemplateFile;
@@ -19,6 +17,7 @@ import org.coderfun.fieldmeta.service.TemplateFileService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -53,13 +52,14 @@ public class TemplateFileController {
 	@Autowired
 	TemplateFileService templateFileService;
 	
+	@Value("${fieldmeta.template}")
+	String template = "";
 	
 	@ResponseBody
 	@RequestMapping("/add")
 	public JsonData add(
 			@ModelAttribute TemplateFile templateFile) throws IOException{
 		
-		moveTpf(templateFile);
 		templateFileService.save(templateFile);
 		return JsonData.success();
 	}
@@ -70,36 +70,16 @@ public class TemplateFileController {
 	public JsonData edit(
 			@ModelAttribute TemplateFile templateFile) throws IOException{
 		
-
-		if(templateFile.getUuidName() !=null ){
-			moveTpf(templateFile);
-		}else{
-			TemplateFile old = templateFileService.getById(templateFile.getId());
-			if(!old.getDir().equals(templateFile.getDir())){
-				File source = new File(templateFileService.getRealPath(old));
-				File target = new File(templateFileService.getRealPath(templateFile));	
-				FileUtils.moveFile(source, target);				
-			}
-		}
 		templateFileService.update(templateFile);
 		return JsonData.success();
 	}
 	
-	private void moveTpf(TemplateFile templateFile) throws IOException{
-		File source = new File(templateFileService.getUploadTempDir() + templateFile.getUuidName());
-		File target = new File(templateFileService.getRealPath(templateFile));	
-		FileUtils.moveFile(source, target);		
-	}
+
 	
 	@ResponseBody
 	@RequestMapping("/delete")
 	public JsonData delete(
 			@RequestParam Long id){
-    	TemplateFile templateFile = templateFileService.getById(id);
-    	String filePath = templateFileService.getRealPath(templateFile);
-		
-    	File file = new File(filePath);
-    	file.delete();
     	
 		templateFileService.delete(id);
 		return JsonData.success();
@@ -152,7 +132,22 @@ public class TemplateFileController {
     	TemplateFile templateFile = templateFileService.getById(tpfId);
     	String filePath = templateFileService.getRealPath(templateFile);
     	try {
-			download(filePath, templateFile.getName(), response);
+    		byte[] data = IOUtils.toByteArray(new FileInputStream(new File(filePath)));
+			download(data, templateFile.getName(), response);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace(); 
+			throw new AppException(ErrorCodeEnum.FILE_DOWNLOAD_FAILD);
+		}
+    	return JsonData.success();
+    }
+    
+    @RequestMapping("/downloadAllByZip")
+    @ResponseBody
+    public JsonData downloadAllByZip(HttpServletResponse response){
+    	try {
+    		byte[] data = templateFileService.getAllFilesByZip();
+			download(data, "模板-"+ template + ".zip", response);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace(); 
@@ -168,20 +163,9 @@ public class TemplateFileController {
 	 * @param response
 	 * @throws IOException 
 	 */
-	public static void download(String filePath, String fileName,HttpServletResponse response) throws IOException{
-		File file = new File(filePath);
-		response.addHeader("Content-Disposition", "attachment;filename=" + fileName);
-		response.addHeader("Content-Length", "" + file.length());
-		InputStream inStream = new FileInputStream(file);
-		OutputStream os = response.getOutputStream();
-		byte buf[] = new byte[2048];
-		int read;
-		while ((read = inStream.read(buf)) != -1) {
-			os.write(buf, 0, read);
-		}
-		inStream.close();
+	public static void download(byte[] data, String fileName,HttpServletResponse response) throws IOException{
+		response.addHeader("Content-Disposition", "attachment;filename=" + new String(fileName.getBytes(),"ISO8859-1"));
+		response.addHeader("Content-Length", "" + data.length);
+		IOUtils.write(data, response.getOutputStream());
 	}
-    
-	
-	
 }

@@ -8,6 +8,7 @@
 <head> 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="${root}/static/css/index.css"/>
+<link rel="stylesheet" type="text/css" href="${root}/static/easyui/easyui-extend/IconsExtension/icon_fm.css">   
 	<c:import url="/admin/pages/common/headsource.jsp"/> 
 		
 <script type="text/javascript" src="${root}/static/plugin/webuploader-0.1.5/webuploader.min.js"></script>
@@ -44,9 +45,12 @@
 	</table>
 	
 	<div id="mtf-toolbar">
+
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="mtfdataTable.add()">添加</a>  
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="mtfdataTable.edit()">修改</a>  
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="mtfdataTable.remove()">删除</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-download" plain="true" onclick="downloadAll()">下载全部</a>
+        
 	</div>
 	
 	<div id="mtf-data-form-dlg" class="easyui-dialog" style="width: 600px; height: 400px; padding: 10px 20px" closed="true"
@@ -173,6 +177,11 @@ $(function(){
 			var url = adminActionPath+"/templatefile/tpfDownload";
 			postParams(url,{tpfId:tpfId});
 		}
+		
+		function downloadAll(){
+			postParams(adminActionPath+"/templatefile/downloadAllByZip",{});
+		}
+		
 	</script>
 
 </body>

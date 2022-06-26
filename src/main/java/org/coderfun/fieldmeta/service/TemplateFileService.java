@@ -1,5 +1,7 @@
 package org.coderfun.fieldmeta.service;
 
+import java.io.IOException;
+
 import org.coderfun.fieldmeta.entity.TemplateFile;
 
 import klg.j2ee.common.dataaccess.BaseService;
@@ -19,4 +21,6 @@ public interface TemplateFileService extends BaseService<TemplateFile, Long>{
 	
 	public String getRealPath(TemplateFile templateFile);
 	public String getUploadTempDir();
+	
+	public byte[] getAllFilesByZip() throws IOException;
 }

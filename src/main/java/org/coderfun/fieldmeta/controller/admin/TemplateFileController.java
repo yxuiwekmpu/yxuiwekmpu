@@ -91,7 +91,7 @@ public class TemplateFileController {
 			@ModelAttribute TemplateFile templateFile,
 			@RequestParam int page,
 			@RequestParam int rows){
-		Pageable pageable=new PageRequest(page<1?0:page-1, rows, new Sort(Direction.DESC,"id"));
+		Pageable pageable=new PageRequest(page<1?0:page-1, rows, new Sort(Direction.DESC,"orderNum"));
 		Page<TemplateFile> pageData=templateFileService.findPage(templateFile, pageable);
 		return new EasyUIPage(pageData);
 	}

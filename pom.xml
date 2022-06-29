@@ -85,6 +85,12 @@
 			<groupId>org.freemarker</groupId>
 			<artifactId>freemarker</artifactId>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.clojars.xumh</groupId>
+			<artifactId>db-meta</artifactId>
+			<version>0.0.1-Release</version>
+		</dependency>
 	</dependencies>
 
 	<!-- Package as an executable jar -->

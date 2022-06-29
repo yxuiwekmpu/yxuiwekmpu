@@ -51,7 +51,7 @@ public class TemplateFileServiceImpl extends BaseServiceImpl<TemplateFile, Long>
 	@Transactional
 	@Override
 	public TemplateFile update(TemplateFile templateFile) {
-		// TODO Auto-generated method stub
+		// 没有上传文件，所有没有uuidName
 		if (templateFile.getUuidName() != null) {
 			moveTpf(templateFile);
 		} else {
@@ -86,6 +86,10 @@ public class TemplateFileServiceImpl extends BaseServiceImpl<TemplateFile, Long>
 	private void moveTpf(TemplateFile templateFile) {
 		File source = new File(getUploadTempDir() + templateFile.getUuidName());
 		File target = new File(getRealPath(templateFile));
+		if(target.exists()){
+			target.delete();
+		}
+		
 		try {
 			FileUtils.moveFile(source, target);
 		} catch (IOException e) {

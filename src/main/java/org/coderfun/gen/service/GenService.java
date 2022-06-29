@@ -15,6 +15,14 @@ public interface GenService {
 	 * 实体名 ，首字母小写
 	 */
 	static final String LFENP = "[LENP]";
+	/**
+	 * 模块包路径
+	 */
+	static final String MOD_PKG_PATH = "[MOD_PKG_PATH]";
+	/**
+	 * 模块名
+	 */
+	static final String MOD_NAME = "[MOD_NAME]";
 	
 	static final String[] JAVA_LANG_TYPES = {"Long","String","Integer"}; 
 	
@@ -34,14 +42,4 @@ public interface GenService {
 	 * @throws IOException 
 	 */
 	public byte[] genCodeByZip(List<Long> tablemetaIds) throws IOException ;
-	
-	
-	/**
-	 * 从数据库导入表结构
-	 * @param tableName
-	 */
-	public void importTable(String tableName);
-	public void importTables(List<String> tableNames);
-	
-
 }

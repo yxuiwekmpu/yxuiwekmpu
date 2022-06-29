@@ -110,7 +110,7 @@ $.extend($.fn.validatebox.defaults.rules, {
 	digits : {// 验证整数 可正负数
 		validator : function(value) {
 			// return /^[+]?[1-9]+\d*$/i.test(value);
-			return /^[+]?\d*$/.test(value);
+			return /^-?[1-9]\d*$/.test(value);
 		},
 		message : '请输入整数'
 	},
@@ -123,9 +123,15 @@ $.extend($.fn.validatebox.defaults.rules, {
 	},
 	positiveNumber:{
         validator:function(value,param){  
-            return /^[+]?\d*$/.test(value)&&Number(value)>0;  
+            return /^\d+(\.\d+)?$/.test(value) && Number(value)>0;  
         },  
         message: '请输入正数'
+	},
+	nonnegative:{
+        validator:function(value,param){  
+            return /^\d+(\.\d+)?$/.test(value) && Number(value)>=0;  
+        },  
+        message: '请输入非负数'
 	},
     rateCheck:{  
         validator:function(value,param){  

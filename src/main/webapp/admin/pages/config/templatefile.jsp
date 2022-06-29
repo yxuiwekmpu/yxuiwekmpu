@@ -35,9 +35,10 @@
 		<thead>
 			<tr>
 				<th data-options="field:'name',width:100,align:'left',formatter:complexCol">文件名</th>
-				<th data-options="field:'genFilekeyPath',width:150,align:'left',formatter:complexCol">生成路径</th>
-				<th data-options="field:'genFilekeyType',width:80,align:'left',formatter:codeCol,codeClass:'gen_filekey_type'">路径标识类型</th>
+				<th data-options="field:'dir',width:100,align:'left',formatter:complexCol">文件路径</th>
+				<th data-options="field:'genFiledirPattern',width:200,align:'left',formatter:complexCol">生成路径规则</th>
 				<th data-options="field:'genFilekeyPattern',width:100,align:'left',formatter:complexCol">文件名规则</th>
+				<th data-options="field:'orderNum',width:60,formatter:complexCol">排序</th>
 				<th data-options="field:'tpfOp',width:60,align:'left',formatter:tpfOp">操作</th>
 			</tr>
 		</thead>
@@ -69,27 +70,26 @@
 				<tr class="tr_padding">
 					<td><label>模板目录</label></td>
 					<td	colspan="3">
-						<input name="dir" placeholder='以"/"开头，以"结束"' class="easyui-validatebox" style="width: 375px" data-options="required:true,validType:'maxLength[255]'">
+						<input name="dir" placeholder='以"/"开头，以"/"结束' class="easyui-validatebox" style="width: 375px" data-options="required:true,validType:'maxLength[255]'">
 					</td>
 				</tr>
 				<tr class="tr_padding">
-					<td><label>生成路径</label></td>
+					<td><label>生成路径规则</label></td>
 					<td	colspan="3">
-						<input name="genFilekeyPath" placeholder='以"/"开头，以"结束"' class="easyui-validatebox" style="width: 375px" data-options="required:true,validType:'maxLength[255]'">
+						<input name="genFiledirPattern" placeholder='以"/"开头，以"/"结束' class="easyui-validatebox" style="width: 375px" data-options="required:true,validType:'maxLength[255]'">
 					</td>
 				</tr>
+				
 				<tr class="tr_padding">
-					<td><label>文件名规则</label></td>
+					<td><label>生成文件名</label></td>
 					<td	colspan="3">
 						<input name="genFilekeyPattern" placeholder='[ENP]或者[LENP]占位' class="easyui-validatebox" style="width: 375px" data-options="required:true,validType:'maxLength[255]'">
 					</td>
 				</tr>	
-				<tr class="tr_padding">
-					<td><label>路径标识类型</label></td>
-					<td	colspan="3">
-						<input name="genFilekeyType" style="width: 375px" class="easyui-combobox"
-						data-options="valueField:'code',textField:'name',editable:false,panelHeight:'auto',
-							required:true,defaultFirst:true,codeClass:'gen_filekey_type'">
+				<tr>
+					<td><label>排<span class="letter-space-2"></span>序</label></td>
+					<td>
+						<input name="orderNum" class="easyui-validatebox" style="width: 375px"  data-options="validType:'positiveNumber'">
 					</td>
 				</tr>
 			</table>

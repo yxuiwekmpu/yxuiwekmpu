@@ -43,7 +43,6 @@ public class GenController {
 	@RequestMapping("/genCodeFiles")
 	public JsonData genCodeFiles(Long tablemetaId){
 		List<GenCodeFile> genCodeFiles = genService.genCodeFiles(tablemetaId);
-		System.out.println(genCodeFiles.get(0).getContent());
 		return JsonData.success(genCodeFiles);
 	}
 	

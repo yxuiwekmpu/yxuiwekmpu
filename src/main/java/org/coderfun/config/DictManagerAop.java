@@ -40,6 +40,26 @@ public class DictManagerAop {
 		buildDictWebFront();
 	}
 	
+	
+	/**
+	 * 字典改动，重新load
+	 * 
+	 * @param joinPoint
+	 */
+	@After("execution(* org.coderfun.sys.dict.dao.*.*(..))")
+	public void reloadDict(JoinPoint joinPoint) {
+		String methodName = joinPoint.getSignature().getName();
+		if (methodName.startsWith("save") || methodName.startsWith("update") || methodName.startsWith("delete")) {
+			// 重新从数据库加载字典
+			try {
+				dictReader.rebuild();
+				buildDictWebFront();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	/**
 	 * 
 	 * 通过写JSON文件的方式构建前端dict reader
@@ -59,23 +79,6 @@ public class DictManagerAop {
 
 	}
 
-	/**
-	 * 字典改动，重新load
-	 * 
-	 * @param joinPoint
-	 */
-	@After("execution(* org.coderfun.sys.dict.dao.*.*(..))")
-	public void reloadDict(JoinPoint joinPoint) {
-		String methodName = joinPoint.getSignature().getName();
-		if (methodName.startsWith("save") || methodName.startsWith("update") || methodName.startsWith("delete")) {
-			// 重新从数据库加载字典
-			try {
-				dictReader.rebuild();
-				buildDictWebFront();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
+
 
 }

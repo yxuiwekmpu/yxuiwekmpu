@@ -6,6 +6,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.coderfun.common.BaseEntity;
+import org.coderfun.common.OrderEntity;
 
 /**
  * The persistent class for the wp_template_file database table.
@@ -13,20 +14,19 @@ import org.coderfun.common.BaseEntity;
  */
 @Entity
 @Table(name = "fm_template_file")
-public class TemplateFile extends BaseEntity<Long> {
+public class TemplateFile extends OrderEntity<Long> {
 	private static final long serialVersionUID = 1L;
-
-	private String name;
 	/**
-	 * 以"/"开头,以"/"结束
+	 * 模板文件的目录，以"/"开头,以"/"结束
 	 */
 	private String dir;
+	private String name;
 
-	@Column(name = "gen_filekey_path")
-	private String genFilekeyPath;
-
-	@Column(name = "gen_filekey_type")
-	private String genFilekeyType;
+	/**
+	 * 生成文件的目录，以"/"开头,以"/"结束
+	 */
+	@Column(name = "gen_filedir_pattern")
+	private String genFiledirPattern;
 
 	@Column(name = "gen_filekey_pattern")
 	private String genFilekeyPattern;
@@ -66,19 +66,12 @@ public class TemplateFile extends BaseEntity<Long> {
 		this.dir = dir;
 	}
 
-	public String getGenFilekeyPath() {
-		return this.genFilekeyPath;
+	public String getGenFiledirPattern() {
+		return genFiledirPattern;
 	}
 
-	public void setGenFilekeyPath(String genFilekeyPath) {
-		this.genFilekeyPath = genFilekeyPath;
+	public void setGenFiledirPattern(String genFiledirPattern) {
+		this.genFiledirPattern = genFiledirPattern;
 	}
 
-	public String getGenFilekeyType() {
-		return this.genFilekeyType;
-	}
-
-	public void setGenFilekeyType(String genFilekeyType) {
-		this.genFilekeyType = genFilekeyType;
-	}
 }

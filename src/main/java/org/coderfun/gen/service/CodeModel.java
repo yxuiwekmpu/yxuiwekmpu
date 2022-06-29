@@ -1,5 +1,6 @@
 package org.coderfun.gen.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -22,7 +23,9 @@ public class CodeModel {
 
 	List<PageField> pageFields;
 	List<PageField> basePageFields;
-
+	//所有pageField
+	List<PageField> allPageFields;
+	
 	Module module;
 	String permissionPrefix;
 	String nowTime;
@@ -130,5 +133,19 @@ public class CodeModel {
 	public void setEntityImportList(Set<String> entityImportList) {
 		this.entityImportList = entityImportList;
 	}
-
+	
+	public List<PageField> getAllPageFields(){
+		if(allPageFields!=null){
+			return allPageFields;
+		}
+		
+		allPageFields = new ArrayList<>();
+		for(PageField basePageField:basePageFields){
+			allPageFields.add(basePageField);
+		}
+		for(PageField pageField:pageFields){
+			allPageFields.add(pageField);
+		}		
+		return allPageFields;
+	}	
 }

@@ -1,10 +1,8 @@
 package org.coderfun.gen.service;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -19,7 +17,6 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
-import org.coderfun.config.WebRes;
 import org.coderfun.fieldmeta.entity.EntityField;
 import org.coderfun.fieldmeta.entity.EntityField_;
 import org.coderfun.fieldmeta.entity.Module_;
@@ -36,9 +33,6 @@ import org.coderfun.fieldmeta.service.TemplateFileService;
 import org.coderfun.fieldmeta.service.ValidationService;
 import org.coderfun.sys.dict.DictReader;
 import org.coderfun.sys.dict.SystemCode;
-import org.hibernate.dialect.Dialect;
-import org.hibernate.mapping.Column;
-import org.hibernate.mapping.Table;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +43,6 @@ import org.springframework.stereotype.Service;
 
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import klg.common.utils.DateTools;
 import klg.common.utils.MyPrinter;
 import klg.j2ee.query.jpa.expr.AExpr;
 
@@ -85,7 +78,7 @@ public class GenServiceImpl implements GenService {
 		CodeModel codeModel = new CodeModel();
 		codeModel.setTablemeta(tablemeta);
 		codeModel.setEntityNameOfAllLowcase(StringUtils.uncapitalize(tablemeta.getEntityName()));
-		codeModel.setEntityNameOfAllLowcase(tablemeta.getEntityName().toLowerCase());
+		codeModel.setEntityNameOfFirstLowcase(tablemeta.getEntityName().toLowerCase());
 		codeModel.setNowTime(DateFormatUtils.ISO_8601_EXTENDED_DATETIME_TIME_ZONE_FORMAT.format(new Date()));
 		codeModel.setModule(moduleService.getOne(AExpr.eq(Module_.moduleName, tablemeta.getModuleName())));
 
@@ -176,21 +169,22 @@ public class GenServiceImpl implements GenService {
 		
 		for(TemplateFile templateFile:templateFiles){
 			GenCodeFile genCodeFile = new GenCodeFile();
-			if(templateFile.getGenFilekeyPattern().contains(ENP)){
-				genCodeFile.setName(templateFile.getGenFilekeyPattern().replace(ENP, codeModel.getTablemeta().getEntityName()));
-			}else if(templateFile.getGenFilekeyPattern().contains(LFENP)){
-				genCodeFile.setName(templateFile.getGenFilekeyPattern().replace(LFENP, codeModel.getEntityNameOfFirstLowcase()));
-			}else{
-				genCodeFile.setName(templateFile.getGenFilekeyPattern());
+			
+			//gen file dir pattern	
+			String packagePath = codeModel.getModule().getPackageName().replace(".", "/");
+			String dir = templateFile.getGenFiledirPattern().replace(MOD_PKG_PATH, packagePath);
+			dir = dir.replace(MOD_NAME,codeModel.getModule().getModuleName());
+			genCodeFile.setDir(dir);
+
+			
+			if(!genCodeFile.getDir().endsWith("/")){
+				genCodeFile.setDir(genCodeFile.getDir() + "/");;
 			}
 			
-			if(templateFile.getGenFilekeyType().equals(SystemCode.GenFileKeyType.MODULE_NAME)){
-				genCodeFile.setDir(templateFile.getGenFilekeyPath() + codeModel.getModule().getModuleName() +"/");
-			}else if(templateFile.getGenFilekeyType().equals(SystemCode.GenFileKeyType.PACKAGE_PATH)){
-				genCodeFile.setDir(templateFile.getGenFilekeyPath() + codeModel.getModule().getPackageName().replaceAll("\\.", "/") +"/");
-			}else{
-				genCodeFile.setDir(templateFile.getGenFilekeyPath() == null ? "":templateFile.getGenFilekeyPath());
-			}
+			//gen file name pattern
+			String name = templateFile.getGenFilekeyPattern().replace(ENP, codeModel.getTablemeta().getEntityName());
+			name = name.replace(LFENP, codeModel.getEntityNameOfFirstLowcase());
+			genCodeFile.setName(name);
 			
 			genCodeFile.setContent(processTemplate(templateFile, codeModel));
 			
@@ -246,42 +240,22 @@ public class GenServiceImpl implements GenService {
         IOUtils.closeQuietly(zip);
         return outputStream.toByteArray();
 	}
-	
-
-	@Override
-	public void importTable(String tableName) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void importTables(List<String> tableNames) {
-		// TODO Auto-generated method stub
-
-	}
 
 	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-		System.out.println("[lenp].java".contains("[lenp]"));
-		System.out.println("[lenp].java".replace("[lenp]", "BBB"));
-		Object obj = Class.forName("org.coderfun.fieldmeta.entity.Validation").newInstance();
-		MyPrinter.printJson(obj.getClass());
 		
-		System.out.println("/asa".startsWith("/"));
-		System.out.println("/asa".substring(1));
-		System.out.println(StringUtils.uncapitalize("AaddEb"));
+		System.out.println("aaa".replaceAll(LFENP, "bb"));
+		System.out.println("aaa".replace(LFENP, "bb"));
+		System.out.println("aaa[LENP]".replace(ENP, "XXX"));
+		System.out.println("org.coderfun.common".replace(".", "/"));
+		System.out.println("/src/main/java/[MOD_PKG_PATH]/entity/".replace(MOD_PKG_PATH, "org.coderfun.common".replace(".", "/")));
 		
-		System.out.println("org.coderfun.common".replaceAll("\\.", "/"));
-	
-		
-		System.out.println(DateTools.formatDatetime(new Date()));
-		System.out.println(DateFormatUtils.ISO_8601_EXTENDED_DATETIME_TIME_ZONE_FORMAT.format(new Date()));
-		
-		
-
-		Set<String> importList = new LinkedHashSet<>();
-		MyPrinter.printJson(importList);
-		
-		MyPrinter.printJson(new ArrayList<>());
+//		System.out.println("[lenp].java".contains("[lenp]"));
+//		System.out.println("[lenp].java".replace("[lenp]", "BBB"));
+//		Object obj = Class.forName("org.coderfun.fieldmeta.entity.Validation").newInstance();
+//		MyPrinter.printJson(obj.getClass());
+//		
+//		System.out.println("/asa".startsWith("/"));
+//		System.out.println("/asa".substring(1));
 	}
 	
 }

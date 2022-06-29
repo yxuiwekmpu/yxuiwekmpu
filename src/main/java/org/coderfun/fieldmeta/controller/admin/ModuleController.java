@@ -96,7 +96,7 @@ public class ModuleController {
 	@ResponseBody
 	@RequestMapping("/defalut_project")
 	public JsonData defaultProject(){
-		Project project = projectService.getOne(AExpr.eq(Project_.isDefaultCode, SystemCode.YES));
+		Project project = projectService.getDefaultProject();
 		List<Module> listData=moduleService.findList( new Sort(Direction.DESC,"id"),
 				AExpr.eq(Module_.project, project));
 		return JsonData.success(listData);

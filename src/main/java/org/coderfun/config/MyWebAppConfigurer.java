@@ -20,8 +20,9 @@ public class MyWebAppConfigurer
 	
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    	logger.info("static resource mapping [{}] -> [{}]", "/res**","file:"+webRes.getAbsolutePath());
-        registry.addResourceHandler("/res/**").addResourceLocations("file:"+webRes.getAbsolutePath());        
+    	String pathPattern = webRes.getPath()+ "**";
+    	logger.info("static resource mapping [{}] -> [{}]", pathPattern,"file:"+webRes.getAbsolutePath());
+        registry.addResourceHandler(pathPattern).addResourceLocations("file:"+webRes.getAbsolutePath());        
         super.addResourceHandlers(registry);
     }
     @Override

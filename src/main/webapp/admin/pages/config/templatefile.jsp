@@ -35,9 +35,10 @@
 		<thead>
 			<tr>
 				<th data-options="field:'name',width:100,align:'left',formatter:complexCol">文件名</th>
-				<th data-options="field:'dir',width:100,align:'left',formatter:complexCol">文件路径</th>
-				<th data-options="field:'genFiledirPattern',width:200,align:'left',formatter:complexCol">生成路径规则</th>
+				<th data-options="field:'dir',width:100,align:'left',formatter:complexCol">模板目录</th>
+				<th data-options="field:'genFiledirPattern',width:200,align:'left',formatter:complexCol">生成目录规则</th>
 				<th data-options="field:'genFilekeyPattern',width:100,align:'left',formatter:complexCol">文件名规则</th>
+				<th data-options="field:'canMerge',width:50,align:'left',formatter:codeCol,codeClass:'yes_or_no'">合并</th>
 				<th data-options="field:'orderNum',width:60,formatter:complexCol">排序</th>
 				<th data-options="field:'tpfOp',width:60,align:'left',formatter:tpfOp">操作</th>
 			</tr>
@@ -64,7 +65,7 @@
 					<td	colspan="3">
 						<input class="easyui-textbox easyui-validatebox" id="name" name="name" style="width: 100%"
 						data-options="required:true,buttonText:'选择文件',prompt:'文件名',onClickButton:uploadFile" >
-						<input id="path" name="uuidName" style="display: none" />						
+						<input id="url" name="url" style="display: none" />						
 					</td>
 				</tr>
 				<tr class="tr_padding">
@@ -74,7 +75,7 @@
 					</td>
 				</tr>
 				<tr class="tr_padding">
-					<td><label>生成路径规则</label></td>
+					<td><label>生成目录规则</label></td>
 					<td	colspan="3">
 						<input name="genFiledirPattern" placeholder='以"/"开头，以"/"结束' class="easyui-validatebox" style="width: 375px" data-options="required:true,validType:'maxLength[255]'">
 					</td>
@@ -87,9 +88,15 @@
 					</td>
 				</tr>	
 				<tr>
+					<td><label>合<span class="letter-space-2"></span>并</label></td>
+					<td>
+						<input name="canMerge" class="easyui-combobox"
+						data-options="valueField:'code',textField:'name',editable:false,panelHeight:'auto',
+							codeClass:'yes_or_no'">
+					</td>
 					<td><label>排<span class="letter-space-2"></span>序</label></td>
 					<td>
-						<input name="orderNum" class="easyui-validatebox" style="width: 375px"  data-options="validType:'positiveNumber'">
+						<input name="orderNum" class="easyui-validatebox" data-options="validType:'positiveNumber'">
 					</td>
 				</tr>
 			</table>
@@ -142,7 +149,7 @@ $(function(){
 		$("#name").textbox("setValue",file.name);
     });
     tpfUploader.on( 'uploadSuccess', function( file,json ) {
-	    $( '#path' ).val(json.data);	
+	    $( '#url' ).val(json.data);	
         if(json.type == "success"){
         	$.messager.show({
         		title : "提示",

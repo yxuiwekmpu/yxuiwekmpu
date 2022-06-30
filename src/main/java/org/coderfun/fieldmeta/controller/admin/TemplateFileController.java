@@ -2,7 +2,6 @@ package org.coderfun.fieldmeta.controller.admin;
 
 
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
@@ -31,7 +30,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import klg.common.utils.FileTools;
 import klg.j2ee.common.model.EasyUIPage;
 import klg.j2ee.common.model.JsonData;
 
@@ -53,13 +51,23 @@ public class TemplateFileController {
 	TemplateFileService templateFileService;
 	
 	@Value("${fieldmeta.template}")
-	String template = "";
+	String templateName = "";
+	
+	private void checkParams(TemplateFile templateFile){		
+		boolean valid =  validDir(templateFile.getDir()) && validDir(templateFile.getGenFiledirPattern());
+		if(!valid)
+			throw new AppException(ErrorCodeEnum.INVALID_DIR);
+	}
+	
+	private boolean validDir(String dir){
+		return dir.startsWith("/") && dir.endsWith("/");
+	}
 	
 	@ResponseBody
 	@RequestMapping("/add")
 	public JsonData add(
 			@ModelAttribute TemplateFile templateFile) throws IOException{
-		
+		checkParams(templateFile);
 		templateFileService.save(templateFile);
 		return JsonData.success();
 	}
@@ -69,7 +77,7 @@ public class TemplateFileController {
 	@RequestMapping("/edit")
 	public JsonData edit(
 			@ModelAttribute TemplateFile templateFile) throws IOException{
-		
+		checkParams(templateFile);
 		templateFileService.update(templateFile);
 		return JsonData.success();
 	}
@@ -111,28 +119,16 @@ public class TemplateFileController {
         if (file.isEmpty()) {
             throw new AppException(ErrorCodeEnum.FILE_UPLOAD_FAILD);
         }      
-        String fileName = file.getOriginalFilename();
-        String uuidName = FileTools.createUUIDName(new File(fileName));
-        String uploadTempDir = templateFileService.getUploadTempDir();
         
-        File dest = new File(uploadTempDir + uuidName);
-        try {
-            file.transferTo(dest);
-            logger.info("上传成功");
-            return JsonData.success(uuidName);
-        } catch (IOException e) {
-            logger.error(e.toString(), e);
-        }
-        throw new AppException(ErrorCodeEnum.FILE_UPLOAD_FAILD);
+        return JsonData.success(templateFileService.upload(file));
     }
 	
     @RequestMapping("/tpfDownload")
     @ResponseBody
     public JsonData tpfDownload(Long tpfId, HttpServletResponse response){
     	TemplateFile templateFile = templateFileService.getById(tpfId);
-    	String filePath = templateFileService.getRealPath(templateFile);
     	try {
-    		byte[] data = IOUtils.toByteArray(new FileInputStream(new File(filePath)));
+    		byte[] data = IOUtils.toByteArray(new FileInputStream(templateFileService.getFile(templateFile)));
 			download(data, templateFile.getName(), response);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -147,7 +143,7 @@ public class TemplateFileController {
     public JsonData downloadAllByZip(HttpServletResponse response){
     	try {
     		byte[] data = templateFileService.getAllFilesByZip();
-			download(data, "模板-"+ template + ".zip", response);
+			download(data, "模板-"+ templateName + ".zip", response);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace(); 

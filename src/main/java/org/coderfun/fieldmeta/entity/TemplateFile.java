@@ -16,12 +16,16 @@ import org.coderfun.common.OrderEntity;
 @Table(name = "fm_template_file")
 public class TemplateFile extends OrderEntity<Long> {
 	private static final long serialVersionUID = 1L;
+
+	private String name;
+	private String url;
+
+	
 	/**
 	 * 模板文件的目录，以"/"开头,以"/"结束
 	 */
 	private String dir;
-	private String name;
-
+	
 	/**
 	 * 生成文件的目录，以"/"开头,以"/"结束
 	 */
@@ -31,15 +35,23 @@ public class TemplateFile extends OrderEntity<Long> {
 	@Column(name = "gen_filekey_pattern")
 	private String genFilekeyPattern;
 
-	@Transient
-	private String uuidName;
+	@Column(name = "can_merge")
+	private String canMerge;
 
-	public String getUuidName() {
-		return uuidName;
+	public String getCanMerge() {
+		return canMerge;
 	}
 
-	public void setUuidName(String uuidName) {
-		this.uuidName = uuidName;
+	public void setCanMerge(String canMerge) {
+		this.canMerge = canMerge;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	public String getGenFilekeyPattern() {

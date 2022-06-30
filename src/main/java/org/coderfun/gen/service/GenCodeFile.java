@@ -7,6 +7,7 @@ public class GenCodeFile {
 	 */
 	private String dir;
 	private String content;
+	private String canMerge;
 
 	public String getName() {
 		return name;
@@ -30,6 +31,14 @@ public class GenCodeFile {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public String getCanMerge() {
+		return canMerge;
+	}
+
+	public void setCanMerge(String canMerge) {
+		this.canMerge = canMerge;
 	}
 
 }

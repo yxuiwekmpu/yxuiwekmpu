@@ -33,6 +33,7 @@ public enum ErrorCodeEnum implements IErrorCode {
 	FILE_DOWNLOAD_FAILD				(204003L,"下载失败"),
 	FILE_UPLOAD_FAILD				(204002L,"上传失败"),
 	NEED_RE_UPLOAD					(204004L,"请重新上传模板文件"),
+	INVALID_DIR						(204005L,"不合法的目录路径，两头应都有'/'"),
 	
 	BADPARAM(203001L,"错误的请求参数错误！");
 	

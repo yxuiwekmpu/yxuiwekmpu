@@ -3,6 +3,7 @@ package org.coderfun.gen.service;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -13,6 +14,7 @@ import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -43,9 +45,13 @@ import org.springframework.stereotype.Service;
 
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import klg.common.utils.MyPrinter;
 import klg.j2ee.query.jpa.expr.AExpr;
 
+/**
+ * 
+ * @author klguang[klguang@foxmail.com]
+ * @date 2019年8月22日
+ */
 @Service
 public class GenServiceImpl implements GenService {
 
@@ -224,21 +230,52 @@ public class GenServiceImpl implements GenService {
 		// TODO Auto-generated method stub
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         ZipOutputStream zip = new ZipOutputStream(outputStream);
+        //name => genCodeFile
+        Map<String,GenCodeFile> mergeFiles = new HashMap<>();
+        
         for(Long tablemetaId : tablemetaIds ){
         	List<GenCodeFile> genCodeFiles = genCodeFiles(tablemetaId);
         	for(GenCodeFile genCodeFile : genCodeFiles){
-        		String filePath = genCodeFile.getDir() +genCodeFile.getName();
-        		if(filePath.startsWith("/")){
-        			filePath = filePath.substring(1);
+        		if(!genCodeFile.getCanMerge().equals(SystemCode.YES)){
+        			zipProcesser(zip, genCodeFile);
+        		}else{
+        			//合并文件
+        			GenCodeFile mergeFile = mergeFiles.get(genCodeFile.getName());
+        			if(mergeFile == null){
+        				try {
+        					mergeFile = new GenCodeFile();
+							BeanUtils.copyProperties(mergeFile, genCodeFile);
+							mergeFiles.put(genCodeFile.getName(), mergeFile);
+							
+						} catch (IllegalAccessException | InvocationTargetException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+        			}else{
+        				mergeFile.setContent(mergeFile.getContent() + genCodeFile.getContent());
+        			}
         		}
-        		
-        		zip.putNextEntry(new ZipEntry(filePath));
-                IOUtils.write(genCodeFile.getContent(), zip, "utf-8");
-                zip.closeEntry();
         	}
         }
+        
+        for(Map.Entry<String, GenCodeFile> entry:mergeFiles.entrySet()){
+        	zipProcesser(zip, entry.getValue());
+        }
+        
         IOUtils.closeQuietly(zip);
         return outputStream.toByteArray();
+	}
+	
+	
+	private void zipProcesser(ZipOutputStream zip,GenCodeFile genCodeFile) throws IOException{
+		String filePath = genCodeFile.getDir() +genCodeFile.getName();
+		if(filePath.startsWith("/")){
+			filePath = filePath.substring(1);
+		}
+		
+		zip.putNextEntry(new ZipEntry(filePath));
+        IOUtils.write(genCodeFile.getContent(), zip, "utf-8");
+        zip.closeEntry();
 	}
 
 	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
@@ -248,6 +285,9 @@ public class GenServiceImpl implements GenService {
 		System.out.println("aaa[LENP]".replace(ENP, "XXX"));
 		System.out.println("org.coderfun.common".replace(".", "/"));
 		System.out.println("/src/main/java/[MOD_PKG_PATH]/entity/".replace(MOD_PKG_PATH, "org.coderfun.common".replace(".", "/")));
+		
+		System.out.println("/res/asa".substring("/res/".length()));
+		
 		
 //		System.out.println("[lenp].java".contains("[lenp]"));
 //		System.out.println("[lenp].java".replace("[lenp]", "BBB"));

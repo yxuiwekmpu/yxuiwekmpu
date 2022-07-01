@@ -11,7 +11,7 @@
  Target Server Version : 50721
  File Encoding         : 65001
 
- Date: 18/08/2019 05:16:54
+ Date: 22/08/2019 04:45:44
 */
 
 SET NAMES utf8mb4;
@@ -90,19 +90,19 @@ CREATE TABLE `fm_field_page`  (
 -- ----------------------------
 -- Records of fm_field_page
 -- ----------------------------
-INSERT INTO `fm_field_page` VALUES (1, 'yes', 'yes', 'yes', '', NULL, '', 'no', 'EQ', 'no', 1, 'complexCol', '', 'org.coderfun.common.BaseEntity', 'input_hidden');
-INSERT INTO `fm_field_page` VALUES (2, 'no', 'yes', 'yes', '', NULL, '', 'no', 'BETWEEN', 'no', 2, 'EasyUiDateTime', '', 'org.coderfun.common.BaseEntity', '');
-INSERT INTO `fm_field_page` VALUES (3, 'no', 'no', 'no', '', NULL, '', 'no', 'BETWEEN', 'no', 3, 'EasyUiDateTime', '', 'org.coderfun.common.BaseEntity', '');
-INSERT INTO `fm_field_page` VALUES (4, 'yes', 'yes', 'no', '', NULL, '', 'no', 'CONTAIN', 'no', 4, 'complexCol', '', 'codefun_option_field', 'input_text');
-INSERT INTO `fm_field_page` VALUES (5, 'yes', 'yes', 'no', '', NULL, '', 'no', 'CONTAIN', 'no', 5, 'complexCol', '', 'codefun_option_field', 'input_textarea');
+INSERT INTO `fm_field_page` VALUES (1, 'yes', 'yes', 'yes', '', NULL, '', 'no', 'eq', 'no', 1, 'complexCol', '', 'org.coderfun.common.BaseEntity', 'input_hidden');
+INSERT INTO `fm_field_page` VALUES (2, 'no', 'yes', 'yes', '', NULL, '', 'no', 'between', 'no', 2, 'EasyUiDateTime', '', 'org.coderfun.common.BaseEntity', '');
+INSERT INTO `fm_field_page` VALUES (3, 'no', 'no', 'no', '', NULL, '', 'no', 'between', 'no', 3, 'EasyUiDateTime', '', 'org.coderfun.common.BaseEntity', '');
+INSERT INTO `fm_field_page` VALUES (4, 'yes', 'yes', 'no', '', NULL, '', 'no', 'contain', 'no', 4, 'complexCol', '', 'codefun_option_field', 'input_text');
+INSERT INTO `fm_field_page` VALUES (5, 'yes', 'yes', 'no', '', NULL, '', 'no', 'contain', 'no', 5, 'complexCol', '', 'codefun_option_field', 'input_textarea');
 INSERT INTO `fm_field_page` VALUES (6, 'yes', 'yes', 'no', '', NULL, '', 'no', '', 'no', 6, 'complexCol', '', 'codefun_option_field', 'input_text');
 INSERT INTO `fm_field_page` VALUES (7, 'yes', 'yes', 'no', '', NULL, '', 'no', '', 'no', 7, 'complexCol', '', 'codefun_option_field', 'input_text');
 INSERT INTO `fm_field_page` VALUES (8, 'yes', 'yes', 'no', '', NULL, '', 'no', '', 'no', 8, 'complexCol', '', 'codefun_option_field', 'input_text');
-INSERT INTO `fm_field_page` VALUES (9, 'yes', 'yes', 'no', '', NULL, '', 'no', 'BETWEEN', 'no', 9, 'EasyUiDate', '', 'codefun_option_field', '');
-INSERT INTO `fm_field_page` VALUES (10, 'yes', 'yes', 'no', '', NULL, '', 'no', 'BETWEEN', 'no', 10, 'EasyUiDateTime', '', 'codefun_option_field', '');
-INSERT INTO `fm_field_page` VALUES (11, 'yes', 'yes', 'no', '', NULL, '', 'no', 'CONTAIN', 'no', 11, 'complexCol', '', 'org.coderfun.common.BaseEntity', 'input_textarea');
-INSERT INTO `fm_field_page` VALUES (12, 'yes', 'yes', 'no', '', NULL, '', 'no', 'CONTAIN', 'no', 12, 'complexCol', '', 'user', 'input_text');
-INSERT INTO `fm_field_page` VALUES (13, 'yes', 'yes', 'no', '', NULL, '', 'no', 'CONTAIN', 'no', 13, 'complexCol', '', 'user', 'input_textarea');
+INSERT INTO `fm_field_page` VALUES (9, 'yes', 'yes', 'no', '', NULL, '', 'no', 'between', 'no', 9, 'EasyUiDate', '', 'codefun_option_field', '');
+INSERT INTO `fm_field_page` VALUES (10, 'yes', 'yes', 'no', '', NULL, '', 'no', 'between', 'no', 10, 'EasyUiDateTime', '', 'codefun_option_field', '');
+INSERT INTO `fm_field_page` VALUES (11, 'yes', 'yes', 'no', '', NULL, '', 'no', 'contain', 'no', 11, 'complexCol', '', 'org.coderfun.common.BaseEntity', 'input_textarea');
+INSERT INTO `fm_field_page` VALUES (12, 'yes', 'yes', 'no', '', NULL, '', 'no', 'contain', 'no', 12, 'complexCol', '', 'user', 'input_text');
+INSERT INTO `fm_field_page` VALUES (13, 'yes', 'yes', 'no', '', NULL, '', 'no', 'contain', 'no', 13, 'complexCol', '', 'user', 'input_textarea');
 INSERT INTO `fm_field_page` VALUES (14, 'yes', 'yes', 'no', '', NULL, '', 'no', '', 'no', 14, 'complexCol', '', 'user', 'input_text');
 
 -- ----------------------------
@@ -194,19 +194,27 @@ CREATE TABLE `fm_template_file`  (
   `create_time` datetime(0) NULL DEFAULT NULL,
   `modify_time` datetime(0) NULL DEFAULT NULL,
   `remark` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-  `gen_filekey_path` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `gen_filedir_pattern` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `gen_filekey_pattern` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `gen_filekey_type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `dir` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `order_num` decimal(20, 2) NULL DEFAULT NULL,
+  `can_merge` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of fm_template_file
 -- ----------------------------
-INSERT INTO `fm_template_file` VALUES (1, '2019-08-16 23:24:56', '2019-08-18 03:53:48', NULL, '/src/main/java/', '[ENP].java', 'package_path', 'Entity.java.ftl', '/java/');
-INSERT INTO `fm_template_file` VALUES (2, '2019-08-18 01:19:02', '2019-08-18 03:32:45', NULL, '/', 'createTable.sql', 'root', 'createTable.sql.ftl', '/');
+INSERT INTO `fm_template_file` VALUES (1, '2019-08-16 23:24:56', '2019-08-22 04:25:20', NULL, '/src/main/java/[MOD_PKG_PATH]/entity/', '[ENP].java', 'Entity.java.ftl', '/res/template/Entity.java.ftl96d85ffe-dc5d-4ac2-a503-6a37baa0a53b.ftl', '/core/', 1.00, NULL);
+INSERT INTO `fm_template_file` VALUES (2, '2019-08-18 01:19:02', '2019-08-22 04:24:49', NULL, '/', 'createTable.sql', 'mysql_create_table.sql.ftl', '/res/template/mysql_create_table.sql.ftlc68809ca-d3a2-4ab3-bd47-9cb958a8fd16.ftl', '/', 2.00, 'yes');
+INSERT INTO `fm_template_file` VALUES (3, '2019-08-22 00:01:40', '2019-08-22 04:25:35', NULL, '/src/main/java/[MOD_PKG_PATH]/dao/', '[ENP]DAO.java', 'DAO.java.ftl', '/res/template/DAO.java.ftlf3defce3-ea85-4663-83a6-7f5dcc28503c.ftl', '/core/', NULL, NULL);
+INSERT INTO `fm_template_file` VALUES (4, '2019-08-22 00:03:38', '2019-08-22 04:26:27', NULL, '/src/main/java/[MOD_PKG_PATH]/dao/', '[ENP]DAOImpl.java', 'DAOImpl.java.ftl', '/res/template/DAOImpl.java.ftlc3beb408-5d82-4dd4-9bd7-2273c45a3bac.ftl', '/core/', NULL, NULL);
+INSERT INTO `fm_template_file` VALUES (5, '2019-08-22 00:04:36', '2019-08-22 04:26:35', NULL, '/src/main/java/[MOD_PKG_PATH]/service/', '[ENP]Service.java', 'Service.java.ftl', '/res/template/Service.java.ftl9d00d618-7c50-42ce-bca8-16ee872c2764.ftl', '/core/', NULL, NULL);
+INSERT INTO `fm_template_file` VALUES (6, '2019-08-22 00:05:08', '2019-08-22 04:26:41', NULL, '/src/main/java/[MOD_PKG_PATH]/service/', '[ENP]ServiceImpl.java', 'ServiceImpl.java.ftl', '/res/template/ServiceImpl.java.ftld197d00f-acc9-46ac-a587-c2e7fd1dad3e.ftl', '/core/', NULL, NULL);
+INSERT INTO `fm_template_file` VALUES (7, '2019-08-22 00:09:05', '2019-08-22 04:29:07', NULL, '/src/main/java/[MOD_PKG_PATH]/web/admin/', '[ENP]Controller.java', 'AdminController.java.ftl', '/res/template/AdminController.java.ftla5baee32-6926-4dac-a481-57404961e4bc.ftl', '/admin-web/', NULL, NULL);
+INSERT INTO `fm_template_file` VALUES (8, '2019-08-22 00:22:08', '2019-08-22 04:27:26', NULL, '/src/main/webapp/admin/pages/[MOD_NAME]/', '[LENP].jsp', 'AdminPage.jsp.ftl', '/res/template/AdminPage.jsp.ftlc0d8a26f-099e-4af5-807d-37a2d12d4e21.ftl', '/admin-web/', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for fm_type_mapping
@@ -293,7 +301,6 @@ INSERT INTO `sys_codeclass` VALUES (19, 'form_field_type', '表单类型', NULL,
 INSERT INTO `sys_codeclass` VALUES (20, 'grid_row_col', '表单栅格', NULL, 'fieldmeta', 'no', '2018-06-13 14:07:00', '2018-06-13 14:07:00', NULL, NULL);
 INSERT INTO `sys_codeclass` VALUES (22, 'java_type', 'javaType', NULL, 'fieldmeta', 'no', '2018-06-13 14:08:43', '2019-08-15 00:38:27', '建议只新增', NULL);
 INSERT INTO `sys_codeclass` VALUES (24, 'query_type', '查询方式', NULL, 'fieldmeta', 'no', '2018-06-13 14:09:34', '2018-06-13 14:10:01', NULL, NULL);
-INSERT INTO `sys_codeclass` VALUES (25, 'gen_filekey_type', '生成路径方式', NULL, 'fieldmeta', 'yes', '2019-08-13 20:04:55', '2019-08-15 00:16:53', '不可修改', 1.00);
 INSERT INTO `sys_codeclass` VALUES (26, 'field_formatter', '字段显示格式', NULL, 'fieldmeta', 'yes', '2019-08-16 16:33:00', '2019-08-16 16:33:31', NULL, NULL);
 INSERT INTO `sys_codeclass` VALUES (27, 'field_code_class', '字典', NULL, 'sys', 'yes', '2019-08-16 17:10:23', '2019-08-17 16:30:27', '选择相应的code class', NULL);
 
@@ -330,10 +337,10 @@ INSERT INTO `sys_codeitem` VALUES (15, 'java_type', 'String', 'String', 'java.la
 INSERT INTO `sys_codeitem` VALUES (16, 'java_type', 'BigDecimal', 'BigDecimal', 'java.math.BigDecimal', NULL, NULL, '2018-05-21 12:46:49', '2018-05-21 12:46:49', NULL, NULL);
 INSERT INTO `sys_codeitem` VALUES (17, 'java_type', 'Integer', 'Integer', 'java.lang.Integer', NULL, NULL, '2018-05-21 12:47:22', '2019-08-15 00:37:59', '不可修改', 9.00);
 INSERT INTO `sys_codeitem` VALUES (18, 'java_type', 'Date', 'Date', 'java.util.Date', NULL, NULL, '2018-05-21 12:48:43', '2018-05-21 12:48:43', NULL, NULL);
-INSERT INTO `sys_codeitem` VALUES (20, 'query_type', 'EQ', '=', NULL, NULL, NULL, '2018-05-21 13:44:38', '2018-05-21 13:48:38', NULL, NULL);
-INSERT INTO `sys_codeitem` VALUES (21, 'query_type', 'CONTAIN', 'contain', NULL, NULL, NULL, '2018-05-21 13:46:58', '2018-05-21 13:51:16', NULL, NULL);
-INSERT INTO `sys_codeitem` VALUES (22, 'query_type', 'NE', '!=', NULL, NULL, NULL, '2018-05-21 13:50:13', '2018-05-21 13:50:13', NULL, NULL);
-INSERT INTO `sys_codeitem` VALUES (23, 'query_type', 'BETWEEN', 'between', NULL, NULL, NULL, '2018-05-21 13:50:58', '2018-05-21 13:50:58', NULL, NULL);
+INSERT INTO `sys_codeitem` VALUES (20, 'query_type', 'eq', '=', NULL, NULL, NULL, '2018-05-21 13:44:38', '2019-08-21 21:19:41', NULL, NULL);
+INSERT INTO `sys_codeitem` VALUES (21, 'query_type', 'contain', 'contain', NULL, NULL, NULL, '2018-05-21 13:46:58', '2019-08-21 21:20:15', NULL, NULL);
+INSERT INTO `sys_codeitem` VALUES (22, 'query_type', 'ne', '!=', NULL, NULL, NULL, '2018-05-21 13:50:13', '2019-08-21 21:20:40', NULL, NULL);
+INSERT INTO `sys_codeitem` VALUES (23, 'query_type', 'between', 'between', NULL, NULL, NULL, '2018-05-21 13:50:58', '2019-08-21 21:20:50', NULL, NULL);
 INSERT INTO `sys_codeitem` VALUES (24, 'grid_row_col', '6/4/8', '6/4/8', NULL, NULL, NULL, '2018-05-25 17:36:32', '2018-05-25 17:36:32', NULL, NULL);
 INSERT INTO `sys_codeitem` VALUES (25, 'grid_row_col', '12/2/10', '12/2/10', NULL, NULL, NULL, '2018-05-25 17:37:27', '2018-05-25 17:37:27', NULL, NULL);
 INSERT INTO `sys_codeitem` VALUES (26, 'grid_row_col', '12/2/5', '12/2/5', NULL, NULL, NULL, '2018-05-25 17:37:58', '2018-05-25 17:37:58', NULL, NULL);
@@ -343,8 +350,6 @@ INSERT INTO `sys_codeitem` VALUES (29, 'form_field_type', 'input_text', '单行�
 INSERT INTO `sys_codeitem` VALUES (30, 'form_field_type', 'input_textarea', '多行文本框', NULL, NULL, NULL, '2018-05-29 23:32:37', '2018-05-29 23:32:37', NULL, NULL);
 INSERT INTO `sys_codeitem` VALUES (31, 'entity_super_class', 'VersionEntity', 'VersionEntity', 'org.coderfun.common.VersionEntity', NULL, NULL, '2018-05-30 02:03:39', '2019-08-17 03:20:55', NULL, 8.00);
 INSERT INTO `sys_codeitem` VALUES (33, 'entity_super_class', 'OrderEntity', 'OrderEntity', 'org.coderfun.common.OrderEntity', NULL, NULL, '2018-05-30 16:01:55', '2019-08-17 03:20:47', NULL, 9.00);
-INSERT INTO `sys_codeitem` VALUES (40, 'gen_filekey_type', 'package_path', '模块包路径', NULL, NULL, NULL, '2019-08-13 20:05:59', '2019-08-13 20:07:41', NULL, NULL);
-INSERT INTO `sys_codeitem` VALUES (41, 'gen_filekey_type', 'module_name', '模块名', NULL, NULL, NULL, '2019-08-13 20:06:26', '2019-08-15 00:26:02', NULL, NULL);
 INSERT INTO `sys_codeitem` VALUES (42, 'entity_super_class', 'Object', '无', 'java.lang.Object', NULL, NULL, '2019-08-15 22:32:20', '2019-08-15 22:32:20', NULL, NULL);
 INSERT INTO `sys_codeitem` VALUES (43, 'form_field_type', 'input_code', '数据字典', NULL, NULL, NULL, '2019-08-16 15:37:29', '2019-08-16 15:37:29', NULL, NULL);
 INSERT INTO `sys_codeitem` VALUES (44, 'field_formatter', 'complexCol', '通用', NULL, NULL, NULL, '2019-08-16 16:36:12', '2019-08-16 16:36:12', NULL, NULL);
@@ -353,7 +358,6 @@ INSERT INTO `sys_codeitem` VALUES (46, 'field_formatter', 'EasyUiDateTime', '时
 INSERT INTO `sys_codeitem` VALUES (47, 'field_code_class', 'user_gender', '性别', NULL, NULL, NULL, '2019-08-16 17:16:53', '2019-08-16 17:17:26', NULL, NULL);
 INSERT INTO `sys_codeitem` VALUES (48, 'field_code_class', 'user_state', '用户状态', NULL, NULL, NULL, '2019-08-16 17:17:19', '2019-08-16 17:17:19', NULL, NULL);
 INSERT INTO `sys_codeitem` VALUES (49, 'field_formatter', 'EasyUiDate', '日期', NULL, NULL, NULL, '2019-08-16 23:15:04', '2019-08-16 23:15:04', NULL, NULL);
-INSERT INTO `sys_codeitem` VALUES (50, 'gen_filekey_type', 'root', '根目录', NULL, NULL, NULL, '2019-08-18 01:24:43', '2019-08-18 01:24:43', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for sys_menu_tree

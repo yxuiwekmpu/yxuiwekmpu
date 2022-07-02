@@ -18,14 +18,14 @@ public class TemplateFile extends OrderEntity<Long> {
 	private static final long serialVersionUID = 1L;
 
 	private String name;
-	private String url;
+	@Column(name = "uuid_name")
+	private String uuidName;
 
-	
 	/**
 	 * 模板文件的目录，以"/"开头,以"/"结束
 	 */
 	private String dir;
-	
+
 	/**
 	 * 生成文件的目录，以"/"开头,以"/"结束
 	 */
@@ -46,12 +46,12 @@ public class TemplateFile extends OrderEntity<Long> {
 		this.canMerge = canMerge;
 	}
 
-	public String getUrl() {
-		return url;
+	public String getUuidName() {
+		return uuidName;
 	}
 
-	public void setUrl(String url) {
-		this.url = url;
+	public void setUuidName(String uuidName) {
+		this.uuidName = uuidName;
 	}
 
 	public String getGenFilekeyPattern() {

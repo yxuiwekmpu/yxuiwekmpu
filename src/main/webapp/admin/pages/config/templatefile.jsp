@@ -65,7 +65,7 @@
 					<td	colspan="3">
 						<input class="easyui-textbox easyui-validatebox" id="name" name="name" style="width: 100%"
 						data-options="required:true,buttonText:'选择文件',prompt:'文件名',onClickButton:uploadFile" >
-						<input id="url" name="url" style="display: none" />						
+						<input id="uuidName" name="uuidName" style="display: none" />						
 					</td>
 				</tr>
 				<tr class="tr_padding">
@@ -149,7 +149,7 @@ $(function(){
 		$("#name").textbox("setValue",file.name);
     });
     tpfUploader.on( 'uploadSuccess', function( file,json ) {
-	    $( '#url' ).val(json.data);	
+	    $( '#uuidName' ).val(json.data);	
         if(json.type == "success"){
         	$.messager.show({
         		title : "提示",

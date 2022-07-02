@@ -52,7 +52,7 @@ public class TemplateFileServiceImpl extends BaseServiceImpl<TemplateFile, Long>
 	@Override
 	public File getFile(TemplateFile templateFile) {
 		// TODO Auto-generated method stub
-		String realPath = webRes.getAbsolutePath() + templateFile.getUrl().substring(webRes.getPath().length());
+		String realPath = getTemplateAbsoluteDir() + templateFile.getUuidName();
 		
 		return new File(realPath);
 	}
@@ -91,7 +91,7 @@ public class TemplateFileServiceImpl extends BaseServiceImpl<TemplateFile, Long>
             file.transferTo(dest);
             logger.info("上传成功");
             // 原文件名+uuidName
-            return webRes.getPath() + TEMPLATE_RELATIVE_DIR + uuidName;
+            return uuidName;
         } catch (IOException e) {
             logger.error(e.toString(), e);
         }

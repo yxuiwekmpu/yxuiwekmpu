@@ -12,6 +12,8 @@
    				
   	</head>
 <body class="easyui-layout" fit="true">
+<c:import url="/admin/pages/common/loading.jsp"/>
+
 <div data-options="region:'center'" title="实体元数据">
 	<c:import url="${root}/admin/pages/fieldmeta/_entitymeta.jsp"></c:import>
 </div>	

@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class WebRouter {
 	
-	@Value("${fieldmeta.template}")
-	String template = "";
+	@Value("${fieldmeta.template.name}")
+	String templateName = "";
+	@Value("${fieldmeta.template.description}")
+	String templateDescription;
 	
 	/**
 	 * 首页
@@ -18,7 +20,8 @@ public class WebRouter {
 	 */
     @RequestMapping("/index") 
     public String GoToIndex(Model model){ 
-    	model.addAttribute("template", template);
+    	model.addAttribute("templateName", templateName);
+    	model.addAttribute("templateDescription", templateDescription);
         return "index"; 
     }
 }

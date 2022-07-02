@@ -1,7 +1,12 @@
 package org.coderfun.gen.service;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
 import java.io.StringWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -43,6 +48,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import klg.j2ee.query.jpa.expr.AExpr;
@@ -193,7 +199,7 @@ public class GenServiceImpl implements GenService {
 			genCodeFile.setName(name);
 			
 			genCodeFile.setContent(processTemplate(templateFile, codeModel));
-			
+			genCodeFile.setCanMerge(templateFile.getCanMerge());
 			genCodeFiles.add(genCodeFile);
 			logger.info("{}<==={}",codeModel.getTablemeta().getTableName( ), genCodeFile.getDir() +genCodeFile.getName());
 		}
@@ -206,7 +212,7 @@ public class GenServiceImpl implements GenService {
 		StringWriter writer = new StringWriter();
 		String result = null;
 		try {
-			Template template = FreemarkerHelper.getTemplate(templateFile.getDir() + templateFile.getName());
+			Template template = FreemarkerHelper.getTemplate(templateFile.getUuidName());
 			template.process(codeModel, writer); 
 			result = writer.toString();
 		} catch (IOException | TemplateException e) {
@@ -236,7 +242,7 @@ public class GenServiceImpl implements GenService {
         for(Long tablemetaId : tablemetaIds ){
         	List<GenCodeFile> genCodeFiles = genCodeFiles(tablemetaId);
         	for(GenCodeFile genCodeFile : genCodeFiles){
-        		if(!genCodeFile.getCanMerge().equals(SystemCode.YES)){
+        		if(!SystemCode.YES.equals(genCodeFile.getCanMerge())){
         			zipProcesser(zip, genCodeFile);
         		}else{
         			//合并文件
@@ -278,7 +284,7 @@ public class GenServiceImpl implements GenService {
         zip.closeEntry();
 	}
 
-	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, FileNotFoundException, IOException {
 		
 		System.out.println("aaa".replaceAll(LFENP, "bb"));
 		System.out.println("aaa".replace(LFENP, "bb"));
@@ -287,7 +293,6 @@ public class GenServiceImpl implements GenService {
 		System.out.println("/src/main/java/[MOD_PKG_PATH]/entity/".replace(MOD_PKG_PATH, "org.coderfun.common".replace(".", "/")));
 		
 		System.out.println("/res/asa".substring("/res/".length()));
-		
 		
 //		System.out.println("[lenp].java".contains("[lenp]"));
 //		System.out.println("[lenp].java".replace("[lenp]", "BBB"));

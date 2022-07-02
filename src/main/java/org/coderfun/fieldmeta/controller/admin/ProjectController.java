@@ -74,7 +74,7 @@ public class ProjectController {
 	}
 	
 	private void changeDefault(Project project){
-		if(project.getIsDefaultCode().equals(SystemCode.YES)){
+		if(SystemCode.YES.equals(project.getIsDefaultCode())){
 			List<Project> projects=projectService.findList(AExpr.eq(Project_.isDefaultCode, SystemCode.YES));
 			for(Project p:projects){
 				p.setIsDefaultCode(SystemCode.NO);

@@ -3,7 +3,6 @@ package org.coderfun.gen.service;
 import java.io.File;
 import java.io.IOException;
 
-import org.coderfun.fieldmeta.entity.TemplateFile;
 import org.coderfun.fieldmeta.service.TemplateFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -45,15 +44,6 @@ public class FreemarkerHelper {
 		}
 		return null;
 	}
-
-	public static Template getTemplate(TemplateFile templateFile) {
-		String templateAbsolutePath = templateFileService.getFile(templateFile).getAbsolutePath();
-		String relativePath = templateAbsolutePath.substring(templateFileService.getTemplateAbsoluteDir().length());
-		return getTemplate(relativePath);
-	}
-	
-	
-	
 	
 	
 	

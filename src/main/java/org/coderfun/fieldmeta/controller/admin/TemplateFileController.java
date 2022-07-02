@@ -50,7 +50,7 @@ public class TemplateFileController {
 	@Autowired
 	TemplateFileService templateFileService;
 	
-	@Value("${fieldmeta.template}")
+	@Value("${fieldmeta.template.name}")
 	String templateName = "";
 	
 	private void checkParams(TemplateFile templateFile){		

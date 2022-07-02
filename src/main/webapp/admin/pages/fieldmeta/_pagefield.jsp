@@ -45,9 +45,10 @@
 							
 				<th data-options="field:'canEdit',width:30,align:'left',
 					formatter:checkboxCol,editor:ag_checkbox_editor">编辑</th>				
+<!-- 
 				<th data-options="field:'required',width:30,align:'left',
 					formatter:checkboxCol,editor:ag_checkbox_editor">必填</th>
-
+ -->
 				<th data-options="field:'formType',width:50,align:'left',formatter:complexCol"
 					editor="{type:'combobox',options:{enableNull:true,nullText:'无',valueField:'code',textField:'name',editable:false,panelHeight:'auto',
 							codeClass:'form_field_type'}}">表单类型</th>					

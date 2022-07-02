@@ -59,7 +59,9 @@
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="dataTable.remove()">删除</a>
         
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-database_table" plain="true" onclick="javascript:$.messager.alert('提示','开发中...');">数据库导入</a>
+
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-page_code" plain="true" onclick="javascript:codegen()">生成代码</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-folder_go" plain="true" onclick="javascript:deployToTestProject()">部署到测试工程</a>
        
 	</div>
 	
@@ -145,19 +147,54 @@
 		$("#"+id).form("clear");	
 	}
 	
-	function codegen(){
+	function deployToTestProject(){
 		var checked_rows = $("#datagrid-table").datagrid("getChecked");
+		var tablemetaIds = [];
+		for(var i=0; i<checked_rows.length; i++){
+			tablemetaIds.push(checked_rows[i].id);
+		}
 		if(!checked_rows.length){
 			$.messager.alert({
 				title : "提示",
 				msg : "请勾选实体元数据！"
 			})
-			return ;
+		}else{
+			var moduleName = $("#search-moduleName").combobox("getValue");
+			$.messager.alert({
+				title : "提示",
+				msg : "正则生成代码，请勿重复点击！"
+			})
+			$.post(adminActionPath + "/gen/deployToTestProject",{tablemetaIds:tablemetaIds, moduleName:moduleName},function(json){
+				if(json.type == success){
+					$.messager.show({
+						title : "提示",
+						msg : "成功生成代码并部署！"
+					})
+				}
+			},"json"); 
 		}
-		$.messager.alert({
-			title : "提示",
-			msg : "开发中..."
-		})
+	}
+	
+	function codegen(){
+		var checked_rows = $("#datagrid-table").datagrid("getChecked");
+		var tablemetaIds = [];
+		for(var i=0; i<checked_rows.length; i++){
+			tablemetaIds.push(checked_rows[i].id);
+		}
+		if(!checked_rows.length){
+			$.messager.alert({
+				title : "提示",
+				msg : "请勾选实体元数据！"
+			})
+		}else{
+			var moduleName = $("#search-moduleName").combobox("getValue");
+			$.messager.alert({
+				title : "提示",
+				msg : "正则生成代码，请勿重复点击！"
+			})
+			postParams(adminActionPath + "/gen/genCodeByZip",{tablemetaIds:tablemetaIds, moduleName:moduleName}); 
+		}
+		 
 	}
 	
 	</script>

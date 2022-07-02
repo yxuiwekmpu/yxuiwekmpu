@@ -25,9 +25,9 @@ public interface TemplateFileService extends BaseService<TemplateFile, Long>{
 	public File getFile(TemplateFile templateFile);
 	
 	/**
-	 * 返回url
+	 * uuidName
 	 * @param file
-	 * @return
+	 * @return uuidName
 	 */
 	public String upload(MultipartFile file);
 	

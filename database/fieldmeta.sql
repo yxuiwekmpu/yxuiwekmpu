@@ -11,7 +11,7 @@
  Target Server Version : 50721
  File Encoding         : 65001
 
- Date: 23/08/2019 17:09:20
+ Date: 23/08/2019 18:55:33
 */
 
 SET NAMES utf8mb4;
@@ -58,8 +58,8 @@ INSERT INTO `fm_field_entity` VALUES (8, '2019-08-16 22:57:42', '2019-08-16 23:1
 INSERT INTO `fm_field_entity` VALUES (9, '2019-08-16 22:57:42', '2019-08-16 22:57:42', NULL, 'egDate', 'Date', 'eg_date', 5.00, 'date', '', NULL, NULL, 'no', 'no', 'no', 'no', 'codefun_option_field', 'no', '');
 INSERT INTO `fm_field_entity` VALUES (10, '2019-08-16 22:57:42', '2019-08-16 22:57:42', NULL, 'egDatetime', 'Date', 'eg_datetime', 6.00, 'datetime', '', NULL, NULL, 'no', 'no', 'no', 'no', 'codefun_option_field', 'no', '');
 INSERT INTO `fm_field_entity` VALUES (11, '2019-08-16 23:19:42', '2019-08-18 01:58:08', NULL, 'remark', 'String', 'remark', 3.00, 'varchar', '备注', NULL, 255, 'no', 'no', 'no', 'no', 'klg.common.dataaccess.entity.BaseEntity', 'no', 'string');
-INSERT INTO `fm_field_entity` VALUES (12, '2019-08-17 01:25:42', '2019-08-23 02:10:54', NULL, 'username', 'String', 'username', 0.00, 'varchar', '用户名', NULL, 255, 'no', 'no', 'no', 'no', 'user', 'no', 'string');
-INSERT INTO `fm_field_entity` VALUES (13, '2019-08-17 01:25:42', '2019-08-23 02:10:54', NULL, 'email', 'String', 'email', 1.00, 'text', '邮箱', NULL, 20, 'no', 'no', 'no', 'no', 'user', 'no', 'email');
+INSERT INTO `fm_field_entity` VALUES (12, '2019-08-17 01:25:42', '2019-08-23 17:40:02', NULL, 'username', 'String', 'username', 0.00, 'varchar', '用户名', NULL, 255, 'no', 'yes', 'no', 'no', 'user', 'no', 'string');
+INSERT INTO `fm_field_entity` VALUES (13, '2019-08-17 01:25:42', '2019-08-23 17:40:02', NULL, 'email', 'String', 'email', 1.00, 'varchar', '邮箱', NULL, 20, 'no', 'yes', 'no', 'no', 'user', 'no', 'email');
 INSERT INTO `fm_field_entity` VALUES (14, '2019-08-17 01:25:42', '2019-08-23 02:10:54', NULL, 'score', 'Integer', 'score', 2.00, 'int', '分数', NULL, 11, 'no', 'no', 'no', 'no', 'user', 'no', 'digits');
 INSERT INTO `fm_field_entity` VALUES (15, '2019-08-22 23:26:37', '2019-08-22 23:26:37', NULL, 'content', 'String', 'content', 0.00, 'text', '内容', NULL, 0, 'no', 'no', 'no', 'no', 'weibo', 'no', '');
 INSERT INTO `fm_field_entity` VALUES (16, '2019-08-23 02:52:21', '2019-08-23 02:52:21', NULL, 'code', 'String', 'code', 7.00, 'varchar', '', NULL, 255, 'no', 'no', 'no', 'no', 'codefun_option_field', 'no', '');
@@ -105,13 +105,13 @@ INSERT INTO `fm_field_page` VALUES (8, 'yes', 'yes', 'no', '', NULL, '', 'no', '
 INSERT INTO `fm_field_page` VALUES (9, 'yes', 'yes', 'no', '', NULL, '', 'no', 'between', 'no', 9, 'EasyUiDate', '', 'codefun_option_field', 'input_date');
 INSERT INTO `fm_field_page` VALUES (10, 'yes', 'yes', 'no', '', NULL, '', 'no', 'between', 'no', 10, 'EasyUiDateTime', '', 'codefun_option_field', 'input_date');
 INSERT INTO `fm_field_page` VALUES (11, 'yes', 'yes', 'no', '', NULL, '', 'no', 'contain', 'no', 11, 'complexCol', '备注', 'klg.common.dataaccess.entity.BaseEntity', 'input_textarea');
-INSERT INTO `fm_field_page` VALUES (12, 'yes', 'yes', 'yes', '', NULL, '', 'no', 'contain', 'no', 12, 'complexCol', '用户名', 'user', 'input_text');
-INSERT INTO `fm_field_page` VALUES (13, 'yes', 'yes', 'yes', '', NULL, '', 'no', 'contain', 'no', 13, 'complexCol', '邮箱', 'user', 'input_textarea');
+INSERT INTO `fm_field_page` VALUES (12, 'yes', 'yes', 'yes', '', NULL, '', 'no', 'contain', 'yes', 12, 'complexCol', '用户名', 'user', 'input_text');
+INSERT INTO `fm_field_page` VALUES (13, 'yes', 'yes', 'yes', '', NULL, '', 'no', 'contain', 'yes', 13, 'complexCol', '邮箱', 'user', 'input_text');
 INSERT INTO `fm_field_page` VALUES (14, 'yes', 'yes', 'no', '', NULL, '', 'no', '', 'no', 14, 'complexCol', '分数', 'user', 'input_text');
-INSERT INTO `fm_field_page` VALUES (15, 'yes', 'yes', 'yes', '', NULL, '', 'no', 'contain', 'no', 15, 'complexCol', '', 'weibo', 'input_textarea');
+INSERT INTO `fm_field_page` VALUES (15, 'yes', 'yes', 'yes', '', NULL, '', 'no', 'contain', 'no', 15, 'complexCol', '内容', 'weibo', 'input_textarea');
 INSERT INTO `fm_field_page` VALUES (16, 'yes', 'yes', 'no', '', NULL, '', 'no', 'eq', 'no', 16, 'codeCol', '', 'codefun_option_field', 'input_code');
-INSERT INTO `fm_field_page` VALUES (17, 'yes', 'yes', 'yes', 'user_gender', NULL, '', 'no', 'eq', 'no', 17, 'codeCol', '性别', 'user', 'input_code');
-INSERT INTO `fm_field_page` VALUES (18, 'yes', 'yes', 'yes', 'yes_or_no', NULL, '', 'no', 'eq', 'no', 18, 'codeCol', '', 'weibo', 'input_code');
+INSERT INTO `fm_field_page` VALUES (17, 'yes', 'yes', 'yes', 'user_gender', NULL, '', 'no', 'eq', 'yes', 17, 'codeCol', '性别', 'user', 'input_code');
+INSERT INTO `fm_field_page` VALUES (18, 'yes', 'yes', 'yes', 'yes_or_no', NULL, '', 'no', 'eq', 'no', 18, 'codeCol', '可评论', 'weibo', 'input_code');
 
 -- ----------------------------
 -- Table structure for fm_module

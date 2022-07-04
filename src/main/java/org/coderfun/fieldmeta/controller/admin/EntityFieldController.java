@@ -28,12 +28,6 @@ public class EntityFieldController {
 	@Autowired
 	EntityFieldService entityFieldService;
 
-	@ResponseBody
-	@RequestMapping("/add")
-	public JsonData add(@ModelAttribute EntityField entityField) {
-		
-		return JsonData.success(entityFieldService.save(entityField));
-	}
 
 	@ResponseBody
 	@RequestMapping(value = "/update_sort", method = RequestMethod.POST)
@@ -44,18 +38,9 @@ public class EntityFieldController {
 	}
 
 	@ResponseBody
-	@RequestMapping("/edit")
-	public JsonData edit(@ModelAttribute EntityField entityField){
-
-		return JsonData.success(entityFieldService.update(entityField));
-	}
-
-	@ResponseBody
 	@RequestMapping("/delete")
 	public JsonData delete(@RequestParam Long id) {
-
 		entityFieldService.delete(id);
-
 		return JsonData.success();
 	}
 

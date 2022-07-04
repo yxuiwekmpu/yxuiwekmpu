@@ -40,7 +40,7 @@ public class GenController {
 	
 	@RequestMapping("/deployToTestProject")
 	public JsonData deployToTestProject(@RequestParam(value = "tablemetaIds[]") List<Long> tablemetaIds, 
-			String moduleName, 
+			Long moduleId, 
 			HttpServletResponse response){
 		
 		if (tablemetaIds.isEmpty()) {
@@ -49,7 +49,7 @@ public class GenController {
 		
 		try {
 			byte[] data = genService.genCodeByZip(tablemetaIds);
-			File zipFile = new File(testProjectPath + genZipName(moduleName));
+			File zipFile = new File(testProjectPath + genZipName(moduleId));
 			
 			FileOutputStream fos = new FileOutputStream(zipFile);
 			fos.write(data);
@@ -68,7 +68,7 @@ public class GenController {
 	
 	@RequestMapping("/genCodeByZip")
 	public void genCodeByZip(@RequestParam(value = "tablemetaIds") List<Long> tablemetaIds, 
-			String moduleName, 
+			Long moduleId, 
 			HttpServletResponse response) throws IOException {
 
 		if (tablemetaIds.isEmpty()) {
@@ -78,7 +78,7 @@ public class GenController {
 		byte[] data = genService.genCodeByZip(tablemetaIds);
 		
 		response.reset();
-		response.setHeader("Content-Disposition", "attachment; filename=\"" + genZipName(moduleName) + "\"");
+		response.setHeader("Content-Disposition", "attachment; filename=\"" + genZipName(moduleId) + "\"");
 		response.addHeader("Content-Length", "" + data.length);
 		response.setContentType("application/octet-stream; charset=UTF-8");
 		IOUtils.write(data, response.getOutputStream());
@@ -86,9 +86,9 @@ public class GenController {
 		// response.getOutputStream().close();
 	}
 
-	private String genZipName(String moduleName){
-		Module module = moduleService.getOne(AExpr.eq(Module_.moduleName, moduleName));
-		String fileName = module.getProject().getName() + "-" + moduleName + "-genby-fieldmeta.com.zip";
+	private String genZipName(Long moduleId){
+		Module module = moduleService.getById(moduleId);
+		String fileName = module.getProject().getName() + "-" + module.getModuleName() + "-genby-fieldmeta.com.zip";
 		return fileName;
 	}
 	

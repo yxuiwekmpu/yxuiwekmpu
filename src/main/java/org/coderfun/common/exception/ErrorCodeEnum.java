@@ -35,6 +35,7 @@ public enum ErrorCodeEnum implements IErrorCode {
 	NEED_RE_UPLOAD					(204004L,"请重新上传模板文件"),
 	INVALID_DIR						(204005L,"不合法的目录路径，两头应都有'/'"),
 	
+	DB_META_CRAWLER_WORONG			(205001L,"获取数据库元数据出错！"),
 	BADPARAM(203001L,"错误的请求参数错误！");
 	
 	

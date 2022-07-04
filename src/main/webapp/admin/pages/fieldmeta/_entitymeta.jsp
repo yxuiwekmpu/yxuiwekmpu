@@ -45,8 +45,8 @@
 				<span class="inline-clear"></span>
 				
 				<label>所属模块</label>
-				<input id="search-moduleName" name="moduleName" class="easyui-combobox"
-					data-options="valueField:'moduleName',textField:'moduleName',editable:false,panelHeight:'auto',defaultFirst:true,
+				<input id="search-moduleId" name="moduleId" class="easyui-combobox"
+					data-options="valueField:'id',textField:'moduleName',editable:false,panelHeight:'auto',defaultFirst:true,
 							url:adminActionPath +'/module/defalut_project',dataField : 'data',onLoadSuccess:loadTables">
 				<span class="inline-clear"></span>
 				
@@ -58,7 +58,7 @@
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="dataTable.edit()">修改</a>  
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="dataTable.remove()">删除</a>
         
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-database_table" plain="true" onclick="javascript:$.messager.alert('提示','开发中...');">数据库导入</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-database_table" plain="true" onclick="javascript:openTableList();">数据库导入</a>
 
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-page_code" plain="true" onclick="javascript:codegen()">生成代码</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-folder_go" plain="true" onclick="javascript:deployToTestProject()">部署到测试工程</a>
@@ -100,9 +100,11 @@
 					</td>
 					<td><label>所属模块</label></td>
 					<td>
-						<input name="moduleName" class="easyui-combobox"
-					data-options="valueField:'moduleName',textField:'moduleName',defaultFirst:true,editable:false,panelHeight:'auto',
-							url:adminActionPath +'/module/defalut_project',dataField : 'data'">
+						<input id="form-moduleName" name="moduleName" style="display: none" />
+						<input name="moduleId" class="easyui-combobox"
+					data-options="valueField:'id',textField:'moduleName',defaultFirst:true,editable:false,panelHeight:'auto',
+							url:adminActionPath +'/module/defalut_project',dataField : 'data',
+							onSelect:function(record){$('#form-moduleName').val(record.moduleName)}">
 					</td>		
 				</tr>
 
@@ -134,7 +136,7 @@
 		<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-ok" onclick="dataTable.save()">保存</a> 
 		<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#data-form-dlg').dialog('close')">取消</a>
 	</div>
-	
+	<c:import url="/admin/pages/fieldmeta/_tableImport.jsp"></c:import>
 	
 	<script type="text/javascript">
 	function tableNameOnChange(newValue){
@@ -159,12 +161,12 @@
 				msg : "请勾选实体元数据！"
 			})
 		}else{
-			var moduleName = $("#search-moduleName").combobox("getValue");
+			var moduleId = $("#search-moduleId").combobox("getValue");
 			$.messager.alert({
 				title : "提示",
 				msg : "正则生成代码，请勿重复点击！"
 			})
-			$.post(adminActionPath + "/gen/deployToTestProject",{tablemetaIds:tablemetaIds, moduleName:moduleName},function(json){
+			$.post(adminActionPath + "/gen/deployToTestProject",{tablemetaIds:tablemetaIds, moduleId:moduleId},function(json){
 				if(json.type == success){
 					$.messager.show({
 						title : "提示",
@@ -187,12 +189,12 @@
 				msg : "请勾选实体元数据！"
 			})
 		}else{
-			var moduleName = $("#search-moduleName").combobox("getValue");
+			var moduleId = $("#search-moduleId").combobox("getValue");
 			$.messager.alert({
 				title : "提示",
 				msg : "正则生成代码，请勿重复点击！"
 			})
-			postParams(adminActionPath + "/gen/genCodeByZip",{tablemetaIds:tablemetaIds, moduleName:moduleName}); 
+			postParams(adminActionPath + "/gen/genCodeByZip",{tablemetaIds:tablemetaIds, moduleId:moduleId}); 
 		}
 		 
 	}

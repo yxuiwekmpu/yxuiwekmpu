@@ -54,10 +54,10 @@
 		});
 		
 		function loadTables(){
-			var moduleName = $("#search-moduleName").combobox("getValue");
+			var moduleId = $("#search-moduleId").combobox("getValue");
 			$("#datagrid-table").datagrid({
 				url				: adminActionPath + '/tablemeta/findlist',
-				queryParams		: {moduleName : moduleName},
+				queryParams		: {moduleId : moduleId},
 				onSelect		: function(index, row){
 					ag_table.selectTable = row.tableName;
 					laodWithTableName();

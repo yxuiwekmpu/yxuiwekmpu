@@ -24,6 +24,8 @@ import org.coderfun.common.BaseEntity;
 public class Tablemeta extends BaseEntity<Long> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@Column(name = "module_id")
+	private Long moduleId;
 	@Column(name = "module_name")
 	private String moduleName;
 
@@ -175,4 +177,13 @@ public class Tablemeta extends BaseEntity<Long> implements Serializable {
 	public void setTableName(String tableName) {
 		this.tableName = tableName;
 	}
+
+	public Long getModuleId() {
+		return moduleId;
+	}
+
+	public void setModuleId(Long moduleId) {
+		this.moduleId = moduleId;
+	}
+
 }

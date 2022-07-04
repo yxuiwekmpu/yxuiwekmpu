@@ -37,9 +37,7 @@ public class EntityFieldServiceImpl extends BaseServiceImpl<EntityField, Long> i
 	@Transactional
 	public EntityField save(EntityField entity) {
 		// TODO Auto-generated method stub
-		EntityField entityField = entityFieldDAO.save(entity);
-		PageField pageField = BeanTools.newAndSet(PageField.class, "entityField", entityField);
-		pageFieldDAO.save(pageField);
-		return entityField;
+		//EntityField entityField = 
+		return entity;
 	}
 }

@@ -5,13 +5,17 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.coderfun.common.exception.AppException;
+import org.coderfun.common.exception.ErrorCodeEnum;
 import org.coderfun.fieldmeta.dao.EntityFieldDAO;
 import org.coderfun.fieldmeta.dao.PageFieldDAO;
 import org.coderfun.fieldmeta.dao.TablemetaDAO;
 import org.coderfun.fieldmeta.entity.EntityField;
 import org.coderfun.fieldmeta.entity.EntityField_;
 import org.coderfun.fieldmeta.entity.PageField;
+import org.coderfun.fieldmeta.entity.Project;
 import org.coderfun.fieldmeta.entity.Tablemeta;
+import org.coderfun.fieldmeta.entity.Tablemeta_;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +32,23 @@ public class TablemetaServiceImpl  extends BaseServiceImpl<Tablemeta, Long> impl
 
 	@Autowired
 	EntityFieldDAO entityFieldDAO;
+	
+	/**
+	 * 同一模块下，不允许存在重复的表
+	 */
+	@Override
+	@Transactional
+	public synchronized Tablemeta save(Tablemeta entity) {
+		// TODO Auto-generated method stub
+	
+		Tablemeta tablemeta =  tablemetaDAO.getOne(
+				AExpr.eq(Tablemeta_.moduleId, entity.getModuleId()),
+				AExpr.eq(Tablemeta_.tableName, entity.getTableName()));
+		if(tablemeta !=null){
+			throw new AppException(ErrorCodeEnum.DATA_EXISTED);
+		}
+		return super.save(entity);
+	}
 	
 	@Override
 	@Transactional

@@ -1,6 +1,5 @@
 package org.coderfun.gen.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -11,24 +10,24 @@ import org.coderfun.fieldmeta.entity.Tablemeta;
 
 public class CodeModel {
 
-	Tablemeta tablemeta;
-	String entityNameOfFirstLowcase;
-	String entityNameOfAllLowcase;
-	String entitySuperClassFullName;
-	Set<String> entityImportList;
-	EntityField pkColumn;
+	private Tablemeta tablemeta;
+	private String entityNameOfFirstLowcase;
+	private String entityNameOfAllLowcase;
+	private String entitySuperClassFullName;
+	private Set<String> entityImportList;
+	private EntityField pkColumn;
 
-	List<EntityField> entityFields;
-	List<EntityField> baseEntityFields;
+	private List<EntityField> entityFields;
+	private List<EntityField> baseEntityFields;
 
-	List<PageField> pageFields;
-	List<PageField> basePageFields;
-	//所有pageField
-	List<PageField> allPageFields;
-	
-	Module module;
-	String permissionPrefix;
-	String nowTime;
+	private List<PageField> pageFields;
+	private List<PageField> basePageFields;
+	// 所有pageField
+	private List<PageField> allPageFields;
+
+	private Module module;
+	private String permissionPrefix;
+	private String nowTime;
 
 	public String getPermissionPrefix() {
 		return permissionPrefix;
@@ -133,19 +132,13 @@ public class CodeModel {
 	public void setEntityImportList(Set<String> entityImportList) {
 		this.entityImportList = entityImportList;
 	}
-	
-	public List<PageField> getAllPageFields(){
-		if(allPageFields!=null){
-			return allPageFields;
-		}
-		
-		allPageFields = new ArrayList<>();
-		for(PageField basePageField:basePageFields){
-			allPageFields.add(basePageField);
-		}
-		for(PageField pageField:pageFields){
-			allPageFields.add(pageField);
-		}		
+
+	public List<PageField> getAllPageFields() {
 		return allPageFields;
-	}	
+	}
+
+	public void setAllPageFields(List<PageField> allPageFields) {
+		this.allPageFields = allPageFields;
+	}
+
 }

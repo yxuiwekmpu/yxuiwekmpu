@@ -1,12 +1,8 @@
 package org.coderfun.gen.service;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.Reader;
-import java.io.StringReader;
 import java.io.StringWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -48,7 +44,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
-import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import klg.j2ee.query.jpa.expr.AExpr;
@@ -92,7 +87,7 @@ public class GenServiceImpl implements GenService {
 		codeModel.setEntityNameOfAllLowcase(StringUtils.uncapitalize(tablemeta.getEntityName()));
 		codeModel.setEntityNameOfFirstLowcase(tablemeta.getEntityName().toLowerCase());
 		codeModel.setNowTime(DateFormatUtils.ISO_8601_EXTENDED_DATETIME_TIME_ZONE_FORMAT.format(new Date()));
-		codeModel.setModule(moduleService.getOne(AExpr.eq(Module_.moduleName, tablemeta.getModuleName())));
+		codeModel.setModule(moduleService.getById(tablemeta.getModuleId()));
 
 		String entitySuperClassFullName = DictReader.getCodeItem(tablemeta.getEntitySuperClass(),SystemCode.ClassCode.ENTITY_SUPER_CLASS).getValue();
 		codeModel.setEntitySuperClassFullName(entitySuperClassFullName);
@@ -109,12 +104,24 @@ public class GenServiceImpl implements GenService {
 		codeModel.setBaseEntityFields(baseEntityFields);
 		codeModel.setPageFields(pageFields);
 		codeModel.setBasePageFields(basePageFields);
+		initAllPageFields(codeModel);
 		
 		genEntityImportList(codeModel);
 		
 		lookUpValidation(codeModel);
 		lookUpPkColumn(codeModel);
 		return codeModel;
+	}
+	
+	private void initAllPageFields(CodeModel codeModel){
+		List<PageField> allPageFields = new ArrayList<>();
+		for(PageField basePageField:codeModel.getBasePageFields()){
+			allPageFields.add(basePageField);
+		}
+		for(PageField pageField:codeModel.getPageFields()){
+			allPageFields.add(pageField);
+		}
+		codeModel.setAllPageFields(allPageFields);
 	}
 	
 	private  void lookUpValidation(CodeModel codeModel){

@@ -38,6 +38,7 @@ $(function(){
 
 function selectBaseEntity(record){
 	ag_table.selectTable =  record.value;
+	ag_table.saveFieldsUrl = adminActionPath + '/tablemeta/save_fields_tbname?tableName=';
 	laodWithTableName();
 }
 

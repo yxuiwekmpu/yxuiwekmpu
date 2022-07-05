@@ -36,9 +36,10 @@
 //初始未被勾选
 var ag_checked_index = -1;
 var ag_table = {
-		selectTable 	: null,
+		selectTable	: null,
 		// 防止重复加载 字段元信息
-		loadTable  		: null
+		loadTable  		: null,
+		saveFieldsUrl	: null
 	};
 
 var ag_entity_field_default=	{
@@ -84,6 +85,15 @@ function laodWithTableName(){
 		ag_$entityfield_table.datagrid({url:adminActionPath + '/entityfield/findlist?tableName=' + tableName});
 		ag_$pagefield_table.datagrid({url:adminActionPath + '/pagefield/findlist?tableName=' + tableName});	
 		ag_table.loadTable = tableName;
+	}
+}
+
+function laodWithTableId(){
+	var tableId = ag_table.selectTable;
+	if(ag_table.loadTable != tableId){
+		ag_$entityfield_table.datagrid({url:adminActionPath + '/entityfield/findlist?tableId=' + tableId});
+		ag_$pagefield_table.datagrid({url:adminActionPath + '/pagefield/findlist?tableId=' + tableId});	
+		ag_table.loadTable = tableId;
 	}
 }
 
@@ -178,7 +188,7 @@ function saveFields(){
 		return false;
 	
 	ajaxRequestBody({
-		url : adminActionPath + '/tablemeta/save_fields?tableName=' + ag_table.selectTable,
+		url : ag_table.saveFieldsUrl + ag_table.selectTable,
 		data : getAllFields()
 	})
 }

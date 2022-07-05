@@ -30,7 +30,8 @@ public class PageField implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
+	@Column(name = "table_id")
+	private Long tableId;
 	@Column(name = "table_name")
 	private String tableName;
 
@@ -80,6 +81,14 @@ public class PageField implements Serializable {
 
 	public Long getId() {
 		return id;
+	}
+
+	public Long getTableId() {
+		return tableId;
+	}
+
+	public void setTableId(Long tableId) {
+		this.tableId = tableId;
 	}
 
 	public String getTableName() {

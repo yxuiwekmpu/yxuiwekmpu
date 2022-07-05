@@ -18,6 +18,7 @@ var ag_option_field_table="codefun_option_field";
 
 $(function(){
 	ag_table.selectTable =  ag_option_field_table;
+	ag_table.saveFieldsUrl = adminActionPath + '/tablemeta/save_fields_tbname?tableName=';
 	laodWithTableName();
 });
 

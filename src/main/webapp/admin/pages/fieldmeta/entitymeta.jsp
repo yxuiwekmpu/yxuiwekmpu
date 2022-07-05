@@ -59,8 +59,9 @@
 				url				: adminActionPath + '/tablemeta/findlist',
 				queryParams		: {moduleId : moduleId},
 				onSelect		: function(index, row){
-					ag_table.selectTable = row.tableName;
-					laodWithTableName();
+					ag_table.selectTable = row.id;
+					ag_table.saveFieldsUrl = adminActionPath + '/tablemeta/save_fields?tableId=';
+					laodWithTableId();
 				}
 			});
 			

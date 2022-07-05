@@ -52,7 +52,7 @@ public class TablemetaServiceImpl  extends BaseServiceImpl<Tablemeta, Long> impl
 	
 	@Override
 	@Transactional
-	public void saveFields(String tableName, List<EntityField> entityFields, List<PageField> pageFields) {
+	public void saveFieldsTbname(String tableName, List<EntityField> entityFields, List<PageField> pageFields) {
 		// TODO Auto-generated method stub
 		
 		for(int i=0 ; i <entityFields.size();i++){
@@ -74,6 +74,39 @@ public class TablemetaServiceImpl  extends BaseServiceImpl<Tablemeta, Long> impl
 			PageField pageField=pageFields.get(i);
 			pageField.setEntityField(entityField);
 			pageField.setTableName(tableName);
+			
+			pageFieldDAO.save(pageField);
+		}
+	}
+
+
+	
+	@Override
+	public void saveFields(Long tableId, List<EntityField> entityFields, List<PageField> pageFields) {
+		// TODO Auto-generated method stub
+		
+		Tablemeta tablemeta = tablemetaDAO.getById(tableId);
+		for(int i=0 ; i <entityFields.size();i++){
+			EntityField entityField = entityFields.get(i);
+			
+			if(entityField.getId() == null){
+				EntityField unique = entityFieldDAO.getOne(
+						AExpr.eq(EntityField_.tableId, tablemeta.getId()),
+						AExpr.eq(EntityField_.attrName, entityField.getAttrName()));
+				if(unique != null){
+					continue;
+				}
+			}
+	
+			entityField.setTableName(tablemeta.getTableName());
+			entityField.setTableId(tablemeta.getId());
+			entityField.setColumnSort(BigDecimal.valueOf(i));
+			entityFieldDAO.save(entityField);
+			
+			PageField pageField=pageFields.get(i);
+			pageField.setEntityField(entityField);
+			pageField.setTableName(tablemeta.getTableName());
+			pageField.setTableId(tablemeta.getId());
 			
 			pageFieldDAO.save(pageField);
 		}

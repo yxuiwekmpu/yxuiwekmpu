@@ -20,6 +20,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class EntityField extends BaseEntity<Long> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@Column(name = "table_id")
+	private Long tableId;
 	@Column(name = "table_name")
 	private String tableName;
 
@@ -48,7 +50,7 @@ public class EntityField extends BaseEntity<Long> implements Serializable {
 	@Column(name = "decimal_places")
 	private Long decimalPlaces;
 
-	@Column(name = "pk_restrict",nullable=false)
+	@Column(name = "pk_restrict", nullable = false)
 	private String pkRestrict;
 
 	@Column(name = "not_null_restrict")
@@ -67,6 +69,14 @@ public class EntityField extends BaseEntity<Long> implements Serializable {
 	@Transient
 	@JsonIgnore
 	private String fieldValidation;
+
+	public Long getTableId() {
+		return tableId;
+	}
+
+	public void setTableId(Long tableId) {
+		this.tableId = tableId;
+	}
 
 	public String getTableName() {
 		return tableName;

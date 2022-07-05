@@ -10,6 +10,7 @@ import klg.j2ee.common.dataaccess.BaseService;
 
 public interface TablemetaService extends BaseService<Tablemeta, Long>{
 	
-	public void saveFields(String tableName,List<EntityField> entityFields,List<PageField> pageFields);
 
+	public void saveFields(Long tableId,List<EntityField> entityFields,List<PageField> pageFields);
+	public void saveFieldsTbname(String tableName,List<EntityField> entityFields,List<PageField> pageFields);
 }

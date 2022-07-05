@@ -48,11 +48,21 @@ public class TablemetaController {
 
 	@ResponseBody
 	@RequestMapping("/save_fields")
-	public JsonData saveFields(@RequestBody TableMetaModel model, @RequestParam String tableName) {
+	public JsonData saveFields(@RequestBody TableMetaModel model, @RequestParam Long tableId) {
 
 		List<EntityField> entityFields = model.entityFields;
 		List<PageField> pageFields = model.pageFields;
-		tablemetaService.saveFields(tableName, entityFields, pageFields);
+		tablemetaService.saveFields(tableId, entityFields, pageFields);
+		;
+		return JsonData.success();
+	}
+	@ResponseBody
+	@RequestMapping("/save_fields_tbname")
+	public JsonData saveFieldsTbname(@RequestBody TableMetaModel model, @RequestParam String tableName) {
+
+		List<EntityField> entityFields = model.entityFields;
+		List<PageField> pageFields = model.pageFields;
+		tablemetaService.saveFieldsTbname(tableName, entityFields, pageFields);
 		;
 		return JsonData.success();
 	}

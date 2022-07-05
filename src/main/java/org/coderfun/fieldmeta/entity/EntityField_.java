@@ -6,7 +6,7 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 import org.coderfun.common.BaseEntity_;
 
-@Generated(value="Dali", date="2019-08-16T00:13:57.712+0800")
+@Generated(value="Dali", date="2019-08-25T04:19:39.894+0800")
 @StaticMetamodel(EntityField.class)
 public class EntityField_ extends BaseEntity_ {
 	public static volatile SingularAttribute<EntityField, String> tableName;
@@ -24,4 +24,5 @@ public class EntityField_ extends BaseEntity_ {
 	public static volatile SingularAttribute<EntityField, String> notInsertRestrict;
 	public static volatile SingularAttribute<EntityField, String> notUpdateRestrict;
 	public static volatile SingularAttribute<EntityField, String> fieldValidCode;
+	public static volatile SingularAttribute<EntityField, Long> tableId;
 }

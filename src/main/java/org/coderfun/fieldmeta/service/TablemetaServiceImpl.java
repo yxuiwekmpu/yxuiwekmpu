@@ -13,7 +13,6 @@ import org.coderfun.fieldmeta.dao.TablemetaDAO;
 import org.coderfun.fieldmeta.entity.EntityField;
 import org.coderfun.fieldmeta.entity.EntityField_;
 import org.coderfun.fieldmeta.entity.PageField;
-import org.coderfun.fieldmeta.entity.Project;
 import org.coderfun.fieldmeta.entity.Tablemeta;
 import org.coderfun.fieldmeta.entity.Tablemeta_;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,18 +68,16 @@ public class TablemetaServiceImpl  extends BaseServiceImpl<Tablemeta, Long> impl
 	
 			entityField.setTableName(tableName);
 			entityField.setColumnSort(BigDecimal.valueOf(i));
-			entityFieldDAO.save(entityField);
-			
+
 			PageField pageField=pageFields.get(i);
-			pageField.setEntityField(entityField);
 			pageField.setTableName(tableName);
 			
-			pageFieldDAO.save(pageField);
+			saveFieldPair(entityField, pageField);
 		}
 	}
 
 
-	
+	@Transactional
 	@Override
 	public void saveFields(Long tableId, List<EntityField> entityFields, List<PageField> pageFields) {
 		// TODO Auto-generated method stub
@@ -101,14 +98,35 @@ public class TablemetaServiceImpl  extends BaseServiceImpl<Tablemeta, Long> impl
 			entityField.setTableName(tablemeta.getTableName());
 			entityField.setTableId(tablemeta.getId());
 			entityField.setColumnSort(BigDecimal.valueOf(i));
-			entityFieldDAO.save(entityField);
+			
 			
 			PageField pageField=pageFields.get(i);
-			pageField.setEntityField(entityField);
 			pageField.setTableName(tablemeta.getTableName());
 			pageField.setTableId(tablemeta.getId());
 			
-			pageFieldDAO.save(pageField);
+			saveFieldPair(entityField, pageField);
 		}
 	}	
+	
+	
+	public synchronized void saveFieldPair(EntityField entityField , PageField pageField){
+		//查重
+		if(entityField.getTableId() !=null){
+			EntityField temp  = entityFieldDAO.getOne(
+					AExpr.eq(EntityField_.tableId, entityField.getTableId()),
+					AExpr.eq(EntityField_.columnName, entityField.getColumnName()));
+			if(temp != null){
+				throw new AppException(ErrorCodeEnum.DATA_EXISTED);
+			}
+			
+		}
+		
+		entityFieldDAO.save(entityField);
+		
+		pageField.setEntityField(entityField);
+		
+		pageFieldDAO.save(pageField);
+		
+	}
+	
 }

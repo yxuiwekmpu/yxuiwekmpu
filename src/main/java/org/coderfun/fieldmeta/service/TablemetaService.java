@@ -13,4 +13,5 @@ public interface TablemetaService extends BaseService<Tablemeta, Long>{
 
 	public void saveFields(Long tableId,List<EntityField> entityFields,List<PageField> pageFields);
 	public void saveFieldsTbname(String tableName,List<EntityField> entityFields,List<PageField> pageFields);
+	void saveFieldPair(EntityField entityField , PageField pageField);
 }

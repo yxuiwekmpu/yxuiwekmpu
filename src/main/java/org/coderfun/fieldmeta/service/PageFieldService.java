@@ -7,5 +7,12 @@ import org.coderfun.fieldmeta.entity.PageField;
 import klg.j2ee.common.dataaccess.BaseService;
 
 public interface PageFieldService extends BaseService<PageField, Long> {
+	/**
+	 * 方法被禁用
+	 */
+	@Override
+	@Deprecated
+	PageField save(PageField arg0);
+	
 	public List<PageField> getExamples();
 }

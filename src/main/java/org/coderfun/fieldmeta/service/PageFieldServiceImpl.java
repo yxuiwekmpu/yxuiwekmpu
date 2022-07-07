@@ -19,4 +19,12 @@ public class PageFieldServiceImpl  extends BaseServiceImpl<PageField, Long> impl
 		
 		return pageFieldDAO.getEntityManager().createNativeQuery(sql,PageField.class).getResultList();
 	}
+	/**
+	 * 方法被禁用
+	 */
+	@Override
+	public PageField save(PageField entity) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

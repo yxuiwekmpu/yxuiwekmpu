@@ -34,10 +34,9 @@ public class EntityFieldServiceImpl extends BaseServiceImpl<EntityField, Long> i
 	}
 
 	@Override
-	@Transactional
-	public EntityField save(EntityField entity) {
+	public EntityField save(EntityField entityField) {
 		// TODO Auto-generated method stub
-		//EntityField entityField = 
-		return entity;
+
+		return null;
 	}
 }

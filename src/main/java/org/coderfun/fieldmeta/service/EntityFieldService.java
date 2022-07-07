@@ -6,4 +6,10 @@ import klg.j2ee.common.dataaccess.BaseService;
 
 public interface EntityFieldService extends BaseService<EntityField, Long>{
 
+	/**
+	 * 方法被禁用
+	 */
+	@Override
+	@Deprecated
+	EntityField save(EntityField arg0);
 }

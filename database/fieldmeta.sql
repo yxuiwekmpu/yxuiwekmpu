@@ -43,7 +43,7 @@ CREATE TABLE `fm_field_entity`  (
   `table_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `table_id` bigint(20) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of fm_field_entity
@@ -66,7 +66,6 @@ INSERT INTO `fm_field_entity` VALUES (15, '2019-08-22 23:26:37', '2019-08-22 23:
 INSERT INTO `fm_field_entity` VALUES (16, '2019-08-23 02:52:21', '2019-08-23 02:52:21', NULL, 'code', 'String', 'code', 7.00, 'varchar', '', NULL, 255, 'no', 'no', 'no', 'no', 'no', '', 'codefun_option_field', NULL);
 INSERT INTO `fm_field_entity` VALUES (17, '2019-08-23 02:53:28', '2019-08-23 02:53:28', NULL, 'userGender', 'String', 'user_gender', 3.00, 'varchar', '性别', NULL, 255, 'no', 'no', 'no', 'no', 'no', '', 'user', 1);
 INSERT INTO `fm_field_entity` VALUES (18, '2019-08-23 02:58:31', '2019-08-25 04:37:44', NULL, 'canReply', 'String', 'can_reply', 1.00, 'varchar', '可回复', NULL, 255, 'no', 'no', 'no', 'no', 'no', '', 'weibo', 2);
-INSERT INTO `fm_field_entity` VALUES (26, '2019-08-25 04:36:17', '2019-08-25 04:38:36', NULL, 'viewCount', 'BigDecimal', 'view_count', 2.00, 'decimal', '查看次数', 4, 22, 'no', 'no', 'no', 'no', 'no', 'decimal', 'weibo', 2);
 
 -- ----------------------------
 -- Table structure for fm_field_page
@@ -92,7 +91,7 @@ CREATE TABLE `fm_field_page`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `FKsemyad4g5cyqqbx5lclqccg63`(`entity_field_id`) USING BTREE,
   CONSTRAINT `FKsemyad4g5cyqqbx5lclqccg63` FOREIGN KEY (`entity_field_id`) REFERENCES `fm_field_entity` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 34 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of fm_field_page
@@ -115,7 +114,6 @@ INSERT INTO `fm_field_page` VALUES (15, 'yes', 'yes', 'yes', '', NULL, '', 'no',
 INSERT INTO `fm_field_page` VALUES (16, 'yes', 'yes', 'no', '', NULL, '', 'no', 'eq', 'no', 16, 'codeCol', '', 'input_code', 'codefun_option_field', NULL);
 INSERT INTO `fm_field_page` VALUES (17, 'yes', 'yes', 'yes', 'user_gender', NULL, '', 'no', 'eq', 'yes', 17, 'codeCol', '性别', 'input_code', 'user', 1);
 INSERT INTO `fm_field_page` VALUES (18, 'yes', 'yes', 'yes', 'yes_or_no', NULL, '', 'no', 'eq', 'no', 18, 'codeCol', '可评论', 'input_code', 'weibo', 2);
-INSERT INTO `fm_field_page` VALUES (33, 'yes', 'yes', 'no', '', NULL, '', 'no', '', 'no', 26, 'complexCol', '查看次数', 'input_text', 'weibo', 2);
 
 -- ----------------------------
 -- Table structure for fm_imported_table

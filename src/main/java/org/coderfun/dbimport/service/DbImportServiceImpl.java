@@ -129,9 +129,7 @@ public class DbImportServiceImpl implements DbImportService {
 
 			setEntityField(entityField, column);
 			
-			entityFieldService.save(entityField);
-			pageField.setEntityField(entityField);
-			pageFieldService.save(pageField);
+			tablemetaService.saveFieldPair(entityField, pageField);
 		}
 
 	}

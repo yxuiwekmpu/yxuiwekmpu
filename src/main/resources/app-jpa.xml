@@ -13,7 +13,11 @@
 						http://www.springframework.org/schema/tx/spring-tx.xsd
 						http://www.springframework.org/schema/context
 						http://www.springframework.org/schema/context/spring-context.xsd">
+	
+	<!-- 重复扫描会引发事务失效 -->
+	<!-- 						
 	<context:component-scan base-package="org.coderfun.fieldmeta"></context:component-scan>
+	 -->
 	<context:property-placeholder location="classpath:jdbc.properties" ignore-unresolvable="true" />
     <!-- Datasource -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">

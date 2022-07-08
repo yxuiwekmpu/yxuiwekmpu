@@ -83,7 +83,7 @@
 				<tr class="tr_padding">
 					<td><label>简称</label></td>
 					<td>
-						<input name="simpleName" class="easyui-validatebox" data-options="required:true,validType:'CHS'">
+						<input name="simpleName" class="easyui-validatebox" data-options="required:true">
 					</td>
 					<td><label>业务名</label></td>
 					<td>

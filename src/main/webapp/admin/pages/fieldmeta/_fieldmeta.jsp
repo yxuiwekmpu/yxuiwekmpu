@@ -233,7 +233,7 @@ function removeField(){
 			if (r) {
 				var row = ag_$entityfield_table.datagrid("getSelected");
 				if(row.id){
-					$.post(adminActionPath + '/entityfield/delete' , {id : row.id},function(json){
+					$.post(adminActionPath + '/tablemeta/deleteFiledPair' , {id : row.id},function(json){
 						if(json.type == "success"){
 							ag_$entityfield_table.datagrid("deleteRow",ag_checked_index);
 							ag_$pagefield_table.datagrid("deleteRow",ag_checked_index);

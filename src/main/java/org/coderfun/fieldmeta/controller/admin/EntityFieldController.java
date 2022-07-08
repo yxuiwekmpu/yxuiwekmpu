@@ -37,12 +37,6 @@ public class EntityFieldController {
 		return JsonData.success();
 	}
 
-	@ResponseBody
-	@RequestMapping("/delete")
-	public JsonData delete(@RequestParam Long id) {
-		entityFieldService.delete(id);
-		return JsonData.success();
-	}
 
 	@ResponseBody
 	@RequestMapping("/findpage")

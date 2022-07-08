@@ -11,7 +11,6 @@ import org.apache.commons.io.IOUtils;
 import org.coderfun.common.exception.AppException;
 import org.coderfun.common.exception.ErrorCodeEnum;
 import org.coderfun.fieldmeta.entity.Module;
-import org.coderfun.fieldmeta.entity.Module_;
 import org.coderfun.fieldmeta.service.ModuleService;
 import org.coderfun.gen.service.GenCodeFile;
 import org.coderfun.gen.service.GenService;
@@ -24,7 +23,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.zeroturnaround.zip.ZipUtil;
 
 import klg.j2ee.common.model.JsonData;
-import klg.j2ee.query.jpa.expr.AExpr;
 
 @Controller("adminGenController")
 @RequestMapping("/admin/action/gen")
@@ -35,7 +33,7 @@ public class GenController {
 	@Autowired
 	ModuleService moduleService;
 
-	@Value("${fieldmeta.testProjectPath}")
+	@Value("${fieldmeta.template.test-project-path}")
 	String testProjectPath;
 	
 	@RequestMapping("/deployToTestProject")

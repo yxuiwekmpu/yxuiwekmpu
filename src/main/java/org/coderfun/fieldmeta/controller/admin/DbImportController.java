@@ -48,7 +48,6 @@ public class DbImportController {
 	@ResponseBody
 	@RequestMapping("/importTables")
 	public JsonData importTables(@RequestBody ImportTableParam importTableParam) throws SQLException {
-		MyPrinter.printJson(importTableParam);
 		
 		dbImportService.importTables(importTableParam.tableNames, importTableParam.tableOption);
 

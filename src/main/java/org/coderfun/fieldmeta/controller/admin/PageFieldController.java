@@ -29,34 +29,6 @@ public class PageFieldController {
 	PageFieldService pageFieldService;
 	
 	@ResponseBody
-	@RequestMapping("/add")
-	public JsonData add(
-			@ModelAttribute PageField pageField){
-		
-		pageFieldService.save(pageField);
-		return JsonData.success();
-	}
-	
-	
-	@ResponseBody
-	@RequestMapping("/edit")
-	public JsonData edit(
-			@ModelAttribute PageField pageField){
-		
-		pageFieldService.update(pageField);
-		return JsonData.success();
-	}
-	
-	@ResponseBody
-	@RequestMapping("/delete")
-	public JsonData delete(
-			@RequestParam Long id){
-		
-		pageFieldService.delete(id);
-		return JsonData.success();
-	}
-	
-	@ResponseBody
 	@RequestMapping("/findpage")
 	public EasyUIPage findpage(
 			@ModelAttribute PageField pageField,

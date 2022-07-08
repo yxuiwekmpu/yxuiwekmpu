@@ -88,17 +88,15 @@ public class GenServiceImpl implements GenService {
 		codeModel.setEntityNameOfFirstLowcase(tablemeta.getEntityName().toLowerCase());
 		codeModel.setNowTime(DateFormatUtils.ISO_8601_EXTENDED_DATETIME_TIME_ZONE_FORMAT.format(new Date()));
 		codeModel.setModule(moduleService.getById(tablemeta.getModuleId()));
-
-		String entitySuperClassFullName = DictReader.getCodeItem(tablemeta.getEntitySuperClass(),SystemCode.ClassCode.ENTITY_SUPER_CLASS).getValue();
-		codeModel.setEntitySuperClassFullName(entitySuperClassFullName);
+		codeModel.setEntitySuperClassFullName(tablemetaService.getEntitySuperClassFullName(tablemeta));
 		
 		Sort efSort = new Sort(Direction.ASC, "columnSort");
-		List<EntityField> entityFields = entityFieldService.findList(efSort, AExpr.eq(EntityField_.tableName, tablemeta.getTableName()));
-		List<EntityField> baseEntityFields = entityFieldService.findList(efSort, AExpr.eq(EntityField_.tableName, entitySuperClassFullName));
+		List<EntityField> entityFields = entityFieldService.findList(efSort, AExpr.eq(EntityField_.tableId, tablemeta.getId()));
+		List<EntityField> baseEntityFields = tablemetaService.getBaseEntityFields(tablemeta);
 		
 		Sort pfSort = new Sort(Direction.ASC, "entityField.columnSort");
-		List<PageField> pageFields = pageFieldService.findList(pfSort, AExpr.eq(PageField_.tableName, tablemeta.getTableName()));
-		List<PageField> basePageFields = pageFieldService.findList(pfSort, AExpr.eq(PageField_.tableName, entitySuperClassFullName));
+		List<PageField> pageFields = pageFieldService.findList(pfSort, AExpr.eq(PageField_.tableId, tablemeta.getId()));
+		List<PageField> basePageFields = tablemetaService.getBasePageFields(tablemeta);
 		
 		codeModel.setEntityFields(entityFields);
 		codeModel.setBaseEntityFields(baseEntityFields);
@@ -292,6 +290,9 @@ public class GenServiceImpl implements GenService {
 	}
 
 	public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, FileNotFoundException, IOException {
+		
+		System.out.println(StringUtils.capitalize("abcd"));
+		System.out.println(StringUtils.uncapitalize("Abcd"));
 		
 		System.out.println("aaa".replaceAll(LFENP, "bb"));
 		System.out.println("aaa".replace(LFENP, "bb"));

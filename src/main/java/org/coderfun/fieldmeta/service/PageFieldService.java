@@ -13,6 +13,10 @@ public interface PageFieldService extends BaseService<PageField, Long> {
 	@Override
 	@Deprecated
 	PageField save(PageField arg0);
-	
-	public List<PageField> getExamples();
+	/**
+	 * 方法被禁用
+	 */
+	@Override
+	@Deprecated
+	void delete(Long arg0);
 }

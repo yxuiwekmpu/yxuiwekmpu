@@ -12,24 +12,18 @@ import org.coderfun.dbmeta.ColumnMeta;
 import org.coderfun.dbmeta.DbMetaCrawler;
 import org.coderfun.dbmeta.DbMetaCrawlerFactory;
 import org.coderfun.fieldmeta.entity.EntityField;
-import org.coderfun.fieldmeta.entity.EntityField_;
 import org.coderfun.fieldmeta.entity.ImportedTable;
+import org.coderfun.fieldmeta.entity.ImportedTable_;
 import org.coderfun.fieldmeta.entity.PageField;
 import org.coderfun.fieldmeta.entity.Project;
 import org.coderfun.fieldmeta.entity.Tablemeta;
-import org.coderfun.fieldmeta.service.EntityFieldService;
-import org.coderfun.fieldmeta.service.PageFieldService;
 import org.coderfun.fieldmeta.service.ProjectService;
 import org.coderfun.fieldmeta.service.TablemetaService;
-import org.coderfun.sys.dict.DictReader;
-import org.coderfun.sys.dict.SystemCode;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import klg.common.utils.BeanTools;
-import klg.common.utils.MyPrinter;
 import klg.j2ee.query.jpa.expr.AExpr;
 
 @Service
@@ -41,14 +35,15 @@ public class DbImportServiceImpl implements DbImportService {
 	ImportedTableService importedTableService;
 	
 	@Autowired
-	EntityFieldService entityFieldService;
-	
-	@Autowired
-	PageFieldService pageFieldService;
-	
-	@Autowired
 	TablemetaService tablemetaService;
 
+	@Value("${fieldmeta.dbimport.codeFlag}")
+	String codeFlag;
+	
+	//同类方法调用 事务失效
+	@Autowired
+	DbImportServiceImpl proxyThis;
+	
 	@Override
 	public Set<String> getTableNames() throws SQLException {
 		// TODO Auto-generated method stub
@@ -57,12 +52,14 @@ public class DbImportServiceImpl implements DbImportService {
 		DbMetaCrawler dbMetaCrawler = crawlerFactory.newInstance();
 
 		Set<String> tableNames = dbMetaCrawler.getTableNames();
-		List<ImportedTable> importedTables = importedTableService.findAll();
+		Project defaultProject = projectService.getDefaultProject();
+		List<ImportedTable> importedTables = importedTableService.findList(AExpr.eq(ImportedTable_.projectId, defaultProject.getId()));
 
 		for (ImportedTable importedTable : importedTables) {
-			if (tableNames.contains(importedTable.getTableName()))
-				;
-			tableNames.remove(importedTable.getTableName());
+			if (tableNames.contains(importedTable.getTableName())){
+				tableNames.remove(importedTable.getTableName());				
+			}
+
 		}
 
 		dataSource.close();
@@ -87,27 +84,28 @@ public class DbImportServiceImpl implements DbImportService {
 		BasicDataSource dataSource = getDataSource();
 		DbMetaCrawlerFactory crawlerFactory = new DbMetaCrawlerFactory(dataSource);
 		DbMetaCrawler dbMetaCrawler = crawlerFactory.newInstance();
-		List<PageField> examples = pageFieldService.getExamples();
+		List<PageField> examples = tablemetaService.getExamples();
 		
-		importTable(tableName, option, dbMetaCrawler,examples);
+		proxyThis.importTable(tableName, option, dbMetaCrawler,examples);
 
 		dataSource.close();
 	}
+	
 	@Transactional
-	private void importTable(String tableName, 
+	public void importTable(String tableName, 
 			DbImportTableOption option, 
 			DbMetaCrawler dbMetaCrawler,
 			List<PageField> examples) throws SQLException {
 		//初始化tablemeta，并持久化
 		Tablemeta tablemeta = initTablemeta(tableName, option);
 		tablemetaService.save(tablemeta);
+		//if(1==1) throw new AbortException("test");
+		markTheTable(tablemeta);
+		
 		
 		//实体基类的字段
-		List<EntityField> baseEntityFields = null;
-		if(!option.getEntitySuperClass().equals("Object")){
-			String entitySuperClassFullName = DictReader.getCodeItem(tablemeta.getEntitySuperClass(),SystemCode.ClassCode.ENTITY_SUPER_CLASS).getValue();
-			baseEntityFields = entityFieldService.findList(AExpr.eq(EntityField_.tableName, entitySuperClassFullName));			
-		}
+		List<EntityField> baseEntityFields = tablemetaService.getBaseEntityFields(tablemeta);
+
 	
 		List<ColumnMeta> columns = dbMetaCrawler.getColumns(tableName);	
 		for (ColumnMeta column : columns) {
@@ -116,30 +114,42 @@ public class DbImportServiceImpl implements DbImportService {
 			}
 			EntityField entityField = new EntityField();
 			PageField pageField = new PageField();
-
-			PageField example = lookupExample(examples, column.getTypeName());
+			
+			PageField example = null;
+			if(column.getName().endsWith("_" + codeFlag)){
+				example = lookupExample(examples, codeFlag);
+			}else{
+				example = lookupExample(examples, column.getTypeName());
+			}
+			
 			if(example != null){
 				BeanTools.copyProperties(pageField, example, "id","entityField");
 				BeanTools.copyProperties(entityField,  example.getEntityField(), "id");				
 			}
-
 			
-			entityField.setTableName(tableName);
-			pageField.setTableName(tableName);
-
 			setEntityField(entityField, column);
+			entityField.setTableId(tablemeta.getId());			
+			entityField.setTableName(tableName);
+			pageField.setTableId(tablemeta.getId());
+			pageField.setTableName(tableName);
 			
 			tablemetaService.saveFieldPair(entityField, pageField);
 		}
-
 	}
 	
+	private void markTheTable(Tablemeta tablemeta){
+		Project defaultProject = projectService.getDefaultProject();
+		ImportedTable importedTable = new ImportedTable();
+		importedTable.setTableName(tablemeta.getTableName());
+		importedTable.setId(defaultProject.getId());
+		//importedTable.setDatabaseName(databaseName);
+		importedTableService.save(importedTable);
+	}
+		
 	private PageField lookupExample(List<PageField> examples,String sqlType){
 		for(PageField example:examples){
 			String tag = example.getEntityField().getColumnName().toLowerCase();
-			System.out.println("<<----------------：" + tag);
 			if(tag.equals(new String("eg_"+sqlType).toLowerCase())){
-				MyPrinter.print(example);
 				return example;
 			}			
 		}
@@ -167,7 +177,7 @@ public class DbImportServiceImpl implements DbImportService {
 		}
 		Tablemeta tablemeta = new Tablemeta();
 		tablemeta.setTableName(tableName);
-		tablemeta.setEntityName(NameUtils.underlineToHump(temp));
+		tablemeta.setEntityName(StringUtils.capitalize(NameUtils.underlineToHump(temp)));
 		tablemeta.setModuleId(option.getModuleId());
 		tablemeta.setModuleName(option.getModuleName());
 		tablemeta.setEntitySuperClass(option.getEntitySuperClass());
@@ -189,9 +199,9 @@ public class DbImportServiceImpl implements DbImportService {
 		BasicDataSource dataSource = getDataSource();
 		DbMetaCrawlerFactory crawlerFactory = new DbMetaCrawlerFactory(dataSource);
 		DbMetaCrawler dbMetaCrawler = crawlerFactory.newInstance();
-		List<PageField> examples = pageFieldService.getExamples();
+		List<PageField> examples = tablemetaService.getExamples();
 		for(String tableName:tableNames){
-			importTable(tableName, option, dbMetaCrawler,examples);
+			proxyThis.importTable(tableName, option, dbMetaCrawler,examples);
 		}
 		dataSource.close();
 	}

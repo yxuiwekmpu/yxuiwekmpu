@@ -3,7 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-	<div id="tableinfo-dlg" title="导入选项" class="easyui-dialog"  style="width: 800px; height: 600px; padding: 5px 0px" closed="true"
+	<div id="tableinfo-dlg" title="导入选项 注意：相同模块的表不能重复" class="easyui-dialog"  style="width: 800px; height: 600px; padding: 5px 0px" closed="true"
 		buttons="#tableinfo-dlg-buttons" modal="true">
 		
 
@@ -114,10 +114,17 @@
 				    contentType:'application/json;charset=utf-8',
 				    data:JSON.stringify(params),
 				    success:function(json){
-						if(josn.type == "success"){
+						if(json.type == "success"){
+							loadTables();
+							$('#tableinfo-dlg').dialog('close');
 							$.messager.show({
 								title : "提示",
 								msg : "导入成功！"
+							});
+						}else{
+							$.messager.show({
+								title : "提示",
+								msg : json.message
 							})
 						}
 				    }

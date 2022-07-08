@@ -12,4 +12,11 @@ public interface EntityFieldService extends BaseService<EntityField, Long>{
 	@Override
 	@Deprecated
 	EntityField save(EntityField arg0);
+	
+	/**
+	 * 方法被禁用
+	 */	
+	@Deprecated
+	@Override
+	void delete(Long arg0);
 }

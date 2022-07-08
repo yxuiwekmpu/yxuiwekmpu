@@ -19,18 +19,12 @@ public class EntityFieldServiceImpl extends BaseServiceImpl<EntityField, Long> i
 	EntityFieldDAO entityFieldDAO;
 
 	@Autowired
-	PageFieldDAO pageFieldDAO ;
+	PageFieldDAO pageFieldDAO;
 
 	@Override
-	@Transactional
 	public void delete(Long id) {
 		// TODO Auto-generated method stub
-		EntityField entityField = BeanTools.newAndSet(EntityField.class, "id", id);
-		PageField pageField = pageFieldDAO.getOne(AExpr.eq(PageField_.entityField, entityField));
-		if(pageField !=null){
-			pageFieldDAO.delete(pageField.getId());	
-		}
-		entityFieldDAO.delete(id);
+
 	}
 
 	@Override

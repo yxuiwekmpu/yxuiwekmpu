@@ -82,6 +82,14 @@ public class TablemetaController {
 		tablemetaService.delete(id);
 		return JsonData.success();
 	}
+	
+	@ResponseBody
+	@RequestMapping("/deleteFiledPair")
+	public JsonData deleteFiledPair(@RequestParam Long id) {
+
+		tablemetaService.deleteFieldPair(id);
+		return JsonData.success();
+	}
 
 	@ResponseBody
 	@RequestMapping("/findpage")

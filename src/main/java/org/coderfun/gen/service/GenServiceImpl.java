@@ -178,7 +178,7 @@ public class GenServiceImpl implements GenService {
 	
 	
 	@Override
-	public List<GenCodeFile> genCodeFiles(Long tablemetaId){
+	public synchronized List<GenCodeFile> genCodeFiles(Long tablemetaId){
 		// TODO Auto-generated method stub
 		CodeModel codeModel = init(tablemetaService.getById(tablemetaId));
 		List<TemplateFile> templateFiles = templateFileService.findAll();
@@ -237,7 +237,7 @@ public class GenServiceImpl implements GenService {
 
 
 	@Override
-	public byte[] genCodeByZip(List<Long> tablemetaIds) throws IOException {
+	public synchronized byte[] genCodeByZip(List<Long> tablemetaIds) throws IOException {
 		// TODO Auto-generated method stub
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         ZipOutputStream zip = new ZipOutputStream(outputStream);

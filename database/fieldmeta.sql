@@ -11,7 +11,7 @@
  Target Server Version : 50721
  File Encoding         : 65001
 
- Date: 25/08/2019 04:44:49
+ Date: 26/08/2019 17:34:38
 */
 
 SET NAMES utf8mb4;
@@ -42,8 +42,9 @@ CREATE TABLE `fm_field_entity`  (
   `field_valid_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `table_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `table_id` bigint(20) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `uk_column_name_and_table_id`(`column_name`, `table_id`) USING BTREE COMMENT '表id和字段名唯一'
+) ENGINE = InnoDB AUTO_INCREMENT = 49 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of fm_field_entity
@@ -59,13 +60,18 @@ INSERT INTO `fm_field_entity` VALUES (8, '2019-08-16 22:57:42', '2019-08-16 23:1
 INSERT INTO `fm_field_entity` VALUES (9, '2019-08-16 22:57:42', '2019-08-16 22:57:42', NULL, 'egDate', 'Date', 'eg_date', 5.00, 'date', '', NULL, NULL, 'no', 'no', 'no', 'no', 'no', '', 'codefun_option_field', NULL);
 INSERT INTO `fm_field_entity` VALUES (10, '2019-08-16 22:57:42', '2019-08-16 22:57:42', NULL, 'egDatetime', 'Date', 'eg_datetime', 6.00, 'datetime', '', NULL, NULL, 'no', 'no', 'no', 'no', 'no', '', 'codefun_option_field', NULL);
 INSERT INTO `fm_field_entity` VALUES (11, '2019-08-16 23:19:42', '2019-08-18 01:58:08', NULL, 'remark', 'String', 'remark', 3.00, 'varchar', '备注', NULL, 255, 'no', 'no', 'no', 'no', 'no', 'string', 'klg.common.dataaccess.entity.BaseEntity', NULL);
-INSERT INTO `fm_field_entity` VALUES (12, '2019-08-17 01:25:42', '2019-08-23 17:40:02', NULL, 'username', 'String', 'username', 0.00, 'varchar', '用户名', NULL, 255, 'no', 'yes', 'no', 'no', 'no', 'string', 'user', 1);
-INSERT INTO `fm_field_entity` VALUES (13, '2019-08-17 01:25:42', '2019-08-23 17:40:02', NULL, 'email', 'String', 'email', 1.00, 'varchar', '邮箱', NULL, 20, 'no', 'yes', 'no', 'no', 'no', 'email', 'user', 1);
+INSERT INTO `fm_field_entity` VALUES (12, '2019-08-17 01:25:42', '2019-08-26 15:55:53', NULL, 'username', 'String', 'username', 0.00, 'varchar', '用户名', NULL, 255, 'no', 'yes', 'no', 'no', 'yes', 'string', 'user', 1);
+INSERT INTO `fm_field_entity` VALUES (13, '2019-08-17 01:25:42', '2019-08-26 15:55:53', NULL, 'email', 'String', 'email', 1.00, 'varchar', '邮箱', NULL, 20, 'no', 'yes', 'no', 'no', 'yes', 'email', 'user', 1);
 INSERT INTO `fm_field_entity` VALUES (14, '2019-08-17 01:25:42', '2019-08-23 02:10:54', NULL, 'score', 'Integer', 'score', 2.00, 'int', '分数', NULL, 11, 'no', 'no', 'no', 'no', 'no', 'digits', 'user', 1);
 INSERT INTO `fm_field_entity` VALUES (15, '2019-08-22 23:26:37', '2019-08-22 23:26:37', NULL, 'content', 'String', 'content', 0.00, 'text', '内容', NULL, 0, 'no', 'no', 'no', 'no', 'no', '', 'weibo', 2);
-INSERT INTO `fm_field_entity` VALUES (16, '2019-08-23 02:52:21', '2019-08-23 02:52:21', NULL, 'code', 'String', 'code', 7.00, 'varchar', '', NULL, 255, 'no', 'no', 'no', 'no', 'no', '', 'codefun_option_field', NULL);
+INSERT INTO `fm_field_entity` VALUES (16, '2019-08-23 02:52:21', '2019-08-26 14:13:20', NULL, 'egCode', 'String', 'eg_code', 7.00, 'varchar', '', NULL, 255, 'no', 'no', 'no', 'no', 'no', '', 'codefun_option_field', NULL);
 INSERT INTO `fm_field_entity` VALUES (17, '2019-08-23 02:53:28', '2019-08-23 02:53:28', NULL, 'userGender', 'String', 'user_gender', 3.00, 'varchar', '性别', NULL, 255, 'no', 'no', 'no', 'no', 'no', '', 'user', 1);
 INSERT INTO `fm_field_entity` VALUES (18, '2019-08-23 02:58:31', '2019-08-25 04:37:44', NULL, 'canReply', 'String', 'can_reply', 1.00, 'varchar', '可回复', NULL, 255, 'no', 'no', 'no', 'no', 'no', '', 'weibo', 2);
+INSERT INTO `fm_field_entity` VALUES (42, '2019-08-26 14:49:17', '2019-08-26 15:06:46', NULL, 'name', 'String', 'name', 0.00, 'varchar', '项目名称', NULL, 255, 'no', 'yes', 'no', 'no', 'no', 'string', 'fm_project', 18);
+INSERT INTO `fm_field_entity` VALUES (45, '2019-08-26 14:49:18', '2019-08-26 15:06:46', NULL, 'isDefaultCode', 'String', 'is_default_code', 4.00, 'varchar', '是否默认', NULL, 255, 'no', 'yes', 'no', 'no', 'no', '', 'fm_project', 18);
+INSERT INTO `fm_field_entity` VALUES (46, '2019-08-26 14:49:18', '2019-08-26 15:06:46', NULL, 'dbUrl', 'String', 'db_url', 1.00, 'varchar', 'url', NULL, 255, 'no', 'yes', 'no', 'no', 'no', 'string', 'fm_project', 18);
+INSERT INTO `fm_field_entity` VALUES (47, '2019-08-26 14:49:19', '2019-08-26 15:06:46', NULL, 'dbUsername', 'String', 'db_username', 2.00, 'varchar', '用户名', NULL, 255, 'no', 'yes', 'no', 'no', 'no', 'string', 'fm_project', 18);
+INSERT INTO `fm_field_entity` VALUES (48, '2019-08-26 14:49:19', '2019-08-26 15:06:46', NULL, 'dbPassword', 'String', 'db_password', 3.00, 'varchar', '密码', NULL, 255, 'no', 'no', 'no', 'no', 'no', 'string', 'fm_project', 18);
 
 -- ----------------------------
 -- Table structure for fm_field_page
@@ -91,7 +97,7 @@ CREATE TABLE `fm_field_page`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `FKsemyad4g5cyqqbx5lclqccg63`(`entity_field_id`) USING BTREE,
   CONSTRAINT `FKsemyad4g5cyqqbx5lclqccg63` FOREIGN KEY (`entity_field_id`) REFERENCES `fm_field_entity` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 49 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of fm_field_page
@@ -107,25 +113,35 @@ INSERT INTO `fm_field_page` VALUES (8, 'yes', 'yes', 'no', '', NULL, '', 'no', '
 INSERT INTO `fm_field_page` VALUES (9, 'yes', 'yes', 'no', '', NULL, '', 'no', 'between', 'no', 9, 'EasyUiDate', '', 'input_date', 'codefun_option_field', NULL);
 INSERT INTO `fm_field_page` VALUES (10, 'yes', 'yes', 'no', '', NULL, '', 'no', 'between', 'no', 10, 'EasyUiDateTime', '', 'input_date', 'codefun_option_field', NULL);
 INSERT INTO `fm_field_page` VALUES (11, 'yes', 'yes', 'no', '', NULL, '', 'no', 'contain', 'no', 11, 'complexCol', '备注', 'input_textarea', 'klg.common.dataaccess.entity.BaseEntity', NULL);
-INSERT INTO `fm_field_page` VALUES (12, 'yes', 'yes', 'yes', '', NULL, '', 'no', 'contain', 'yes', 12, 'complexCol', '用户名', 'input_text', 'user', 1);
+INSERT INTO `fm_field_page` VALUES (12, 'yes', 'yes', 'yes', '', NULL, '', 'no', 'contain', 'yes', 12, 'complexCol', '用户名XXX', 'input_text', 'user', 1);
 INSERT INTO `fm_field_page` VALUES (13, 'yes', 'yes', 'yes', '', NULL, '', 'no', 'contain', 'yes', 13, 'complexCol', '邮箱', 'input_text', 'user', 1);
 INSERT INTO `fm_field_page` VALUES (14, 'yes', 'yes', 'no', '', NULL, '', 'no', '', 'no', 14, 'complexCol', '分数', 'input_text', 'user', 1);
 INSERT INTO `fm_field_page` VALUES (15, 'yes', 'yes', 'yes', '', NULL, '', 'no', 'contain', 'no', 15, 'complexCol', '内容', 'input_textarea', 'weibo', 2);
 INSERT INTO `fm_field_page` VALUES (16, 'yes', 'yes', 'no', '', NULL, '', 'no', 'eq', 'no', 16, 'codeCol', '', 'input_code', 'codefun_option_field', NULL);
 INSERT INTO `fm_field_page` VALUES (17, 'yes', 'yes', 'yes', 'user_gender', NULL, '', 'no', 'eq', 'yes', 17, 'codeCol', '性别', 'input_code', 'user', 1);
 INSERT INTO `fm_field_page` VALUES (18, 'yes', 'yes', 'yes', 'yes_or_no', NULL, '', 'no', 'eq', 'no', 18, 'codeCol', '可评论', 'input_code', 'weibo', 2);
+INSERT INTO `fm_field_page` VALUES (42, 'yes', 'yes', 'yes', '', NULL, '', 'no', 'contain', 'no', 42, 'complexCol', '项目名称', 'input_text', 'fm_project', 18);
+INSERT INTO `fm_field_page` VALUES (45, 'yes', 'yes', 'yes', 'yes_or_no', NULL, '', 'no', 'eq', 'no', 45, 'codeCol', '是否默认', 'input_code', 'fm_project', 18);
+INSERT INTO `fm_field_page` VALUES (46, 'yes', 'yes', 'no', '', NULL, '', 'no', 'contain', 'no', 46, 'complexCol', 'url', 'input_text', 'fm_project', 18);
+INSERT INTO `fm_field_page` VALUES (47, 'yes', 'yes', 'no', '', NULL, '', 'no', 'contain', 'no', 47, 'complexCol', '用户名', 'input_text', 'fm_project', 18);
+INSERT INTO `fm_field_page` VALUES (48, 'yes', 'yes', 'no', '', NULL, '', 'no', 'contain', 'no', 48, 'complexCol', '密码', 'input_text', 'fm_project', 18);
 
 -- ----------------------------
 -- Table structure for fm_imported_table
 -- ----------------------------
 DROP TABLE IF EXISTS `fm_imported_table`;
 CREATE TABLE `fm_imported_table`  (
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `project_id` bigint(20) NULL DEFAULT NULL,
   `database_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `table_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of fm_imported_table
+-- ----------------------------
+INSERT INTO `fm_imported_table` VALUES (5, NULL, NULL, 'fm_project');
 
 -- ----------------------------
 -- Table structure for fm_module
@@ -144,7 +160,7 @@ CREATE TABLE `fm_module`  (
   `modify_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `FKnu8xcw16clet0smpu4lsd1tk3`(`project_id`) USING BTREE,
-  UNIQUE INDEX `uk_module_name`(`module_name`) USING BTREE COMMENT '模块名唯一',
+  UNIQUE INDEX `uk_project_id_and_module_name`(`module_name`, `project_id`) USING BTREE COMMENT '项目id和模块名唯一',
   CONSTRAINT `FKnu8xcw16clet0smpu4lsd1tk3` FOREIGN KEY (`project_id`) REFERENCES `fm_project` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
@@ -200,14 +216,16 @@ CREATE TABLE `fm_tablemeta`  (
   `can_delete` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '删除功能，code',
   `can_edit` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '编辑功能，code',
   `entity_super_class` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '实体基类',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '代码生成表' ROW_FORMAT = Dynamic;
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `uk_module_id_and_table_name`(`module_id`, `table_name`) USING BTREE COMMENT '模块和表唯一'
+) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '代码生成表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of fm_tablemeta
 -- ----------------------------
 INSERT INTO `fm_tablemeta` VALUES (1, 1, 'test', 'user', 'User', 'user', NULL, '用户', NULL, NULL, NULL, '2019-08-16 23:49:50', '2019-08-16 23:49:50', NULL, 'yes', 'yes', 'BaseEntity');
 INSERT INTO `fm_tablemeta` VALUES (2, 1, 'test', 'weibo', 'Weibo', 'weibo', NULL, '微博', NULL, NULL, NULL, '2019-08-22 23:24:44', '2019-08-22 23:24:44', NULL, 'yes', 'yes', 'BaseEntity');
+INSERT INTO `fm_tablemeta` VALUES (18, 1, 'test', 'fm_project', 'Project', 'project', NULL, '项目', NULL, NULL, NULL, '2019-08-26 14:49:13', '2019-08-26 15:00:08', '导入', 'yes', 'yes', 'BaseEntity');
 
 -- ----------------------------
 -- Table structure for fm_template_file

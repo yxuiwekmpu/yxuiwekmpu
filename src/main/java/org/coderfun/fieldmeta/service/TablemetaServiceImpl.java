@@ -77,38 +77,11 @@ public class TablemetaServiceImpl  extends BaseServiceImpl<Tablemeta, Long> impl
 	}
 	
 	
-	@Override
-	@Transactional
-	public void deleteFieldPair(Long entityFieldId) {
-		// TODO Auto-generated method stub
-		EntityField entityField = BeanTools.newAndSet(EntityField.class, "id", entityFieldId);
-		PageField pageField = pageFieldDAO.getOne(AExpr.eq(PageField_.entityField, entityField));
-		if(pageField !=null){
-			pageFieldDAO.delete(pageField.getId());	
-		}
-		entityFieldDAO.delete(entityFieldId);
-	}
-	
-	/**
-	 * 同一模块下，不允许存在重复的表
-	 */
-	@Override
-	@Transactional
-	public synchronized Tablemeta save(Tablemeta entity) {
-		// TODO Auto-generated method stub
-	
-		Tablemeta tablemeta =  tablemetaDAO.getOne(
-				AExpr.eq(Tablemeta_.moduleId, entity.getModuleId()),
-				AExpr.eq(Tablemeta_.tableName, entity.getTableName()));
-		if(tablemeta !=null){
-			throw new AppException(ErrorCodeEnum.DATA_EXISTED);
-		}
-		return super.save(entity);
-	}
+
 	
 	@Override
 	@Transactional
-	public void saveFieldsTbname(String tableName, List<EntityField> entityFields, List<PageField> pageFields) {
+	public synchronized void saveFieldsTbname(String tableName, List<EntityField> entityFields, List<PageField> pageFields) {
 		// TODO Auto-generated method stub
 		
 		for(int i=0 ; i <entityFields.size();i++){
@@ -136,7 +109,7 @@ public class TablemetaServiceImpl  extends BaseServiceImpl<Tablemeta, Long> impl
 
 	@Transactional
 	@Override
-	public void saveFields(Long tableId, List<EntityField> entityFields, List<PageField> pageFields) {
+	public synchronized void saveFields(Long tableId, List<EntityField> entityFields, List<PageField> pageFields) {
 		// TODO Auto-generated method stub
 		
 		Tablemeta tablemeta = tablemetaDAO.getById(tableId);
@@ -144,17 +117,7 @@ public class TablemetaServiceImpl  extends BaseServiceImpl<Tablemeta, Long> impl
 			throw new AppException(ErrorCodeEnum.DATA_NOTEXIST);
 		}
 		for(int i=0 ; i <entityFields.size();i++){
-			EntityField entityField = entityFields.get(i);
-			
-			if(entityField.getId() == null){
-				EntityField unique = entityFieldDAO.getOne(
-						AExpr.eq(EntityField_.tableId, tablemeta.getId()),
-						AExpr.eq(EntityField_.attrName, entityField.getAttrName()));
-				if(unique != null){
-					continue;
-				}
-			}
-	
+			EntityField entityField = entityFields.get(i);	
 			entityField.setTableName(tablemeta.getTableName());
 			entityField.setTableId(tablemeta.getId());
 			entityField.setColumnSort(BigDecimal.valueOf(i));
@@ -168,17 +131,9 @@ public class TablemetaServiceImpl  extends BaseServiceImpl<Tablemeta, Long> impl
 		}
 	}	
 	
+	@Override
 	@Transactional
-	public synchronized void saveFieldPair(EntityField entityField , PageField pageField){
-		//新插入时，查重
-		if(entityField.getTableId() !=null && entityField.getId() == null){
-			EntityField temp  = entityFieldDAO.getOne(
-					AExpr.eq(EntityField_.tableId, entityField.getTableId()),
-					AExpr.eq(EntityField_.columnName, entityField.getColumnName()));
-			if(temp != null){
-				throw new AppException(ErrorCodeEnum.DATA_EXISTED);
-			}
-		}
+	public void saveFieldPair(EntityField entityField , PageField pageField){
 		
 		entityFieldDAO.save(entityField);
 		
@@ -187,6 +142,19 @@ public class TablemetaServiceImpl  extends BaseServiceImpl<Tablemeta, Long> impl
 		pageFieldDAO.save(pageField);
 		
 	}
+	
+	@Override
+	@Transactional
+	public void deleteFieldPair(Long entityFieldId) {
+		// TODO Auto-generated method stub
+		EntityField entityField = BeanTools.newAndSet(EntityField.class, "id", entityFieldId);
+		PageField pageField = pageFieldDAO.getOne(AExpr.eq(PageField_.entityField, entityField));
+		if(pageField !=null){
+			pageFieldDAO.delete(pageField.getId());	
+		}
+		entityFieldDAO.delete(entityFieldId);
+	}
+	
 	@Override
 	public List<EntityField> getBaseEntityFields(Tablemeta tablemeta) {
 		// TODO Auto-generated method stub

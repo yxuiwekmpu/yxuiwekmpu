@@ -44,8 +44,11 @@ public class DbImportServiceImpl implements DbImportService {
 	@Autowired
 	DbImportServiceImpl proxyThis;
 	
+	/**
+	 * 比较耗费资源，线程同步
+	 */
 	@Override
-	public Set<String> getTableNames() throws SQLException {
+	public synchronized Set<String> getTableNames() throws SQLException {
 		// TODO Auto-generated method stub
 		BasicDataSource dataSource = getDataSource();
 		DbMetaCrawlerFactory crawlerFactory = new DbMetaCrawlerFactory(dataSource);
@@ -78,9 +81,12 @@ public class DbImportServiceImpl implements DbImportService {
 
 		return datasource;
 	}
+	/**
+	 * 比较耗费资源，线程同步
+	 */
 	
 	@Override
-	public void importTable(String tableName, DbImportTableOption option) throws SQLException {
+	public synchronized void importTable(String tableName, DbImportTableOption option) throws SQLException {
 		BasicDataSource dataSource = getDataSource();
 		DbMetaCrawlerFactory crawlerFactory = new DbMetaCrawlerFactory(dataSource);
 		DbMetaCrawler dbMetaCrawler = crawlerFactory.newInstance();
@@ -192,9 +198,11 @@ public class DbImportServiceImpl implements DbImportService {
 	}
 	
 
-	
+	/**
+	 * 比较耗费资源，线程同步
+	 */
 	@Override
-	public void importTables(List<String> tableNames, DbImportTableOption option) throws SQLException {
+	public synchronized void importTables(List<String> tableNames, DbImportTableOption option) throws SQLException {
 		// TODO Auto-generated method stub
 		BasicDataSource dataSource = getDataSource();
 		DbMetaCrawlerFactory crawlerFactory = new DbMetaCrawlerFactory(dataSource);

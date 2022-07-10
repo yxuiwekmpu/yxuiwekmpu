@@ -42,9 +42,12 @@
 					editor="{type:'numberbox'}">小数点</th>
 				<th data-options="field:'pkRestrict',width:30,align:'left',
 					formatter:checkboxCol,editor:ag_checkbox_editor">主键约束</th>
+				<!-- 非空约束，在数据库建立索引 -->
+				<!-- 
 				<th data-options="field:'notNullRestrict',width:30,align:'left',
 					formatter:checkboxCol,editor:ag_checkbox_editor">非空约束</th>
-					
+				 -->
+				 	
 				<th data-options="field:'uniqueRestrict',width:30,align:'left',
 					formatter:checkboxCol,editor:ag_checkbox_editor">唯一约束</th>
 				<th data-options="field:'notInsertRestrict',width:30,align:'left',

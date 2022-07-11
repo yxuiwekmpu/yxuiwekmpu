@@ -11,11 +11,32 @@
  Target Server Version : 50721
  File Encoding         : 65001
 
- Date: 26/08/2019 17:34:38
+ Date: 26/08/2019 19:19:11
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for Untitled
+-- ----------------------------
+DROP TABLE IF EXISTS `Untitled`;
+CREATE TABLE `Untitled`  (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `java_template_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'java模板类型',
+  `page_template_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '页面模板类型，codeclass',
+  `is_default_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '是否默认，codeclass\r\n',
+  `db_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `db_username` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `db_password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `create_time` datetime(0) NULL DEFAULT NULL,
+  `modify_time` datetime(0) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `uk_name`(`name`) USING BTREE,
+  UNIQUE INDEX `aaa`(`db_url`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for fm_field_entity
@@ -44,7 +65,7 @@ CREATE TABLE `fm_field_entity`  (
   `table_id` bigint(20) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_column_name_and_table_id`(`column_name`, `table_id`) USING BTREE COMMENT '表id和字段名唯一'
-) ENGINE = InnoDB AUTO_INCREMENT = 49 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 50 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of fm_field_entity
@@ -218,7 +239,7 @@ CREATE TABLE `fm_tablemeta`  (
   `entity_super_class` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '实体基类',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_module_id_and_table_name`(`module_id`, `table_name`) USING BTREE COMMENT '模块和表唯一'
-) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '代码生成表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '代码生成表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of fm_tablemeta
@@ -250,7 +271,7 @@ CREATE TABLE `fm_template_file`  (
 -- Records of fm_template_file
 -- ----------------------------
 INSERT INTO `fm_template_file` VALUES (1, '2019-08-16 23:24:56', '2019-08-22 04:25:20', NULL, '/src/main/java/[MOD_PKG_PATH]/entity/', '[ENP].java', 'Entity.java.ftl', 'Entity.java.ftl96d85ffe-dc5d-4ac2-a503-6a37baa0a53b.ftl', '/core/', 1.00, NULL);
-INSERT INTO `fm_template_file` VALUES (2, '2019-08-18 01:19:02', '2019-08-22 21:34:29', NULL, '/', 'createTable.sql', 'mysql_create_table.sql.ftl', 'mysql_create_table.sql.ftl35f97f3a-0243-41cf-b0b5-5bbf322ceae3.ftl', '/', 2.00, 'yes');
+INSERT INTO `fm_template_file` VALUES (2, '2019-08-18 01:19:02', '2019-08-26 17:39:29', NULL, '/', 'mysql_create_table.sql', 'mysql_create_table.sql.ftl', 'mysql_create_table.sql.ftl35f97f3a-0243-41cf-b0b5-5bbf322ceae3.ftl', '/', 2.00, 'yes');
 INSERT INTO `fm_template_file` VALUES (3, '2019-08-22 00:01:40', '2019-08-22 04:25:35', NULL, '/src/main/java/[MOD_PKG_PATH]/dao/', '[ENP]DAO.java', 'DAO.java.ftl', 'DAO.java.ftlf3defce3-ea85-4663-83a6-7f5dcc28503c.ftl', '/core/', NULL, NULL);
 INSERT INTO `fm_template_file` VALUES (4, '2019-08-22 00:03:38', '2019-08-22 04:26:27', NULL, '/src/main/java/[MOD_PKG_PATH]/dao/', '[ENP]DAOImpl.java', 'DAOImpl.java.ftl', 'DAOImpl.java.ftlc3beb408-5d82-4dd4-9bd7-2273c45a3bac.ftl', '/core/', NULL, NULL);
 INSERT INTO `fm_template_file` VALUES (5, '2019-08-22 00:04:36', '2019-08-22 04:26:35', NULL, '/src/main/java/[MOD_PKG_PATH]/service/', '[ENP]Service.java', 'Service.java.ftl', 'Service.java.ftl9d00d618-7c50-42ce-bca8-16ee872c2764.ftl', '/core/', NULL, NULL);

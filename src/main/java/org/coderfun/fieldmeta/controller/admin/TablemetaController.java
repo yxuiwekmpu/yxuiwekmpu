@@ -47,6 +47,14 @@ public class TablemetaController {
 	}
 
 	@ResponseBody
+	@RequestMapping("/clone")
+	public JsonData clone(@RequestParam(value = "tablemetaIds[]") List<Long> tablemetaIds) {
+
+		tablemetaService.clone(tablemetaIds);
+		return JsonData.success();
+	}
+	
+	@ResponseBody
 	@RequestMapping("/save_fields")
 	public JsonData saveFields(@RequestBody TableMetaModel model, @RequestParam Long tableId) {
 

@@ -118,8 +118,6 @@ public class DbImportServiceImpl implements DbImportService {
 			if(isBaseField(baseEntityFields, column)){
 				continue;
 			}
-			EntityField entityField = new EntityField();
-			PageField pageField = new PageField();
 			
 			PageField example = null;
 			if(column.getName().endsWith("_" + codeFlag)){
@@ -128,6 +126,8 @@ public class DbImportServiceImpl implements DbImportService {
 				example = lookupExample(examples, column.getTypeName());
 			}
 			
+			EntityField entityField = new EntityField();
+			PageField pageField = new PageField();
 			if(example != null){
 				BeanTools.copyProperties(pageField, example, "id","entityField");
 				BeanTools.copyProperties(entityField,  example.getEntityField(), "id");				

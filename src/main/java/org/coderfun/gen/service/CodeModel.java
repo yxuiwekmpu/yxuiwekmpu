@@ -11,10 +11,15 @@ import org.coderfun.fieldmeta.entity.Tablemeta;
 public class CodeModel {
 
 	private Tablemeta tablemeta;
+	//实体名首字母小写
 	private String entityNameOfFirstLowcase;
+	//实体名全小写
 	private String entityNameOfAllLowcase;
+	//实体基类
 	private String entitySuperClassFullName;
+	//实体类导入包列表
 	private Set<String> entityImportList;
+	//实体主键
 	private EntityField pkColumn;
 
 	private List<EntityField> entityFields;
@@ -22,11 +27,16 @@ public class CodeModel {
 
 	private List<PageField> pageFields;
 	private List<PageField> basePageFields;
+
+	//所有实体字段
+	private List<EntityField> allEntityFields;
 	// 所有pageField
 	private List<PageField> allPageFields;
-
+	//所属模块
 	private Module module;
+	//权限前缀，module.moduleName + tablemeta.businessName
 	private String permissionPrefix;
+	//当前时间
 	private String nowTime;
 
 	public String getPermissionPrefix() {
@@ -141,4 +151,11 @@ public class CodeModel {
 		this.allPageFields = allPageFields;
 	}
 
+	public List<EntityField> getAllEntityFields() {
+		return allEntityFields;
+	}
+
+	public void setAllEntityFields(List<EntityField> allEntityFields) {
+		this.allEntityFields = allEntityFields;
+	}
 }

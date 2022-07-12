@@ -89,6 +89,7 @@ public class GenServiceImpl implements GenService {
 		codeModel.setNowTime(DateFormatUtils.ISO_8601_EXTENDED_DATETIME_TIME_ZONE_FORMAT.format(new Date()));
 		codeModel.setModule(moduleService.getById(tablemeta.getModuleId()));
 		codeModel.setEntitySuperClassFullName(tablemetaService.getEntitySuperClassFullName(tablemeta));
+		codeModel.setPermissionPrefix(codeModel.getModule().getModuleName() + tablemeta.getBusinessName());
 		
 		Sort efSort = new Sort(Direction.ASC, "columnSort");
 		List<EntityField> entityFields = entityFieldService.findList(efSort, AExpr.eq(EntityField_.tableId, tablemeta.getId()));
@@ -103,12 +104,24 @@ public class GenServiceImpl implements GenService {
 		codeModel.setPageFields(pageFields);
 		codeModel.setBasePageFields(basePageFields);
 		initAllPageFields(codeModel);
-		
-		genEntityImportList(codeModel);
-		
-		lookUpValidation(codeModel);
+		initAllEntityFields(codeModel);
 		lookUpPkColumn(codeModel);
+		lookUpValidation(codeModel);		
+		genEntityImportList(codeModel);
+
+
 		return codeModel;
+	}
+	
+	private void initAllEntityFields(CodeModel codeModel){
+		List<EntityField> allEntityFields = new ArrayList<>();
+		for(EntityField baseEntityField:codeModel.getBaseEntityFields()){
+			allEntityFields.add(baseEntityField);
+		}
+		for(EntityField entityField:codeModel.getEntityFields()){
+			allEntityFields.add(entityField);
+		}
+		codeModel.setAllEntityFields(allEntityFields);;
 	}
 	
 	private void initAllPageFields(CodeModel codeModel){

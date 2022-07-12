@@ -7,6 +7,7 @@
 		data-options="
 			rownumbers		: true,
 			singleSelect	: true,
+			checkOnSelect	: false,
 			selectOnCheck	: false,
 			fitColumns		: true, 
 			toolbar			: '#toolbar',
@@ -59,10 +60,10 @@
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="dataTable.remove()">删除</a>
         
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-database_table" plain="true" onclick="javascript:openTableList();">数据库导入</a>
-
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-database_copy" plain="true" onclick="javascript:cloneTablemeta()">克隆元数据</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-page_code" plain="true" onclick="javascript:codegen()">生成代码</a>
-                <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-folder_go" plain="true" onclick="javascript:deployToTestProject()">部署到测试工程</a>
-       
+		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-folder_go" plain="true" onclick="javascript:deployToTestProject()">部署到测试工程</a>
+         
 	</div>
 	
 	<div id="data-form-dlg" class="easyui-dialog" style="width: 600px; height: 400px; padding: 10px 20px" closed="true"
@@ -150,17 +151,8 @@
 	}
 	
 	function deployToTestProject(){
-		var checked_rows = $("#datagrid-table").datagrid("getChecked");
-		var tablemetaIds = [];
-		for(var i=0; i<checked_rows.length; i++){
-			tablemetaIds.push(checked_rows[i].id);
-		}
-		if(!checked_rows.length){
-			$.messager.alert({
-				title : "提示",
-				msg : "请勾选实体元数据！"
-			})
-		}else{
+		var tablemetaIds = getTablemetaIds();
+		if(tablemetaIds.length){
 			var moduleId = $("#search-moduleId").combobox("getValue");
 			$.messager.alert({
 				title : "提示",
@@ -177,7 +169,7 @@
 		}
 	}
 	
-	function codegen(){
+	function getTablemetaIds(){
 		var checked_rows = $("#datagrid-table").datagrid("getChecked");
 		var tablemetaIds = [];
 		for(var i=0; i<checked_rows.length; i++){
@@ -188,7 +180,14 @@
 				title : "提示",
 				msg : "请勾选实体元数据！"
 			})
-		}else{
+			return tablemetaIds;
+		}
+		return tablemetaIds;
+	}
+	
+	function codegen(){
+		var tablemetaIds = getTablemetaIds();
+		if(tablemetaIds.length){
 			var moduleId = $("#search-moduleId").combobox("getValue");
 			$.messager.alert({
 				title : "提示",
@@ -198,6 +197,43 @@
 		}
 		 
 	}
+	
+	function cloneTablemeta(){
+		var tablemetaIds = getTablemetaIds();
+		if(tablemetaIds.length){
+			$.post(adminActionPath + "/tablemeta/clone",{tablemetaIds:tablemetaIds},function(json){
+				if(json.type == "success"){
+					$.messager.show({
+						title : "提示",
+						msg : "clone元数据成功！"
+					});
+					loadTables();
+				}
+			},"json")
+		}
+	}
+	
+	
+	var dataTable = new DataTable({
+		$datagrid_table :$("#datagrid-table"),
+		$data_form_dialog : $("#data-form-dlg"),
+		$data_form : $("#data-form"),
+		data_form_name : "实体元数据",
+		
+		addOpt : {
+			url : adminActionPath+"/tablemeta/add"
+		},
+		editOpt : {
+			url : adminActionPath+"/tablemeta/edit"
+		},
+		removeOpt : {
+			url : adminActionPath+"/tablemeta/delete"
+		},
+		saveOpt : {},
+		searchOpt : {
+			$searchForm : $("#search-form"),
+		}
+	});
 	
 	</script>
 	

@@ -31,27 +31,7 @@
 			$("#fieldmeta-toolbar").append($("#optionfield-button"));
 		});
 	
-	
-		var dataTable = new DataTable({
-			$datagrid_table :$("#datagrid-table"),
-			$data_form_dialog : $("#data-form-dlg"),
-			$data_form : $("#data-form"),
-			data_form_name : "实体元数据",
-			
-			addOpt : {
-				url : adminActionPath+"/tablemeta/add"
-			},
-			editOpt : {
-				url : adminActionPath+"/tablemeta/edit"
-			},
-			removeOpt : {
-				url : adminActionPath+"/tablemeta/delete"
-			},
-			saveOpt : {},
-			searchOpt : {
-				$searchForm : $("#search-form"),
-			}
-		});
+
 		
 		function loadTables(){
 			var moduleId = $("#search-moduleId").combobox("getValue");

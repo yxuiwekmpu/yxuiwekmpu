@@ -71,4 +71,9 @@ public class GeneralDbMetaCrawler implements DbMetaCrawler {
 		// TODO Auto-generated method stub
 		return dataSource.getConnection().getMetaData();
 	}
+	@Override
+	public String getDbProduct() throws SQLException{
+		DatabaseMetaData dbm=getRawDatabaseMetaData();
+		return dbm.getDatabaseProductName();	
+	}
 }

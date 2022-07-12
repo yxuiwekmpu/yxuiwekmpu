@@ -22,5 +22,7 @@ public interface TablemetaService extends BaseService<Tablemeta, Long>{
 	String getEntitySuperClassFullName(Tablemeta tablemeta);
 	List<EntityField> getBaseEntityFields(Tablemeta tablemeta);
 	List<PageField> getBasePageFields(Tablemeta tablemeta);
+	void clone(List<Long> tablemetaIds);
+	
 	
 }

@@ -7,7 +7,7 @@ import java.util.Set;
 
 public interface DbMetaCrawler {
 
-	
+	public String getDbProduct() throws SQLException;
 	DatabaseMetaData getRawDatabaseMetaData() throws SQLException;
 
 	Set<String> getTableNames()throws SQLException;

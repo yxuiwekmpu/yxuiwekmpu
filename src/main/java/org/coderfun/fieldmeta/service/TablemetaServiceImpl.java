@@ -1,12 +1,13 @@
 package org.coderfun.fieldmeta.service;
 
+import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
-import javax.validation.Valid;
 
+import org.apache.commons.beanutils.PropertyUtils;
 import org.coderfun.common.exception.AppException;
 import org.coderfun.common.exception.ErrorCodeEnum;
 import org.coderfun.dbimport.service.ImportedTableService;
@@ -15,13 +16,9 @@ import org.coderfun.fieldmeta.dao.PageFieldDAO;
 import org.coderfun.fieldmeta.dao.TablemetaDAO;
 import org.coderfun.fieldmeta.entity.EntityField;
 import org.coderfun.fieldmeta.entity.EntityField_;
-import org.coderfun.fieldmeta.entity.ImportedTable;
-import org.coderfun.fieldmeta.entity.ImportedTable_;
 import org.coderfun.fieldmeta.entity.PageField;
 import org.coderfun.fieldmeta.entity.PageField_;
-import org.coderfun.fieldmeta.entity.Project;
 import org.coderfun.fieldmeta.entity.Tablemeta;
-import org.coderfun.fieldmeta.entity.Tablemeta_;
 import org.coderfun.sys.dict.DictReader;
 import org.coderfun.sys.dict.SystemCode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -178,6 +175,41 @@ public class TablemetaServiceImpl  extends BaseServiceImpl<Tablemeta, Long> impl
 	public String getEntitySuperClassFullName(Tablemeta tablemeta) {
 		// TODO Auto-generated method stub
 		return DictReader.getCodeItem(tablemeta.getEntitySuperClass(),SystemCode.ClassCode.ENTITY_SUPER_CLASS).getValue();
+	}
+
+	@Override
+	@Transactional
+	public void clone(List<Long> tablemetaIds) {
+		// TODO Auto-generated method stub
+		for(Long tablemetaId:tablemetaIds){
+			Tablemeta orig = getById(tablemetaId);
+			Tablemeta dest = new Tablemeta();
+			try {
+				PropertyUtils.copyProperties(dest, orig);
+			} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			dest.setId(null);
+			dest.setTableName(orig.getTableName() + "_clone");
+			tablemetaDAO.save(dest);
+			List<PageField> examples = pageFieldDAO.findList(AExpr.eq(PageField_.tableId, tablemetaId));
+			for(PageField example:examples){
+				EntityField entityField = new EntityField();
+				PageField pageField = new PageField();
+				if(example != null){
+					BeanTools.copyProperties(pageField, example, "id","entityField");
+					BeanTools.copyProperties(entityField,  example.getEntityField(), "id");				
+				}
+				entityField.setTableId(dest.getId());			
+				entityField.setTableName(dest.getTableName());
+				pageField.setTableId(dest.getId());
+				pageField.setTableName(dest.getTableName());
+				
+				saveFieldPair(entityField, pageField);
+			}
+			
+		}
 	}
 	
 }

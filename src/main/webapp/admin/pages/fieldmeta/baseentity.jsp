@@ -13,15 +13,20 @@
 
 
 <div style="display: none">
+	<!-- 
 	<div id="baseEntity-panel" class="easyui-panel"
 	    data-options="collapsible:true,minimizable:true">
 		<form class="search-form" enctype="multipart/form-data">  		  					
-			<label style="margin-left: 24px ">实体基类</label>
+
+	     </form>
+	</div>
+	 -->
+	<div id="baseEntity-panel" class="search-form" style="display: inline-block;">
+			<label style="margin-left: 10px ">实体基类</label>
 				<input class="easyui-combobox"
 					data-options="valueField:'code',textField:'name',editable:false,panelHeight:'auto',
 							defaultFirst:true,codeClass:'entity_super_class',onSelect:selectBaseEntity">
-			<span class="inline-clear"></span>
-	     </form>
+			<span class="inline-clear"></span>		
 	</div>
 </div>
 
@@ -31,7 +36,7 @@
 $.parser.auto=false;
 
 $(function(){
-	$("#fieldmeta-toolbar").prepend($("#baseEntity-panel"));
+	$("#fieldmeta-toolbar").append($("#baseEntity-panel"));
 	$.parser.parse(); 
 	
 });

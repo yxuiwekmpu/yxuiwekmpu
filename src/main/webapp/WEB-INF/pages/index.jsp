@@ -7,7 +7,15 @@
 <html>
 <head> 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<c:import url="/admin/pages/common/headsource.jsp"/>
+
+
 <style type="text/css">
+.login-copyright {
+	padding-top: 10px;
+	text-align: center;
+}
+
 	.title-box{
 		margin:auto;
 		height:70px;
@@ -26,18 +34,17 @@
 		margin-left: 10px;
 		display: inline-block;
 	}
-</style>
-	<c:import url="/admin/pages/common/headsource.jsp"/> 		
 
+</style>	
 <title>fieldmeta:${templateName}</title>
 </head>
 <body class="easyui-layout" data-options="fit:true">
 <c:import url="/admin/pages/common/loading.jsp"/>
-		<div class="title-box" data-options="region:'north'"> 
+		<div class="title-box" data-options="region:'north'" style="height: 70px"> 
 			<b>fieldmeta - 字段元数据  : 模板${templateName}</b> 
 			<small>[${templateDescription}]</small>
 		</div>
-		<div data-options="region:'south',split:true" style="height:50px;"></div>
+
 		<div data-options="region:'west',split:true" title="菜单" style="width:220px;">
 			<ul class="easyui-tree" data-options="url:'tree_menu.json',method:'get',animate:true,onClick:treeClick,onSelect:treeSelect"></ul>
 		</div>
@@ -45,6 +52,11 @@
 			<div class="easyui-tabs" id="tt" data-options="fit:true,border:false,plain:true,enableConextMenu:true,contextMenu:tab_menu">
 
 			</div>
+		</div>
+		<div data-options="region:'south',split:true" style="height:50px;">
+			<div class="login-copyright">
+					© 2018 coderfun-boot - Powered By <a href="https://gitee.com/klguang" target="_blank">klguang</a>.
+			</div>		
 		</div>
 </body>
 

@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.dao.InvalidDataAccessResourceUsageException;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -57,6 +58,9 @@ public class ExceptionHandlerAdvice {
 			return new AppException(ErrorCodeEnum.DATA_INTEGRITY_ERROR);
 		if (ex instanceof IllegalArgumentException || ex instanceof BindException) {
 			return new AppException(ErrorCodeEnum.BADPARAM);
+		}
+		if(ex instanceof InvalidDataAccessResourceUsageException){
+			return new AppException(ErrorCodeEnum.DEMO_NOT_UPDATE);
 		}
 		return ex;
 	}

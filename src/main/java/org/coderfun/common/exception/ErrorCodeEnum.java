@@ -23,7 +23,7 @@ https://blog.csdn.net/huangwenyi1010/article/details/51581906
 
 public enum ErrorCodeEnum implements IErrorCode {
 	
-	
+	DEMO_NOT_UPDATE	(202000L,"演示模式，无法更新数据!"),
 	UNKNOWN_ERROR(-1L,"未知错误！"),
 	ENTITY_HAS_RELATED_DATA(202001L, "已经有关联数据，无法删除！"),
 	DATA_EXISTED(202002L,"重复的数据！"),

@@ -1,5 +1,7 @@
 # fieldmeta: 基于springboot的字段元数据管理
-version:Alpha 0.0.1
+version:beta-1.0 <br>
+[演示地址](http://http://47.100.120.24:8080/)：http://47.100.120.24:8080/
+
 
 [元数据](https://baike.baidu.com/item/%E5%85%83%E6%95%B0%E6%8D%AE/1946090?fr=aladdin)（Metadata），
 又称中介数据、中继数据，为描述数据的数据（data about data），
@@ -61,19 +63,10 @@ fieldmeta
 2018-06-12 发布Alpha 0.0.1
 
 #### 使用说明
-
-1. 项目配置
-![项目配置](https://images.gitee.com/uploads/images/2019/0810/023659_5b8b5798_1063744.png)
-2. 模块配置
-![模块配置](https://images.gitee.com/uploads/images/2019/0810/023756_6bcf8f29_1063744.png)
-3. 实体基类
-![实体基类](https://images.gitee.com/uploads/images/2019/0810/023723_0e069fc9_1063744.jpeg)
-4. 可选字段
-![可选字段](https://images.gitee.com/uploads/images/2019/0810/023723_e0378792_1063744.jpeg)
-5. 元数据管理
-![元数据管理](https://images.gitee.com/uploads/images/2019/0810/023723_04ee5fdc_1063744.jpeg)
-![元数据管理](https://images.gitee.com/uploads/images/2018/1026/195831_18367a39_1063744.png "pagefield.png")
-
+1. 编写配置和模板文件
+![模板文件](https://images.gitee.com/uploads/images/2019/0908/173956_ea1fd781_1063744.png "templatefile.png")
+2. 实体元数据管理
+![实体元数据](https://images.gitee.com/uploads/images/2019/0908/174105_71394ba9_1063744.png "tablemeta.png")
 #### 参与贡献
 本项目还在处于初期，欢迎感兴趣的小伙伴加入
 

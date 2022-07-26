@@ -36,7 +36,7 @@ https://gitee.com/klguang/xutils<br>
 
 - 运行<br>
 1.main程序入口，/src/main/java 下的 org.coderfun.Application<br>
-2.访问 http://localhost:80
+2.访问 http://localhost:8080
 
 #### 项目结构
 ```

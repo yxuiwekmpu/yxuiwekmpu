@@ -45,6 +45,11 @@ public class GenController {
 			throw new AppException(ErrorCodeEnum.BADPARAM);
 		}
 		
+		File file =new File(testProjectPath);
+		if(!file.exists()){
+			throw new RuntimeException("部署路径不存在！");
+		}
+		
 		try {
 			byte[] data = genService.genCodeByZip(tablemetaIds);
 			File zipFile = new File(testProjectPath + genZipName(moduleId));
@@ -54,7 +59,7 @@ public class GenController {
 			//必须关闭，才能删除
 			fos.close();
 			//如果文件存在会覆盖
-			ZipUtil.unpack(zipFile, new File(testProjectPath));
+			ZipUtil.unpack(zipFile, file);
 			zipFile.delete();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

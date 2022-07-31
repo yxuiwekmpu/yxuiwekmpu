@@ -47,7 +47,7 @@ public class GenController {
 		
 		File file =new File(testProjectPath);
 		if(!file.exists()){
-			throw new RuntimeException("部署路径不存在！");
+			throw new AppException(ErrorCodeEnum.DEMO_NOT_UPDATE);
 		}
 		
 		try {

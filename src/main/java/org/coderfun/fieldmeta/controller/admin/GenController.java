@@ -47,7 +47,7 @@ public class GenController {
 		
 		File file =new File(testProjectPath);
 		if(!file.exists()){
-			throw new AppException(ErrorCodeEnum.DEMO_NOT_UPDATE);
+			throw new AppException(ErrorCodeEnum.FILE_PATH_NOTEXIST);
 		}
 		
 		try {

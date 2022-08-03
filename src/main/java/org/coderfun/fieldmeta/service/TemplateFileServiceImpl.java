@@ -42,10 +42,10 @@ public class TemplateFileServiceImpl extends BaseServiceImpl<TemplateFile, Long>
 	@Override
 	public void delete(Long id) {
 		// TODO Auto-generated method stub
+		super.delete(id);
 		TemplateFile templateFile = getById(id);
 		File file = getFile(templateFile);
 		file.delete();
-		super.delete(id);
 	}
 
 

@@ -44,11 +44,8 @@ public class DbImportServiceImpl implements DbImportService {
 	@Autowired
 	DbImportServiceImpl proxyThis;
 	
-	/**
-	 * 比较耗费资源，线程同步
-	 */
 	@Override
-	public synchronized Set<String> getTableNames() throws SQLException {
+	public Set<String> getTableNames() throws SQLException {
 		// TODO Auto-generated method stub
 		BasicDataSource dataSource = getDataSource();
 		DbMetaCrawlerFactory crawlerFactory = new DbMetaCrawlerFactory(dataSource);
@@ -77,7 +74,7 @@ public class DbImportServiceImpl implements DbImportService {
 		datasource.setUsername(defaultProject.getDbUsername());
 		datasource.setPassword(defaultProject.getDbPassword());
 		datasource.setInitialSize(1);
-		datasource.setMaxActive(1);
+		datasource.setMaxActive(20);
 
 		return datasource;
 	}
@@ -94,6 +91,22 @@ public class DbImportServiceImpl implements DbImportService {
 		
 		proxyThis.importTable(tableName, option, dbMetaCrawler,examples);
 
+		dataSource.close();
+	}
+	
+	/**
+	 * 比较耗费资源，线程同步
+	 */
+	@Override
+	public synchronized void importTables(List<String> tableNames, DbImportTableOption option) throws SQLException {
+		// TODO Auto-generated method stub
+		BasicDataSource dataSource = getDataSource();
+		DbMetaCrawlerFactory crawlerFactory = new DbMetaCrawlerFactory(dataSource);
+		DbMetaCrawler dbMetaCrawler = crawlerFactory.newInstance();
+		List<PageField> examples = tablemetaService.getExamples();
+		for(String tableName:tableNames){
+			proxyThis.importTable(tableName, option, dbMetaCrawler,examples);
+		}
 		dataSource.close();
 	}
 	
@@ -198,20 +211,6 @@ public class DbImportServiceImpl implements DbImportService {
 	}
 	
 
-	/**
-	 * 比较耗费资源，线程同步
-	 */
-	@Override
-	public synchronized void importTables(List<String> tableNames, DbImportTableOption option) throws SQLException {
-		// TODO Auto-generated method stub
-		BasicDataSource dataSource = getDataSource();
-		DbMetaCrawlerFactory crawlerFactory = new DbMetaCrawlerFactory(dataSource);
-		DbMetaCrawler dbMetaCrawler = crawlerFactory.newInstance();
-		List<PageField> examples = tablemetaService.getExamples();
-		for(String tableName:tableNames){
-			proxyThis.importTable(tableName, option, dbMetaCrawler,examples);
-		}
-		dataSource.close();
-	}
+
 
 }

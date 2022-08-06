@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import klg.common.utils.BeanTools;
+import klg.common.utils.MyPrinter;
 import klg.j2ee.query.jpa.expr.AExpr;
 
 @Service
@@ -45,21 +46,20 @@ public class DbImportServiceImpl implements DbImportService {
 	DbImportServiceImpl proxyThis;
 	
 	@Override
-	public Set<String> getTableNames() throws SQLException {
+	public List<String> getTableNames() throws SQLException {
 		// TODO Auto-generated method stub
 		BasicDataSource dataSource = getDataSource();
 		DbMetaCrawlerFactory crawlerFactory = new DbMetaCrawlerFactory(dataSource);
 		DbMetaCrawler dbMetaCrawler = crawlerFactory.newInstance();
 
-		Set<String> tableNames = dbMetaCrawler.getTableNames();
+		List<String> tableNames = dbMetaCrawler.getTableNames();
 		Project defaultProject = projectService.getDefaultProject();
 		List<ImportedTable> importedTables = importedTableService.findList(AExpr.eq(ImportedTable_.projectId, defaultProject.getId()));
 
 		for (ImportedTable importedTable : importedTables) {
 			if (tableNames.contains(importedTable.getTableName())){
-				tableNames.remove(importedTable.getTableName());				
+				tableNames.remove(importedTable.getTableName());			
 			}
-
 		}
 
 		dataSource.close();
@@ -131,24 +131,21 @@ public class DbImportServiceImpl implements DbImportService {
 			if(isBaseField(baseEntityFields, column)){
 				continue;
 			}
-			
-			PageField example = null;
-			if(column.getName().endsWith("_" + codeFlag)){
-				example = lookupExample(examples, codeFlag);
-			}else{
-				example = lookupExample(examples, column.getTypeName());
-			}
+			MyPrinter.printJson(column);
+			PageField example = lookupExample(examples, column);
 			
 			EntityField entityField = new EntityField();
 			PageField pageField = new PageField();
 			if(example != null){
-				BeanTools.copyProperties(pageField, example, "id","entityField");
+				BeanTools.copyProperties(pageField, example, "id","entityField","columnSort");
 				BeanTools.copyProperties(entityField,  example.getEntityField(), "id");				
 			}
 			
 			setEntityField(entityField, column);
 			entityField.setTableId(tablemeta.getId());			
 			entityField.setTableName(tableName);
+			entityField.setLength(Long.valueOf(column.getLength()));
+			entityField.setDecimalPlaces(Long.valueOf(column.getScale()));
 			pageField.setTableId(tablemeta.getId());
 			pageField.setTableName(tableName);
 			
@@ -160,17 +157,28 @@ public class DbImportServiceImpl implements DbImportService {
 		Project defaultProject = projectService.getDefaultProject();
 		ImportedTable importedTable = new ImportedTable();
 		importedTable.setTableName(tablemeta.getTableName());
-		importedTable.setId(defaultProject.getId());
+		importedTable.setProjectId(defaultProject.getId());
 		//importedTable.setDatabaseName(databaseName);
 		importedTableService.save(importedTable);
 	}
 		
-	private PageField lookupExample(List<PageField> examples,String sqlType){
+	private PageField lookupExample(List<PageField> examples,ColumnMeta column){
+		String sqlType = "";
+		if(column.getName().endsWith("_" + codeFlag)){
+			sqlType = codeFlag;
+		}else{
+			sqlType = column.getTypeName().replace("UNSIGNED", "").trim().toLowerCase();
+//			if(sqlType.equals("bit") && column.getLength() == 1){
+//				sqlType = "boolean";
+//			}
+		}
+		
 		for(PageField example:examples){
-			String tag = example.getEntityField().getColumnName().toLowerCase();
-			if(tag.equals(new String("eg_"+sqlType).toLowerCase())){
+			EntityField entityField = example.getEntityField();
+			String tag = entityField.getColumnName().toLowerCase();
+			if(tag.contains(sqlType)){
 				return example;
-			}			
+			}
 		}
 		return null;
 	}

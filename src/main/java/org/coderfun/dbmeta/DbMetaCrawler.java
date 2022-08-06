@@ -10,7 +10,7 @@ public interface DbMetaCrawler {
 	public String getDbProduct() throws SQLException;
 	DatabaseMetaData getRawDatabaseMetaData() throws SQLException;
 
-	Set<String> getTableNames()throws SQLException;
+	List<String> getTableNames()throws SQLException;
 	
 	List<ColumnMeta> getColumns(String tableName) throws SQLException;
 }

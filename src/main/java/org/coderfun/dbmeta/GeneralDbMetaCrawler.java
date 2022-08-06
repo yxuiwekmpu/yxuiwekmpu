@@ -18,8 +18,8 @@ public class GeneralDbMetaCrawler implements DbMetaCrawler {
 	}
 
 	@Override
-	public Set<String> getTableNames() throws SQLException {
-		Set<String> tables = new HashSet<String>();
+	public List<String> getTableNames() throws SQLException {
+		List<String> tables = new ArrayList<String>();
 		ResultSet rs;
 		rs = getRawDatabaseMetaData().getTables(null, null, null, new String[] { "TABLE" });
 

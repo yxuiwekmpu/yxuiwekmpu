@@ -9,7 +9,7 @@ import org.coderfun.fieldmeta.entity.PageField;
 
 public interface DbImportService {
 
-	public Set<String> getTableNames() throws SQLException;
+	public List<String> getTableNames() throws SQLException;
 	
 	/**
 	 * 从数据库导入表结构

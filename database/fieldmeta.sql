@@ -1,42 +1,21 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : dev-mysql5.7
+ Source Server         : localhost
  Source Server Type    : MySQL
  Source Server Version : 50721
- Source Host           : 47.98.129.217:3306
- Source Schema         : fieldmeta
+ Source Host           : localhost:3306
+ Source Schema         : fieldmeta_bh
 
  Target Server Type    : MySQL
  Target Server Version : 50721
  File Encoding         : 65001
 
- Date: 26/08/2019 19:19:11
+ Date: 06/10/2020 20:49:06
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
-
--- ----------------------------
--- Table structure for Untitled
--- ----------------------------
-DROP TABLE IF EXISTS `Untitled`;
-CREATE TABLE `Untitled`  (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `java_template_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'java模板类型',
-  `page_template_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '页面模板类型，codeclass',
-  `is_default_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '是否默认，codeclass\r\n',
-  `db_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `db_username` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `db_password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `create_time` datetime(0) NULL DEFAULT NULL,
-  `modify_time` datetime(0) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `uk_name`(`name`) USING BTREE,
-  UNIQUE INDEX `aaa`(`db_url`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for fm_field_entity
@@ -65,7 +44,7 @@ CREATE TABLE `fm_field_entity`  (
   `table_id` bigint(20) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_column_name_and_table_id`(`column_name`, `table_id`) USING BTREE COMMENT '表id和字段名唯一'
-) ENGINE = InnoDB AUTO_INCREMENT = 50 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 53 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of fm_field_entity
@@ -93,6 +72,9 @@ INSERT INTO `fm_field_entity` VALUES (45, '2019-08-26 14:49:18', '2019-08-26 15:
 INSERT INTO `fm_field_entity` VALUES (46, '2019-08-26 14:49:18', '2019-08-26 15:06:46', NULL, 'dbUrl', 'String', 'db_url', 1.00, 'varchar', 'url', NULL, 255, 'no', 'yes', 'no', 'no', 'no', 'string', 'fm_project', 18);
 INSERT INTO `fm_field_entity` VALUES (47, '2019-08-26 14:49:19', '2019-08-26 15:06:46', NULL, 'dbUsername', 'String', 'db_username', 2.00, 'varchar', '用户名', NULL, 255, 'no', 'yes', 'no', 'no', 'no', 'string', 'fm_project', 18);
 INSERT INTO `fm_field_entity` VALUES (48, '2019-08-26 14:49:19', '2019-08-26 15:06:46', NULL, 'dbPassword', 'String', 'db_password', 3.00, 'varchar', '密码', NULL, 255, 'no', 'no', 'no', 'no', 'no', 'string', 'fm_project', 18);
+INSERT INTO `fm_field_entity` VALUES (50, '2020-10-06 20:01:53', '2020-10-06 20:03:52', NULL, 'egChar', 'String', 'eg_char', 8.00, 'char', '', NULL, 20, 'no', 'no', 'no', 'no', 'no', 'string', 'codefun_option_field', NULL);
+INSERT INTO `fm_field_entity` VALUES (51, '2020-10-06 20:03:42', '2020-10-06 20:48:54', NULL, 'egTinyint', 'Integer', 'eg_tinyint', 9.00, 'tinyint', '', NULL, 4, 'no', 'no', 'no', 'no', 'no', 'digits', 'codefun_option_field', NULL);
+INSERT INTO `fm_field_entity` VALUES (52, '2020-10-06 20:38:22', '2020-10-06 20:48:54', NULL, 'egBit', 'Boolean', 'eg_bit', 10.00, 'tinyint1', '', NULL, 1, 'no', 'no', 'no', 'no', 'no', '', 'codefun_option_field', NULL);
 
 -- ----------------------------
 -- Table structure for fm_field_page
@@ -118,7 +100,7 @@ CREATE TABLE `fm_field_page`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `FKsemyad4g5cyqqbx5lclqccg63`(`entity_field_id`) USING BTREE,
   CONSTRAINT `FKsemyad4g5cyqqbx5lclqccg63` FOREIGN KEY (`entity_field_id`) REFERENCES `fm_field_entity` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 49 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 52 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of fm_field_page
@@ -146,6 +128,9 @@ INSERT INTO `fm_field_page` VALUES (45, 'yes', 'yes', 'yes', 'yes_or_no', NULL, 
 INSERT INTO `fm_field_page` VALUES (46, 'yes', 'yes', 'no', '', NULL, '', 'no', 'contain', 'no', 46, 'complexCol', 'url', 'input_text', 'fm_project', 18);
 INSERT INTO `fm_field_page` VALUES (47, 'yes', 'yes', 'no', '', NULL, '', 'no', 'contain', 'no', 47, 'complexCol', '用户名', 'input_text', 'fm_project', 18);
 INSERT INTO `fm_field_page` VALUES (48, 'yes', 'yes', 'no', '', NULL, '', 'no', 'contain', 'no', 48, 'complexCol', '密码', 'input_text', 'fm_project', 18);
+INSERT INTO `fm_field_page` VALUES (49, 'yes', 'yes', 'no', '', NULL, '', 'no', 'CONTAIN', NULL, 50, 'complexCol', '', 'input_text', 'codefun_option_field', NULL);
+INSERT INTO `fm_field_page` VALUES (50, 'yes', 'yes', 'no', '', NULL, '', 'no', 'eq', NULL, 51, 'complexCol', '', 'input_text', 'codefun_option_field', NULL);
+INSERT INTO `fm_field_page` VALUES (51, 'yes', 'yes', 'no', '', NULL, '', 'no', 'eq', NULL, 52, 'complexCol', '', '', 'codefun_option_field', NULL);
 
 -- ----------------------------
 -- Table structure for fm_imported_table
@@ -157,12 +142,14 @@ CREATE TABLE `fm_imported_table`  (
   `database_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `table_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of fm_imported_table
 -- ----------------------------
 INSERT INTO `fm_imported_table` VALUES (5, NULL, NULL, 'fm_project');
+INSERT INTO `fm_imported_table` VALUES (6, 2, NULL, 'users');
+INSERT INTO `fm_imported_table` VALUES (7, 2, NULL, 'users');
 
 -- ----------------------------
 -- Table structure for fm_module
@@ -180,15 +167,16 @@ CREATE TABLE `fm_module`  (
   `create_time` datetime(0) NULL DEFAULT NULL,
   `modify_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
-  INDEX `FKnu8xcw16clet0smpu4lsd1tk3`(`project_id`) USING BTREE,
   UNIQUE INDEX `uk_project_id_and_module_name`(`module_name`, `project_id`) USING BTREE COMMENT '项目id和模块名唯一',
+  INDEX `FKnu8xcw16clet0smpu4lsd1tk3`(`project_id`) USING BTREE,
   CONSTRAINT `FKnu8xcw16clet0smpu4lsd1tk3` FOREIGN KEY (`project_id`) REFERENCES `fm_project` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of fm_module
 -- ----------------------------
 INSERT INTO `fm_module` VALUES (1, 'test', 1, '测试', 'demo.fieldmeta.test', NULL, NULL, NULL, '2019-08-16 23:28:47', '2019-08-22 23:22:42');
+INSERT INTO `fm_module` VALUES (2, 'uc', 2, '用户中心', 'com.beehive', NULL, 'klguang', NULL, '2020-10-06 17:25:38', '2020-10-06 17:25:38');
 
 -- ----------------------------
 -- Table structure for fm_project
@@ -208,12 +196,13 @@ CREATE TABLE `fm_project`  (
   `modify_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_name`(`name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of fm_project
 -- ----------------------------
-INSERT INTO `fm_project` VALUES (1, 'demo', NULL, NULL, 'yes', 'jdbc:MySQL://47.98.129.217:3306/fieldmeta', 'root', 'klguang@mysql', NULL, '2019-08-16 23:27:52', '2019-08-25 01:28:18');
+INSERT INTO `fm_project` VALUES (1, 'demo', NULL, NULL, 'no', 'jdbc:MySQL://47.98.129.217:3306/fieldmeta', 'root', 'klguang@mysql', NULL, '2019-08-16 23:27:52', '2020-10-06 17:22:54');
+INSERT INTO `fm_project` VALUES (2, 'beehive', NULL, NULL, 'yes', 'jdbc:MySQL://localhost:3306/beehive', 'root', 'klguang@mysql', NULL, '2020-10-06 17:22:54', '2020-10-06 17:22:54');
 
 -- ----------------------------
 -- Table structure for fm_tablemeta
@@ -294,7 +283,7 @@ CREATE TABLE `fm_type_mapping`  (
   `modify_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_sql_type`(`sql_type`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of fm_type_mapping
@@ -306,6 +295,9 @@ INSERT INTO `fm_type_mapping` VALUES (4, 'int', 'Integer', 'java.lang.Integer', 
 INSERT INTO `fm_type_mapping` VALUES (5, 'bigint', 'Long', 'java.lang.long', 'no', NULL, '2018-05-22 13:57:09', '2018-05-22 13:57:09');
 INSERT INTO `fm_type_mapping` VALUES (6, 'datetime', 'Date', 'java.util.Date', 'no', NULL, '2018-05-22 13:58:23', '2018-05-22 13:58:23');
 INSERT INTO `fm_type_mapping` VALUES (7, 'date', 'Date', 'java.util.Date', 'no', NULL, '2018-05-22 13:58:43', '2018-05-22 13:58:43');
+INSERT INTO `fm_type_mapping` VALUES (11, 'char', 'String', 'java.lang.String', NULL, NULL, '2020-10-06 19:59:07', '2020-10-06 19:59:07');
+INSERT INTO `fm_type_mapping` VALUES (12, 'tinyint', 'Integer', 'java.lang.Integer', NULL, NULL, '2020-10-06 20:01:03', '2020-10-06 20:02:25');
+INSERT INTO `fm_type_mapping` VALUES (13, 'tinyint1', 'Boolean', 'java.lang.Boolean', NULL, NULL, '2020-10-06 20:34:34', '2020-10-06 20:34:34');
 
 -- ----------------------------
 -- Table structure for fm_validation
@@ -384,7 +376,7 @@ CREATE TABLE `sys_codeitem`  (
   `remark` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `order_num` double(11, 2) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 54 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 55 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_codeitem
@@ -413,7 +405,7 @@ INSERT INTO `sys_codeitem` VALUES (29, 'form_field_type', 'input_text', '单行�
 INSERT INTO `sys_codeitem` VALUES (30, 'form_field_type', 'input_textarea', '多行文本框', NULL, NULL, NULL, '2018-05-29 23:32:37', '2018-05-29 23:32:37', NULL, NULL);
 INSERT INTO `sys_codeitem` VALUES (31, 'entity_super_class', 'VersionEntity', 'VersionEntity', 'klg.common.dataaccess.entity.VersionEntity', NULL, NULL, '2018-05-30 02:03:39', '2019-08-23 01:39:35', NULL, 8.00);
 INSERT INTO `sys_codeitem` VALUES (33, 'entity_super_class', 'OrderEntity', 'OrderEntity', 'klg.common.dataaccess.entity.OrderEntity', NULL, NULL, '2018-05-30 16:01:55', '2019-08-23 01:38:16', NULL, 9.00);
-INSERT INTO `sys_codeitem` VALUES (42, 'entity_super_class', 'Object', '无', 'java.lang.Object', NULL, NULL, '2019-08-15 22:32:20', '2019-08-15 22:32:20', NULL, NULL);
+INSERT INTO `sys_codeitem` VALUES (42, 'entity_super_class', 'Object', '无', 'java.lang.Object', NULL, NULL, '2019-08-15 22:32:20', '2020-10-06 18:07:51', NULL, 11.00);
 INSERT INTO `sys_codeitem` VALUES (43, 'form_field_type', 'input_code', '数据字典', NULL, NULL, NULL, '2019-08-16 15:37:29', '2019-08-16 15:37:29', NULL, NULL);
 INSERT INTO `sys_codeitem` VALUES (44, 'field_formatter', 'complexCol', '通用', NULL, NULL, NULL, '2019-08-16 16:36:12', '2019-08-16 16:36:12', NULL, NULL);
 INSERT INTO `sys_codeitem` VALUES (45, 'field_formatter', 'codeCol', '数据字典', NULL, NULL, NULL, '2019-08-16 16:37:57', '2019-08-16 16:37:57', NULL, NULL);
@@ -424,6 +416,7 @@ INSERT INTO `sys_codeitem` VALUES (49, 'field_formatter', 'EasyUiDate', '日期'
 INSERT INTO `sys_codeitem` VALUES (51, 'form_field_type', 'input_date', '日期', NULL, NULL, NULL, '2019-08-23 02:23:52', '2019-08-23 02:23:52', NULL, NULL);
 INSERT INTO `sys_codeitem` VALUES (52, 'form_field_type', 'input_datetime', '日期时间', NULL, NULL, NULL, '2019-08-23 02:24:15', '2019-08-23 02:24:15', NULL, NULL);
 INSERT INTO `sys_codeitem` VALUES (53, 'field_code_class', 'yes_or_no', '是否', NULL, NULL, NULL, '2019-08-23 02:57:45', '2019-08-23 02:57:45', NULL, NULL);
+INSERT INTO `sys_codeitem` VALUES (54, 'java_type', 'Boolean', 'Boolean', 'java.lang.Boolean', NULL, NULL, '2020-10-06 20:34:05', '2020-10-06 20:34:05', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for sys_menu_tree
@@ -459,5 +452,30 @@ INSERT INTO `sys_menu_tree` VALUES (4, 1, ',1,', 2, 0, '14:42:36', '2018-06-09 1
 INSERT INTO `sys_menu_tree` VALUES (5, 2, ',2,', 2, 0, '14:43:12', '2018-06-09 14:43:13', '2018-06-09 15:15:44', NULL, 100, NULL, 1, NULL, NULL, NULL, NULL);
 INSERT INTO `sys_menu_tree` VALUES (6, 3, ',1,3,', 3, 0, '14:43:13', '2018-06-09 14:43:14', '2018-06-11 11:26:53', NULL, 200, NULL, 2, NULL, NULL, NULL, NULL);
 INSERT INTO `sys_menu_tree` VALUES (7, 3, ',1,3,', 3, 0, '14:43:14', '2018-06-09 14:43:15', '2018-06-09 14:43:15', NULL, 300, NULL, 0, NULL, NULL, NULL, NULL);
+
+-- ----------------------------
+-- Table structure for untitled
+-- ----------------------------
+DROP TABLE IF EXISTS `untitled`;
+CREATE TABLE `untitled`  (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `java_template_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'java模板类型',
+  `page_template_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '页面模板类型，codeclass',
+  `is_default_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '是否默认，codeclass\r\n',
+  `db_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `db_username` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `db_password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `create_time` datetime(0) NULL DEFAULT NULL,
+  `modify_time` datetime(0) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `uk_name`(`name`) USING BTREE,
+  UNIQUE INDEX `aaa`(`db_url`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of untitled
+-- ----------------------------
 
 SET FOREIGN_KEY_CHECKS = 1;

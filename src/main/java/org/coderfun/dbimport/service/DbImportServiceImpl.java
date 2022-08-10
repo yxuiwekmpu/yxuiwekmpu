@@ -137,8 +137,8 @@ public class DbImportServiceImpl implements DbImportService {
 			EntityField entityField = new EntityField();
 			PageField pageField = new PageField();
 			if(example != null){
-				BeanTools.copyProperties(pageField, example, "id","entityField","columnSort");
-				BeanTools.copyProperties(entityField,  example.getEntityField(), "id");				
+				BeanTools.copyProperties(pageField, example, "id","entityField");
+				BeanTools.copyProperties(entityField,  example.getEntityField(), "id", "columnSort");				
 			}
 			
 			setEntityField(entityField, column);

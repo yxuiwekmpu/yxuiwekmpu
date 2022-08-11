@@ -131,7 +131,6 @@ public class DbImportServiceImpl implements DbImportService {
 			if(isBaseField(baseEntityFields, column)){
 				continue;
 			}
-			MyPrinter.printJson(column);
 			PageField example = lookupExample(examples, column);
 			
 			EntityField entityField = new EntityField();

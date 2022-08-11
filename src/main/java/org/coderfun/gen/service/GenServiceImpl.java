@@ -140,8 +140,8 @@ public class GenServiceImpl implements GenService {
 		
 		
 		for(EntityField entityField:codeModel.getEntityFields()){
-			if(StringUtils.isNotEmpty(entityField.getFieldValidCode()))
-				entityField.setFieldValidation(mappedValidations.get(entityField.getFieldValidCode()).getJavaValid());
+			//if(StringUtils.isNotEmpty(entityField.getFieldValidCode()))
+				//entityField.setFieldValidation(mappedValidations.get(entityField.getFieldValidCode()).getJavaValid());
 		}
 		
 		for(PageField pageField : codeModel.getPageFields()){

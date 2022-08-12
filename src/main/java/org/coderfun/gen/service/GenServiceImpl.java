@@ -140,6 +140,7 @@ public class GenServiceImpl implements GenService {
 		
 		
 		for(EntityField entityField:codeModel.getEntityFields()){
+			//不常用
 			//if(StringUtils.isNotEmpty(entityField.getFieldValidCode()))
 				//entityField.setFieldValidation(mappedValidations.get(entityField.getFieldValidCode()).getJavaValid());
 		}

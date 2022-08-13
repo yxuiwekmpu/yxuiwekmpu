@@ -67,18 +67,9 @@ fieldmeta
 ![模板文件](https://images.gitee.com/uploads/images/2019/0908/173956_ea1fd781_1063744.png "templatefile.png")
 2. 实体元数据管理
 ![实体元数据](https://images.gitee.com/uploads/images/2019/0908/174105_71394ba9_1063744.png "tablemeta.png")
-#### 参与贡献
-本项目还在处于初期，欢迎感兴趣的小伙伴加入
 
 1. Fork 本项目
 2. 新建 Feat_xxx 分支
 3. 提交代码
 4. 新建 Pull Request
-
-#### 社群
-qq群：743769300
-<br>
-![元数据管理](https://images.gitee.com/uploads/images/2019/0810/023723_afe8ac12_1063744.jpeg)
-<br>
-进群须知：star、watch、fork项目，可进群
 

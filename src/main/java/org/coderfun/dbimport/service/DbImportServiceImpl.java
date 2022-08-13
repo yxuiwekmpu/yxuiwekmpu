@@ -1,5 +1,6 @@
 package org.coderfun.dbimport.service;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Set;
@@ -127,7 +128,8 @@ public class DbImportServiceImpl implements DbImportService {
 
 	
 		List<ColumnMeta> columns = dbMetaCrawler.getColumns(tableName);	
-		for (ColumnMeta column : columns) {
+		for (int i =0 ; i<columns.size(); i++) {
+			ColumnMeta column = columns.get(i);
 			if(isBaseField(baseEntityFields, column)){
 				continue;
 			}
@@ -143,6 +145,7 @@ public class DbImportServiceImpl implements DbImportService {
 			setEntityField(entityField, column);
 			entityField.setTableId(tablemeta.getId());			
 			entityField.setTableName(tableName);
+			entityField.setColumnSort(BigDecimal.valueOf(i));
 			entityField.setLength(Long.valueOf(column.getLength()));
 			entityField.setDecimalPlaces(Long.valueOf(column.getScale()));
 			pageField.setTableId(tablemeta.getId());
